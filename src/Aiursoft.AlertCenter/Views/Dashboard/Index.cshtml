@@ -3,7 +3,7 @@
 @using Aiursoft.AlertCenter.Entities
 @inject IHtmlLocalizerFactory OnCallCardLocalizerFactory
 @{ var onCallCardLocalizer = OnCallCardLocalizerFactory.Create("Views.Dashboard.Index", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
-<vc:current-on-call></vc:current-on-call>
+<vc:current-on-call dashboard="true"></vc:current-on-call>
 @await Html.PartialAsync("_OnCallWarnings", Model.OnCallIssues)
 
 @section styles {
@@ -460,5 +460,6 @@
 </div>
 
 @section scripts {
+    <script src="~/scripts/oncall-personal-calendar.js" asp-append-version="true" defer></script>
     <script src="~/scripts/dashboard.js" asp-append-version="true" defer></script>
 }

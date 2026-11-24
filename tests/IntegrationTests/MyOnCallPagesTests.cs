@@ -104,6 +104,10 @@ public class MyOnCallPagesTests : TestBase
         Assert.Contains("data-shifts=\"[]\"", html);
         Assert.Contains("No shifts in this period.", html);
         Assert.Contains("id=\"personal-calendar-fallback\"", html);
+        var home = await Http.GetStringAsync("/Dashboard/Index");
+        Assert.Contains("You have not joined an on-call team", home);
+        Assert.Contains("data-shifts=\"[]\"", home);
+        Assert.Contains("No upcoming shift", home);
     }
 
     [TestMethod]
@@ -195,12 +199,13 @@ public class MyOnCallPagesTests : TestBase
     }
 
     [TestMethod]
-    public async Task CurrentBannerMergesOverlapsShowsAllTeamsAndFallbacksAndBadgeOnlyForDuty()
+    public async Task DashboardCardsShowMembershipTeamsContactsAndPersonalCalendarWithoutOtherShifts()
     {
         await LoginAsAdmin();
         var now = DateTime.UtcNow;
         Guid activeId;
         Guid gapId;
+        Guid unrelatedId;
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -208,13 +213,15 @@ public class MyOnCallPagesTests : TestBase
             var coworker = new User { UserName = "banner-coworker-" + Guid.NewGuid(), DisplayName = "Banner coworker", Email = "banner@example.com" };
             db.Users.Add(coworker);
             userIds.Add(coworker.Id);
-            var active = new OnCallGroup { Name = "Active banner team", TimeZoneId = "Asia/Shanghai" };
-            var gap = new OnCallGroup { Name = "Gap fallback team", FallbackRecipients = [new OnCallFallbackRecipient { UserId = admin.Id }] };
-            var vacant = new OnCallGroup { Name = "Vacant banner team" };
-            groupIds.AddRange([active.Id, gap.Id, vacant.Id]);
+            var active = new OnCallGroup { Name = "Active banner team", TimeZoneId = "Asia/Shanghai", Members = [new() { UserId = admin.Id }] };
+            var gap = new OnCallGroup { Name = "Gap fallback team", Members = [new() { UserId = admin.Id }], FallbackRecipients = [new OnCallFallbackRecipient { UserId = admin.Id }] };
+            var vacant = new OnCallGroup { Name = "Vacant banner team", Members = [new() { UserId = admin.Id }] };
+            var unrelated = new OnCallGroup { Name = "Unrelated private dashboard team", Members = [new() { UserId = coworker.Id }] };
+            groupIds.AddRange([active.Id, gap.Id, vacant.Id, unrelated.Id]);
             activeId = active.Id;
             gapId = gap.Id;
-            db.OnCallGroups.AddRange(active, gap, vacant);
+            unrelatedId = unrelated.Id;
+            db.OnCallGroups.AddRange(active, gap, vacant, unrelated);
             db.OnCallShifts.AddRange(
                 new OnCallShift { Group = active, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(2), Members = [new() { UserId = admin.Id }] },
                 new OnCallShift { Group = active, StartsAtUtc = now.AddMinutes(-30), EndsAtUtc = now.AddHours(1), Members = [new() { UserId = admin.Id }, new() { UserId = coworker.Id }] },
@@ -223,7 +230,8 @@ public class MyOnCallPagesTests : TestBase
                 new OnCallShift { Group = gap, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(1) });
             await db.SaveChangesAsync();
         }
-        var home = WebUtility.HtmlDecode(await Http.GetStringAsync("/Dashboard/Index"));
+        var rawHome = await Http.GetStringAsync("/Dashboard/Index");
+        var home = WebUtility.HtmlDecode(rawHome);
         Assert.Contains("id=\"current-oncall\"", home);
         Assert.Contains("id=\"my-oncall-card\"", home);
         Assert.Contains("id=\"on-duty-badge\"", home);
@@ -233,13 +241,21 @@ public class MyOnCallPagesTests : TestBase
         Assert.Contains("Vacant banner team", home);
         Assert.Contains("Alerts will go to fallback recipients", home);
         Assert.Contains("No fallback configured: alerts cannot be delivered", home);
-        var activeRow = Regex.Match(home, $"data-team-id=\"{activeId}\"(.*?)</div>\\s*</div>", RegexOptions.Singleline).Value;
+        var activeRow = Regex.Match(home, $"<article[^>]*data-team-id=\"{activeId}\".*?</article>", RegexOptions.Singleline).Value;
         Assert.Contains("data-on-duty=\"true\"", activeRow);
-        Assert.AreEqual(1, Regex.Matches(activeRow, "mailto:admin@default.com").Count);
-        Assert.AreEqual(1, Regex.Matches(activeRow, "mailto:banner@example.com").Count);
-        Assert.AreEqual(2, Regex.Matches(activeRow, "Banner coworker").Count);
-        Assert.Contains("Next shift", activeRow);
-        Assert.AreEqual(2, Regex.Matches(activeRow, "data-utc-time=").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "mailto:admin@default.com").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "mailto:banner@example.com").Count);
+        Assert.AreEqual(4, Regex.Matches(activeRow, "Banner coworker").Count);
+        Assert.Contains("Primary OCE", activeRow);
+        Assert.Contains("Next OCE", activeRow);
+        Assert.Contains("ac-oce-avatar rounded-circle", activeRow);
+        Assert.AreEqual(4, Regex.Matches(activeRow, "data-utc-time=").Count);
+        Assert.DoesNotContain($"data-team-id=\"{unrelatedId}\"", home);
+        Assert.Contains("ac-personal-calendar-compact", home);
+        Assert.Contains("data-next-oncall=", home);
+        var calendar = Regex.Match(rawHome, "<div id=\"oncall-personal-calendar\"[^>]*>").Value;
+        using var data = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(calendar, "data-shifts=\"([^\"]*)\"").Groups[1].Value));
+        Assert.AreEqual(3, data.RootElement.GetArrayLength());
         var detail = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/GroupDetails/{gapId}"));
         Assert.Contains("Alerts will go to fallback recipients", detail);
         Assert.DoesNotContain($"data-team-id=\"{activeId}\"", detail);

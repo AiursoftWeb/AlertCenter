@@ -1,0 +1,43 @@
+@using System.Text.Json
+@using Aiursoft.AlertCenter.Entities
+@inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
+@model (IReadOnlyList<OnCallShift> Shifts, string UserId, bool Compact)
+@{
+    var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.OnCall.Mine", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!);
+    var calendarShifts = Model.Shifts.Select(shift => new
+    {
+        id = shift.Id, groupId = shift.GroupId, groupName = shift.Group.Name,
+        startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
+        endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)
+    });
+}
+        <div id="oncall-personal-calendar" class="ac-personal-calendar @(Model.Compact ? "ac-personal-calendar-compact" : "")" hidden
+             data-shifts="@JsonSerializer.Serialize(calendarShifts)"
+             data-today="@viewLocalizer["Today"]" data-all-day="@viewLocalizer["All day"]"
+             data-starts="@viewLocalizer["Starts"]" data-ends="@viewLocalizer["Ends"]" data-on-duty="@viewLocalizer["On duty"]"
+             data-empty="@viewLocalizer["No shifts in this period."]" data-show-all="@viewLocalizer["Show all {0} shifts"].Value"
+             data-more="@viewLocalizer["+{0} more"].Value" data-shifts-on="@viewLocalizer["Shifts on {0}"].Value">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <h3 id="personal-calendar-month" class="h5 mb-0" aria-live="polite"></h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-secondary" data-calendar-previous aria-label="@viewLocalizer["Previous month"]">@viewLocalizer["Previous month"]</button>
+                    <button type="button" class="btn btn-outline-primary" data-calendar-today>@viewLocalizer["Today"]</button>
+                    <button type="button" class="btn btn-outline-secondary" data-calendar-next aria-label="@viewLocalizer["Next month"]">@viewLocalizer["Next month"]</button>
+                </div>
+            </div>
+            <p class="small text-muted">@viewLocalizer["Times are shown in your local time zone."] <span data-calendar-zone></span></p>
+            <p data-calendar-empty class="text-muted" hidden>@viewLocalizer["No shifts in this period."]</p>
+            <table class="ac-personal-month" aria-labelledby="personal-calendar-month">
+                <thead></thead><tbody></tbody>
+            </table>
+            @if (!Model.Compact)
+            {
+                <div class="d-flex flex-wrap align-items-center gap-3 my-3" role="list" aria-label="@viewLocalizer["Teams"]" data-calendar-legend></div>
+            }
+            <p class="small text-muted">@viewLocalizer["Choose a date or shift to see details."]</p>
+            <section data-calendar-details aria-labelledby="personal-calendar-details-title" hidden>
+                <h3 id="personal-calendar-details-title" class="h5" tabindex="-1"></h3>
+                <div data-calendar-detail-items></div>
+            </section>
+        </div>
+        <div id="personal-calendar-fallback">@await Html.PartialAsync("~/Views/OnCall/_PersonalShifts.cshtml", (Model.Shifts.ToList(), Model.UserId))</div>

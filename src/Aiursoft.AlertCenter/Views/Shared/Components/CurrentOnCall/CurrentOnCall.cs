@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,13 +8,17 @@ namespace Aiursoft.AlertCenter.Views.Shared.Components.CurrentOnCall;
 
 public sealed record CurrentOnCallTeam(OnCallGroup Group, OnCallOceResult Current, OnCallShift? Next);
 
+public sealed record DashboardOnCall(IReadOnlyList<CurrentOnCallTeam> Teams, IReadOnlyList<OnCallShift> Shifts, OnCallShift? Next, DateTime Now);
+
 public class CurrentOnCall(TemplateDbContext db) : ViewComponent
 {
-    public async Task<IViewComponentResult> InvokeAsync(Guid? groupId = null)
+    public async Task<IViewComponentResult> InvokeAsync(Guid? groupId = null, bool dashboard = false)
     {
         var token = HttpContext.RequestAborted;
         var now = DateTime.UtcNow;
-        var groups = await db.OnCallGroups.AsNoTracking().Where(group => groupId == null || group.Id == groupId)
+        var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var groups = await db.OnCallGroups.AsNoTracking().Where(group => (groupId == null || group.Id == groupId) &&
+                (!dashboard || group.Members.Any(member => member.UserId == userId)))
             .OrderBy(group => group.Name).ToListAsync(token);
         var ids = groups.Select(group => group.Id).ToArray();
         var current = await new OnCallOceService(db).QueryManyAsync(ids, now, token);
@@ -25,9 +30,21 @@ public class CurrentOnCall(TemplateDbContext db) : ViewComponent
             .Where(shift => nextIds.Contains(shift.Id)).ToListAsync(token);
         var mergedNext = next.GroupBy(shift => shift.GroupId).ToDictionary(group => group.Key, group => new OnCallShift
         {
-            GroupId = group.Key, StartsAtUtc = group.First().StartsAtUtc,
+            GroupId = group.Key, StartsAtUtc = group.First().StartsAtUtc, EndsAtUtc = group.Min(shift => shift.EndsAtUtc),
             Members = group.SelectMany(shift => shift.Members).DistinctBy(member => member.UserId).OrderBy(member => member.UserId, StringComparer.Ordinal).ToList()
         });
-        return View(groups.Select(group => new CurrentOnCallTeam(group, current[group.Id], mergedNext.GetValueOrDefault(group.Id))).ToList());
+        var teams = groups.Select(group => new CurrentOnCallTeam(group, current[group.Id], mergedNext.GetValueOrDefault(group.Id))).ToList();
+        if (!dashboard) return View(teams);
+        // Load complete visible months, including past dates and shifts crossing month boundaries.
+        var lastMonth = now.AddDays(56);
+        var until = new DateTime(lastMonth.Year, lastMonth.Month, 1, 0, 0, 0, DateTimeKind.Utc).AddMonths(1).AddDays(2);
+        var personal = db.OnCallShifts.AsNoTracking().AsSingleQuery().Include(shift => shift.Group)
+            .Include(shift => shift.Members).ThenInclude(member => member.User)
+            .Where(shift => shift.Members.Any(member => member.UserId == userId));
+        var shifts = await personal.Where(shift => shift.EndsAtUtc > now.AddDays(-32) && shift.StartsAtUtc < until)
+            .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id).ToListAsync(token);
+        var upcoming = await personal.Where(shift => shift.StartsAtUtc > now)
+            .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id).FirstOrDefaultAsync(token);
+        return View("Dashboard", new DashboardOnCall(teams, shifts, upcoming, now));
     }
 }

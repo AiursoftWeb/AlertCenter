@@ -1,0 +1,116 @@
+@using System.Globalization
+@using System.Security.Claims
+@using Aiursoft.AlertCenter.Entities
+@using Aiursoft.AlertCenter.Services
+@using Aiursoft.AlertCenter.Services.FileStorage
+@model Aiursoft.AlertCenter.Views.Shared.Components.CurrentOnCall.DashboardOnCall
+@inject StorageService StorageService
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+    var current = Model.Shifts.Where(shift => shift.StartsAtUtc <= Model.Now && shift.EndsAtUtc > Model.Now).ToList();
+}
+<section id="current-oncall" class="ac-oncall-overview mb-4" aria-labelledby="oncall-overview-title">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 id="oncall-overview-title" class="h4 mb-0">@Localizer["Your on-call teams"] <span class="badge bg-primary-subtle text-primary ms-2">@Model.Teams.Count</span></h2>
+        <a asp-controller="OnCall" asp-action="Mine" class="text-decoration-none">@Localizer["My schedule"] <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="row g-4">
+        <div class="col-xl-7">
+            <div class="ac-oncall-teams">
+                @foreach (var team in Model.Teams)
+                {
+                    var vacant = team.Current.IsFallback || team.Current.Engineers.Count == 0;
+                    var mine = !vacant && team.Current.Engineers.Any(person => person.UserId == userId);
+                    <article class="card ac-oncall-team mb-0 @(vacant ? "border-danger" : mine ? "ac-oncall-team-mine" : "")" data-team-id="@team.Group.Id" data-on-duty="@mine.ToString().ToLowerInvariant()">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start justify-content-between gap-2 mb-4">
+                                <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@team.Group.Id" class="h4 text-body text-decoration-none mb-0 text-break">@team.Group.Name</a>
+                                @if (mine) { <span class="badge bg-primary flex-shrink-0">@Localizer["You are on duty"]</span> }
+                            </div>
+                            @foreach (var next in new[] { false, true })
+                            {
+                                var people = next
+                                    ? team.Next?.Members.Select(member => new OnCallOce(member.UserId, member.User.DisplayName, member.User.Email, member.User.AvatarRelativePath)).ToList() ?? []
+                                    : vacant ? [] : team.Current.Engineers;
+                                <div class="ac-oce-row @(next ? "ac-oce-next" : "")">
+                                    <div class="ac-oce-avatars">
+                                        @if (people.Count == 0)
+                                        {
+                                            <span class="ac-oce-avatar ac-oce-vacant" aria-hidden="true"><i data-lucide="user-round"></i></span>
+                                        }
+                                        @foreach (var person in people)
+                                        {
+                                            <img src="@StorageService.RelativePathToInternetUrl(person.AvatarRelativePath)?w=112&square=true" class="ac-oce-avatar rounded-circle" width="56" height="56" alt="@person.DisplayName" loading="lazy" />
+                                        }
+                                    </div>
+                                    <div class="ac-oce-info">
+                                        <div class="ac-oce-label">@if (next) { @Localizer["Next OCE"] } else { @Localizer["Primary OCE"] }</div>
+                                        @foreach (var person in people)
+                                        {
+                                            <div class="fw-semibold text-break">@person.DisplayName</div>
+                                            @if (!string.IsNullOrWhiteSpace(person.Email)) { <a href="mailto:@person.Email" class="small text-break">@person.Email</a> }
+                                        }
+                                        @if (people.Count == 0)
+                                        {
+                                            <div class="fw-semibold @(next ? "text-muted" : "text-danger")">@(next && team.Next == null ? @Localizer["No upcoming shift"] : @Localizer["Nobody on duty"])</div>
+                                        }
+                                        <div class="small text-muted mt-1">
+                                            @if (next && team.Next != null)
+                                            {
+                                                @await Html.PartialAsync("_OnCallTime", team.Next.StartsAtUtc)<span> – </span>@await Html.PartialAsync("_OnCallTime", team.Next.EndsAtUtc)
+                                            }
+                                            else if (!next && !vacant && team.Current.StartsAtUtc.HasValue && team.Current.EndsAtUtc.HasValue)
+                                            {
+                                                @await Html.PartialAsync("_OnCallTime", team.Current.StartsAtUtc.Value)<span> – </span>@await Html.PartialAsync("_OnCallTime", team.Current.EndsAtUtc.Value)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (vacant)
+                            {
+                                <p class="small text-danger mt-3 mb-0">@(team.Current.IsFallback ? @Localizer["Alerts will go to fallback recipients"] : @Localizer["No fallback configured: alerts cannot be delivered"])</p>
+                                @if (team.Current.IsFallback)
+                                {
+                                    @foreach (var person in team.Current.Engineers) { <a href="mailto:@person.Email" class="small text-break d-block">@person.DisplayName · @person.Email</a> }
+                                }
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+            @if (Model.Teams.Count == 0)
+            {
+                <div class="card"><div class="card-body p-4"><i data-lucide="users-round" class="text-primary mb-3" aria-hidden="true"></i><h3 class="h5">@Localizer["You have not joined an on-call team"]</h3><a asp-controller="OnCall" asp-action="Groups">@Localizer["View on-call teams"]</a></div></div>
+            }
+        </div>
+        <div class="col-xl-5">
+            <section class="card mb-0 ac-oncall-calendar" aria-labelledby="my-oncall-calendar-title">
+                <div class="card-body">
+                    <h3 id="my-oncall-calendar-title" class="h5 mb-3">@Localizer["My on-call calendar"]</h3>
+                    <div class="ac-oncall-next-shift mb-4">
+                        @if (current.Count > 0)
+                        {
+                            <span class="small">@Localizer["On duty now"]</span>
+                            @foreach (var shift in current)
+                            {
+                                <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@shift.GroupId" class="d-block h4 text-primary my-2">@shift.Group.Name</a>
+                                <div class="small">@Localizer["Ends"] @await Html.PartialAsync("_OnCallTime", shift.EndsAtUtc)</div>
+                            }
+                        }
+                        @if (Model.Next != null)
+                        {
+                            <span class="small d-block mt-2">@Localizer["Your next shift"]</span>
+                            <strong class="ac-oncall-countdown" data-next-oncall="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-today="@Localizer["Today"]" data-tomorrow="@Localizer["Tomorrow"]" data-days="@Localizer["In {0} days"].Value">@await Html.PartialAsync("_OnCallTime", Model.Next.StartsAtUtc)</strong>
+                            <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@Model.Next.GroupId" class="d-block fw-semibold text-primary mt-1">@Model.Next.Group.Name</a>
+                            <div class="small mt-1">@await Html.PartialAsync("_OnCallTime", Model.Next.StartsAtUtc)<span> – </span>@await Html.PartialAsync("_OnCallTime", Model.Next.EndsAtUtc)</div>
+                        }
+                        else if (current.Count == 0) { <p class="mb-0">@Localizer["No upcoming shift"]</p> }
+                    </div>
+                    <p class="small text-muted mb-2"><span class="ac-calendar-blue-key" aria-hidden="true"></span>@Localizer["Blue dates are your on-call days"]</p>
+                    @await Html.PartialAsync("_PersonalOnCallCalendar", (Model.Shifts, userId, true))
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
