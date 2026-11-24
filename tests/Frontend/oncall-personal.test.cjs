@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const test = require('node:test');
 
 const script = fs.readFileSync(path.resolve(__dirname, '../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-personal.js'), 'utf8');
-const { localDateKey, splitShiftByLocalDate, monthGrid, monthBounds, navigateMonth, collapseDay } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-personal-calendar.js');
+const { localDateKey, splitShiftByLocalDate, monthGrid, monthBounds, navigateMonth, collapseDay, daysUntilShift } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-personal-calendar.js');
 
 function inTimeZone(zone, run) {
     const previous = process.env.TZ;
@@ -197,4 +197,17 @@ test('copy confirms only after clipboard succeeds and falls back to selecting th
     const unavailable = setup();
     await unavailable.click();
     assert.equal(unavailable.status.textContent, 'Copy manually');
+});
+
+test('homepage countdown counts local dates across DST, midnight, and year boundaries', () => {
+    inTimeZone('America/New_York', () => {
+        assert.equal(daysUntilShift(new Date('2026-03-09T04:00:00Z'), new Date('2026-03-08T05:00:00Z')), 1);
+        assert.equal(daysUntilShift(new Date('2026-11-02T05:00:00Z'), new Date('2026-11-01T04:00:00Z')), 1);
+        assert.equal(daysUntilShift(new Date('2027-01-01T05:00:00Z'), new Date('2027-01-01T04:59:00Z')), 1);
+        assert.equal(daysUntilShift(new Date('2026-11-24T23:00:00Z'), new Date('2026-11-24T15:00:00Z')), 0);
+        assert.equal(daysUntilShift(new Date('2026-11-23T15:00:00Z'), new Date('2026-11-24T15:00:00Z')), 0);
+    });
+    inTimeZone('Asia/Shanghai', () => {
+        assert.equal(daysUntilShift(new Date('2026-11-24T16:00:00Z'), new Date('2026-11-24T15:59:00Z')), 1);
+    });
 });

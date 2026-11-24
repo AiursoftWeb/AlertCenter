@@ -48,20 +48,37 @@
         return new Date(Math.max(bounds.first.getTime(), Math.min(bounds.last.getTime(), target.getTime())));
     }
 
+    function daysUntilShift(start, now) {
+        // Compare local calendar dates so a DST change cannot add or lose a day.
+        return Math.max(0, Math.round((Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()) -
+            Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000));
+    }
+
     function collapseDay(segments) {
         return { visible: segments.slice(0, 3), hiddenCount: Math.max(0, segments.length - 3) };
     }
 
-    if (typeof module !== 'undefined') module.exports = { localDateKey, splitShiftByLocalDate, monthGrid, monthBounds, navigateMonth, collapseDay };
+    if (typeof module !== 'undefined') module.exports = { localDateKey, splitShiftByLocalDate, monthGrid, monthBounds, navigateMonth, collapseDay, daysUntilShift };
     if (typeof document === 'undefined') return;
     const root = document.getElementById('oncall-personal-calendar');
     if (!root) return;
+    const compact = root.classList.contains('ac-personal-calendar-compact');
+    function updateNextShift() {
+        document.querySelectorAll('[data-next-oncall]').forEach(element => {
+            const start = new Date(element.dataset.nextOncall);
+            const now = new Date();
+            const days = daysUntilShift(start, now);
+            element.textContent = days === 0 ? element.dataset.today : days === 1 ? element.dataset.tomorrow : element.dataset.days.replace('{0}', new Intl.NumberFormat(document.documentElement.lang || undefined).format(days));
+        });
+    }
+    updateNextShift();
+    if (document.querySelector('[data-next-oncall]')) window.setInterval(updateNextShift, 30000);
     const fallback = document.getElementById('personal-calendar-fallback');
     const text = (key, value) => value === undefined ? root.dataset[key] : root.dataset[key].replace('{0}', value);
     const shifts = JSON.parse(root.dataset.shifts);
     const originals = new Map(Array.from(fallback.querySelectorAll('[data-personal-shift]'), article => [article.dataset.personalShift, article]));
     const teams = [...new Map(shifts.map(shift => [shift.groupId, shift.groupName])).entries()].sort(([a], [b]) => a.localeCompare(b));
-    const hues = new Map(teams.map(([id], index) => [id, (index * 137.508 + 215) % 360]));
+    const hues = new Map(teams.map(([id], index) => [id, compact ? 215 : (index * 137.508 + 215) % 360]));
     const now = new Date();
     const today = localDateKey(now);
     const bounds = monthBounds(now);
@@ -136,6 +153,7 @@
             const td = node('td', 'ac-personal-day');
             if (!cell.inMonth) td.classList.add('is-outside');
             if (cell.key < today) td.classList.add('is-past');
+            if (segments.length) td.classList.add('has-shift');
             if (cell.key === today) td.classList.add('is-today');
             const dateLabel = `${dateFormat.format(cell.date)}${cell.key === today ? ' · ' + text('today') : ''} · ${text('showAll', segments.length)}`;
             const dateButton = button('ac-personal-date', cell.date.getDate(), dateLabel + (segments.length ? ' · ' + segments.map(segment => shiftLabel(segment.shift)).join('; ') : ''), () => showDetails(cell.date, segments));
@@ -187,7 +205,7 @@
         const item = node('span', 'ac-personal-team', name);
         item.setAttribute('role', 'listitem');
         color(item, id);
-        legend.append(item);
+        if (legend) legend.append(item);
     });
     root.querySelector('[data-calendar-zone]').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
     root.querySelector('[data-calendar-empty]').hidden = shifts.length !== 0;
