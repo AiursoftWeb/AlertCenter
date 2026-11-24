@@ -81,7 +81,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             ModelState.AddModelError(nameof(model.RecipientUserIds), localizer["The selected recipient user does not exist. Please select again."].Value);
         if (await db.Roles.CountAsync(role => model.RecipientRoleIds.Contains(role.Id)) != model.RecipientRoleIds.Length)
             ModelState.AddModelError(nameof(model.RecipientRoleIds), localizer["The selected recipient user group does not exist. Please select again."].Value);
-        if (model.Type == "inapp" && model.RecipientUserIds.Length + model.RecipientRoleIds.Length == 0)
+        if (model.Type is "inapp" or "sms" && model.RecipientUserIds.Length + model.RecipientRoleIds.Length == 0)
             ModelState.AddModelError(nameof(model.RecipientUserIds), localizer["Select at least one recipient user or user group."].Value);
         var type = Types.SingleOrDefault(item => item.Key == model.Type);
         if (type == null) ModelState.AddModelError(nameof(model.Type), localizer["Please select an available channel type."].Value);
@@ -126,8 +126,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (!model.Id.HasValue) db.PushChannels.Add(channel);
         var users = await db.PushChannelUsers.Where(link => link.ChannelId == channel.Id).ToListAsync();
         var roles = await db.PushChannelRoles.Where(link => link.ChannelId == channel.Id).ToListAsync();
-        var selectedUsers = model.Type == "inapp" ? model.RecipientUserIds : [];
-        var selectedRoles = model.Type == "inapp" ? model.RecipientRoleIds : [];
+        var selectedUsers = model.Type is "inapp" or "sms" ? model.RecipientUserIds : [];
+        var selectedRoles = model.Type is "inapp" or "sms" ? model.RecipientRoleIds : [];
         db.PushChannelUsers.RemoveRange(users.Where(link => !selectedUsers.Contains(link.UserId)));
         db.PushChannelRoles.RemoveRange(roles.Where(link => !selectedRoles.Contains(link.RoleId)));
         db.PushChannelUsers.AddRange(selectedUsers.Except(users.Select(link => link.UserId))
@@ -319,7 +319,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (!channel.IsEnabled) return BadRequest(localizer["Please enable the channel first."].Value);
         var delivery = new PushDelivery { ChannelId = id, TestContent = content };
         db.PushDeliveries.Add(delivery);
-        if (channel.Type == "inapp") await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
+        if (channel.Type is "inapp" or "sms") await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
         await db.SaveChangesAsync(cancellationToken);
         await processor.ProcessAsync(delivery.Id, cancellationToken);
         return RedirectToAction(nameof(Delivery), new { id = delivery.Id });

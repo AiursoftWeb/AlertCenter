@@ -60,11 +60,14 @@ public class Startup : IWebStartup
         services.AddSingleton<WebhookConfigurationProtector>();
         services.Configure<EmailSettings>(configuration.GetSection("Email"));
         services.AddScoped<IEmailSender, SmtpEmailSender>();
+        services.Configure<SmsSettings>(configuration.GetSection("Sms"));
+        services.AddScoped<ISmsSender, TencentCloudSmsSender>();
         services.AddSingleton<IOnCallScheduleGenerator, OnCallScheduleGenerator>();
         services.AddScoped<IApplicationAccessService, ApplicationAccessService>();
         services.AddScoped<IPushChannelAccessService, PushChannelAccessService>();
         services.AddScoped<IIncidentDispatcher, QueuedIncidentDispatcher>();
         services.AddScoped<INotificationChannelAdapter, EmailChannelAdapter>();
+        services.AddScoped<INotificationChannelAdapter, SmsChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, WebhookChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, InAppChannelAdapter>();
         services.AddScoped<PushDeliveryProcessor>();

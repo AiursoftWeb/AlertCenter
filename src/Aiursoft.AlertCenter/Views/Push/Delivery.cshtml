@@ -254,7 +254,7 @@ else
             <div class="card-body">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <div class="rounded-3 p-2 bg-light border text-primary">
-                        <i data-lucide="@(typeKey == "webhook" ? "webhook" : typeKey == "email" ? "mail" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
+                        <i data-lucide="@(typeKey == "webhook" ? "webhook" : typeKey == "email" ? "mail" : typeKey == "sms" ? "smartphone" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
                     </div>
                     <div>
                         <h3 class="h6 mb-0">@(snapshot != null ? string.Format(CultureInfo.CurrentCulture, @Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>

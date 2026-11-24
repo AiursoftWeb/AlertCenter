@@ -35,7 +35,7 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
                 ChannelId = channel.ChannelId, IncidentId = incident.Id, Incident = incident
             };
             db.PushDeliveries.Add(delivery);
-            if (channel.Type != "inapp") continue;
+            if (channel.Type is not ("inapp" or "sms")) continue;
             await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
         }
     }

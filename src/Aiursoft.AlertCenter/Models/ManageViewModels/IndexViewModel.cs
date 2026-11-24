@@ -12,4 +12,6 @@ public class IndexViewModel: UiStackLayoutViewModel
 
     [Display(Name = "Allow user to adjust nickname")]
     public bool AllowUserAdjustNickname { get; set; }
+
+    public string? PhoneNumber { get; set; }
 }

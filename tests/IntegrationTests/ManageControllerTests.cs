@@ -110,6 +110,56 @@ public class ManageControllerTests : TestBase
         Assert.Contains("/scripts/file-upload.js", html);
     }
 
+    [TestMethod]
+    public async Task TestBindUpdateAndUnbindPhoneNumber()
+    {
+        var (email, _) = await RegisterAndLoginAsync();
+
+        var indexHtml = await Http.GetStringAsync("/Manage/Index");
+        Assert.Contains("/Manage/ChangePhoneNumber", indexHtml);
+        Assert.Contains("Not bound", indexHtml);
+
+        var getPage = await Http.GetAsync("/Manage/ChangePhoneNumber");
+        getPage.EnsureSuccessStatusCode();
+
+        // Invalid phone number (missing country code '+') should fail validation.
+        var invalidResponse = await PostForm("/Manage/ChangePhoneNumber", new Dictionary<string, string>
+        {
+            { "PhoneNumber", "13800138000" }
+        });
+        Assert.AreEqual(HttpStatusCode.OK, invalidResponse.StatusCode);
+        var invalidHtml = await invalidResponse.Content.ReadAsStringAsync();
+        Assert.Contains("E.164", invalidHtml);
+
+        // Valid phone number with spaces/hyphens should normalize and save.
+        var bindResponse = await PostForm("/Manage/ChangePhoneNumber", new Dictionary<string, string>
+        {
+            { "PhoneNumber", "+86 138-0013-8000" }
+        });
+        Assert.AreEqual(HttpStatusCode.Redirect, bindResponse.StatusCode);
+
+        var boundIndexHtml = WebUtility.HtmlDecode(await Http.GetStringAsync("/Manage/Index"));
+        Assert.Contains("+861****8000", boundIndexHtml);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<Entities.TemplateDbContext>();
+            var user = db.Users.Single(u => u.Email == email);
+            Assert.AreEqual("+8613800138000", user.PhoneNumber);
+        }
+
+        // Unbind phone number.
+        var unbindResponse = await PostForm("/Manage/UnbindPhoneNumber", new Dictionary<string, string>(), "/Manage/ChangePhoneNumber");
+        Assert.AreEqual(HttpStatusCode.Redirect, unbindResponse.StatusCode);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<Entities.TemplateDbContext>();
+            var user = db.Users.Single(u => u.Email == email);
+            Assert.IsNull(user.PhoneNumber);
+        }
+    }
+
     private class UploadResult
     {
         public string Path { get; init; } = string.Empty;

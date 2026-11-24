@@ -1,0 +1,43 @@
+@model Aiursoft.AlertCenter.Models.ManageViewModels.ChangePhoneNumberViewModel
+
+<h1 class="h3 mb-3">@Localizer["Bind phone number"]</h1>
+
+<div class="card col-md-8 col-lg-6">
+    <div class="card-header">
+        <h5 class="card-title mb-0">@Localizer["SMS Alert Phone Number"]</h5>
+    </div>
+    <div class="card-body">
+        <p class="text-muted small">
+            @Localizer["Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel."]
+        </p>
+
+        <form asp-controller="Manage" asp-action="ChangePhoneNumber" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="PhoneNumber" class="form-label">@Localizer["Phone Number"]</label>
+                <input asp-for="PhoneNumber" type="tel" maxlength="32" class="form-control form-control-lg font-monospace" placeholder="+8613800138000" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <small class="form-text text-muted">@Localizer["Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind."]</small>
+            </div>
+
+            <div class="mt-4 d-flex flex-wrap gap-2">
+                <button type="submit" class="btn btn-primary">@Localizer["Save phone number"]</button>
+                <a asp-controller="Manage" asp-action="Index" class="btn btn-light">@Localizer["Cancel"]</a>
+            </div>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.CurrentPhoneNumber))
+        {
+            <hr class="my-4" />
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="small text-muted">
+                    @Localizer["Currently bound:"] <span class="font-monospace fw-semibold text-body">@Model.CurrentPhoneNumber</span>
+                </div>
+                <form asp-controller="Manage" asp-action="UnbindPhoneNumber" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Unbind phone number"]</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>

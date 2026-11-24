@@ -11,7 +11,7 @@ public partial class IncidentPagesTests
     {
         await LoginAsAdmin();
         var html = await Http.GetStringAsync("/SeverityPolicy");
-        Assert.Contains("SMS policy can be saved", html);
+        Assert.DoesNotContain("SMS policy can be saved", html);
         Assert.Contains("Rules[4].ShowInLists", html);
         var values = new Dictionary<string, string>();
         for (var i = 0; i < 5; i++)
@@ -92,5 +92,43 @@ public partial class IncidentPagesTests
         }
         Assert.Contains(title, await Http.GetStringAsync("/Incidents"));
         Assert.Contains(title, await Http.GetStringAsync("/Dashboard"));
+    }
+
+    [TestMethod]
+    public async Task SmsChannelCanBeCreatedAndAppearsInPushIndex()
+    {
+        await LoginAsAdmin();
+
+        var indexHtml = await Http.GetStringAsync("/Push");
+        Assert.Contains("SMS (Tencent Cloud)", indexHtml);
+
+        var createHtml = await Http.GetStringAsync("/Push/Create?type=sms");
+        Assert.Contains("Tencent Cloud SMS service", createHtml);
+        Assert.Contains("/Manage/ChangePhoneNumber", createHtml);
+        Assert.Contains("/SeverityPolicy", createHtml);
+
+        string adminId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            adminId = (await db.Users.FirstAsync()).Id;
+        }
+
+        using var saveResponse = await PostForm("/Push/Save", new Dictionary<string, string>
+        {
+            ["Name"] = "Ops SMS Channel",
+            ["Type"] = "sms",
+            ["RecipientUserIds"] = adminId,
+            ["IsEnabled"] = "true"
+        }, "/Push/Create?type=sms");
+        Assert.AreEqual(HttpStatusCode.Redirect, saveResponse.StatusCode);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var channel = await db.PushChannels.SingleAsync(c => c.Name == "Ops SMS Channel");
+            Assert.AreEqual("sms", channel.Type);
+            Assert.IsTrue(await db.PushChannelUsers.AnyAsync(u => u.ChannelId == channel.Id && u.UserId == adminId));
+        }
     }
 }

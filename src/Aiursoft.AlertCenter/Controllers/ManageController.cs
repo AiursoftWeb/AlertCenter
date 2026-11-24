@@ -48,12 +48,16 @@ public class ManageController(
             message == ManageMessageId.ChangeProfileSuccess ? localizer["Your profile has been saved."] :
             message == ManageMessageId.ChangeAvatarSuccess ? localizer["Your avatar has been saved."] :
             message == ManageMessageId.ChangePasswordSuccess ? localizer["Your password has been changed."] :
+            message == ManageMessageId.ChangePhoneNumberSuccess ? localizer["Your phone number has been saved."] :
+            message == ManageMessageId.UnbindPhoneNumberSuccess ? localizer["Your phone number has been unbound."] :
             message == ManageMessageId.Error ? localizer["An error has occurred."]
             : "";
 
+        var user = await GetCurrentUserAsync();
         var model = new IndexViewModel
         {
-            AllowUserAdjustNickname = await settingsService.GetBoolSettingAsync(SettingsMap.AllowUserAdjustNickname)
+            AllowUserAdjustNickname = await settingsService.GetBoolSettingAsync(SettingsMap.AllowUserAdjustNickname),
+            PhoneNumber = user?.PhoneNumber
         };
         return this.StackView(model);
     }
@@ -193,6 +197,91 @@ public class ManageController(
     }
 
     //
+    // GET: /Manage/ChangePhoneNumber
+    [HttpGet]
+    public async Task<IActionResult> ChangePhoneNumber()
+    {
+        var user = await GetCurrentUserAsync();
+        if (user == null)
+        {
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        return this.StackView(new ChangePhoneNumberViewModel
+        {
+            PhoneNumber = user.PhoneNumber,
+            CurrentPhoneNumber = user.PhoneNumber
+        });
+    }
+
+    //
+    // POST: /Manage/ChangePhoneNumber
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumberViewModel model)
+    {
+        var user = await GetCurrentUserAsync();
+        if (user == null)
+        {
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        model.CurrentPhoneNumber = user.PhoneNumber;
+        if (!ModelState.IsValid)
+        {
+            return this.StackView(model);
+        }
+
+        if (string.IsNullOrWhiteSpace(model.PhoneNumber))
+        {
+            var clearResult = await userManager.SetPhoneNumberAsync(user, null);
+            if (!clearResult.Succeeded)
+            {
+                AddErrors(clearResult);
+                return this.StackView(model);
+            }
+
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.UnbindPhoneNumberSuccess });
+        }
+
+        if (!SmsChannelAdapter.TryNormalizePhoneNumber(model.PhoneNumber, out var normalized, out var error, localizer))
+        {
+            ModelState.AddModelError(nameof(model.PhoneNumber), error!);
+            return this.StackView(model);
+        }
+
+        var result = await userManager.SetPhoneNumberAsync(user, normalized);
+        if (!result.Succeeded)
+        {
+            AddErrors(result);
+            return this.StackView(model);
+        }
+
+        return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePhoneNumberSuccess });
+    }
+
+    //
+    // POST: /Manage/UnbindPhoneNumber
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UnbindPhoneNumber()
+    {
+        var user = await GetCurrentUserAsync();
+        if (user == null)
+        {
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        var result = await userManager.SetPhoneNumberAsync(user, null);
+        if (!result.Succeeded)
+        {
+            return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
+        }
+
+        return RedirectToAction(nameof(Index), new { Message = ManageMessageId.UnbindPhoneNumberSuccess });
+    }
+
+    //
     // GET: /Manage/DeleteAccount
     [HttpGet]
     public IActionResult DeleteAccount()
@@ -232,6 +321,8 @@ public class ManageController(
         ChangeAvatarSuccess,
         ChangePasswordSuccess,
         ChangeProfileSuccess,
+        ChangePhoneNumberSuccess,
+        UnbindPhoneNumberSuccess,
         Error
     }
 
