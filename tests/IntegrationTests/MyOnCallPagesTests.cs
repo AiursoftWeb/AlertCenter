@@ -11,6 +11,7 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 [TestClass]
 public class MyOnCallPagesTests : TestBase
 {
+    protected override string[] ServerArguments => ["--applicationName", "Aiursoft.AlertCenter"];
     private static readonly HttpClient Anonymous = new();
     private readonly List<Guid> groupIds = [];
     private readonly List<string> userIds = [];
@@ -280,8 +281,9 @@ public class MyOnCallPagesTests : TestBase
         Assert.Contains("私密日历订阅", chinese);
         Assert.Contains("未来 8 周班段", chinese);
         chinese = WebUtility.HtmlDecode(await Http.GetStringAsync("/Dashboard/Index"));
-        Assert.Contains("当前值班", chinese);
-        Assert.Contains("告警将发给兜底接收人", chinese);
+        Assert.Contains("您的值班团队", chinese);
+        Assert.Contains("我的值班日历", chinese);
+        Assert.Contains("警报将发送给备用接收人", chinese);
         Assert.Contains("查看班段、值班时长和私密日历订阅。", chinese);
     }
 }
