@@ -127,6 +127,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             Name = group.Name, TimeZoneId = group.TimeZoneId, RuleId = group.RuleId,
             WeekStartsOn = group.WeekStartsOn,
             EmailCcRecipients = group.EmailCcRecipients,
+            SmsNotificationsEnabled = group.SmsNotificationsEnabled,
             MinimumRestHours = group.MinimumRestHours, MaximumContinuousHours = group.MaximumContinuousHours,
             MinimumShiftStaff = group.MinimumShiftStaff, AutoExtend = group.AutoExtend,
             FallbackUserIds = group.FallbackRecipients.Select(person => person.UserId).ToList(),
@@ -483,6 +484,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 group.TimeZoneId = request.TimeZoneId;
                 group.WeekStartsOn = request.WeekStartsOn;
                 group.EmailCcRecipients = emailCcRecipients.Count == 0 ? null : string.Join('\n', emailCcRecipients);
+                group.SmsNotificationsEnabled = request.SmsNotificationsEnabled;
                 group.RuleId = request.RuleId;
                 group.MinimumRestHours = request.MinimumRestHours;
                 group.MaximumContinuousHours = request.MaximumContinuousHours;

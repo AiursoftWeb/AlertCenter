@@ -461,6 +461,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(320)
                         .HasColumnType("varchar(320)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
                     b.HasKey("DeliveryId", "UserId");
 
                     b.ToTable("OnCallEmailRecipient");
@@ -474,6 +478,13 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<string>("CcRecipients")
                         .HasMaxLength(8000)
                         .HasColumnType("text");
+
+                    b.Property<string>("ChannelType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)")
+                        .HasDefaultValue("email");
 
                     b.Property<DateTime?>("EndsAtUtc")
                         .HasColumnType("datetime(6)");
@@ -574,6 +585,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<Guid>("ScheduleVersion")
                         .IsConcurrencyToken()
                         .HasColumnType("char(36)");
+
+                    b.Property<bool>("SmsNotificationsEnabled")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("TimeZoneId")
                         .IsRequired()

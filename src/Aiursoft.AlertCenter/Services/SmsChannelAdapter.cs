@@ -12,7 +12,7 @@ using TencentCloud.Sms.V20210111.Models;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record SmsMessage(IReadOnlyList<string> PhoneNumbers, IReadOnlyList<string> TemplateParams);
+public sealed record SmsMessage(IReadOnlyList<string> PhoneNumbers, string TemplateId, IReadOnlyList<string> TemplateParams);
 
 public interface ISmsSender
 {
@@ -29,7 +29,7 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
     public async Task SendAsync(SmsMessage message, CancellationToken cancellationToken = default)
     {
         var settings = options.Value;
-        if (!settings.TryValidate(out var error))
+        if (!settings.TryValidate(out var error, message.TemplateId))
         {
             throw new InvalidOperationException(error);
         }
@@ -58,7 +58,7 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
             {
                 SmsSdkAppId = settings.SmsSdkAppId.Trim(),
                 SignName = settings.SignName.Trim(),
-                TemplateId = settings.TemplateId.Trim(),
+                TemplateId = message.TemplateId.Trim(),
                 TemplateParamSet = message.TemplateParams.ToArray(),
                 PhoneNumberSet = batch
             };
@@ -81,6 +81,7 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
 public partial class SmsChannelAdapter(
     TemplateDbContext db,
     ISmsSender sender,
+    IOptions<SmsSettings> options,
     IStringLocalizer<SmsChannelAdapter> localizer) : INotificationChannelAdapter
 {
     private const int MaxTemplateParamLength = 60;
@@ -130,39 +131,64 @@ public partial class SmsChannelAdapter(
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
-        var recipientIds = await db.PushDeliveryRecipients
-            .Where(recipient => recipient.DeliveryId == delivery.Id)
-            .Select(recipient => recipient.UserId)
-            .ToListAsync(cancellationToken);
-
-        if (recipientIds.Count == 0)
+        if (delivery.IncidentEvent is { Type: not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened), IsEscalation: false })
         {
-            return new(false, ErrorMessage: localizer["No users available to receive SMS notifications. Please configure recipient users or user groups."].Value);
+            return new(false, ErrorMessage: localizer["SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened."].Value);
         }
 
-        var rawPhones = await db.Users.AsNoTracking()
-            .Where(user => recipientIds.Contains(user.Id) && user.PhoneNumber != null && user.PhoneNumber != string.Empty)
-            .Select(user => user.PhoneNumber!)
-            .ToListAsync(cancellationToken);
-
-        var phoneNumbers = new List<string>();
-        foreach (var rawPhone in rawPhones)
+        List<string> phoneNumbers;
+        if (delivery.OnCallEmail is { } snapshot)
         {
-            if (TryNormalizePhoneNumber(rawPhone, out var normalized, out _) &&
-                !phoneNumbers.Contains(normalized, StringComparer.Ordinal))
+            if (snapshot.ValidationError != null) return new(false, ErrorMessage: snapshot.ValidationError);
+            phoneNumbers = ExtractUniquePhoneNumbers(snapshot.Recipients.Select(engineer => engineer.PhoneNumber));
+            if (phoneNumbers.Count == 0)
             {
-                phoneNumbers.Add(normalized);
+                return new(false, ErrorMessage: localizer["The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery."].Value);
+            }
+        }
+        else
+        {
+            var recipientIds = await db.PushDeliveryRecipients
+                .Where(recipient => recipient.DeliveryId == delivery.Id)
+                .Select(recipient => recipient.UserId)
+                .ToListAsync(cancellationToken);
+
+            if (recipientIds.Count == 0)
+            {
+                return new(false, ErrorMessage: localizer["No users available to receive SMS notifications. Please configure recipient users or user groups."].Value);
+            }
+
+            var rawPhones = await db.Users.AsNoTracking()
+                .Where(user => recipientIds.Contains(user.Id) && user.PhoneNumber != null && user.PhoneNumber != string.Empty)
+                .Select(user => user.PhoneNumber!)
+                .ToListAsync(cancellationToken);
+
+            phoneNumbers = ExtractUniquePhoneNumbers(rawPhones);
+            if (phoneNumbers.Count == 0)
+            {
+                return new(false, ErrorMessage: localizer["None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings."].Value);
             }
         }
 
-        if (phoneNumbers.Count == 0)
+        var templateId = options.Value.ResolveTemplateId(delivery.IncidentEvent?.Type);
+        if (string.IsNullOrWhiteSpace(templateId))
         {
-            return new(false, ErrorMessage: localizer["None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings."].Value);
+            return new(false, ErrorMessage: localizer["Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings."].Value);
+        }
+
+        var incident = delivery.Incident ?? delivery.IncidentEvent?.Incident;
+        var applicationName = incident?.Application?.Name;
+        if (string.IsNullOrWhiteSpace(applicationName) && incident != null)
+        {
+            applicationName = await db.SourceApplications.AsNoTracking()
+                .Where(app => app.Id == incident.ApplicationId)
+                .Select(app => app.Name)
+                .SingleOrDefaultAsync(cancellationToken);
         }
 
         try
         {
-            await sender.SendAsync(CreateMessage(delivery, phoneNumbers), cancellationToken);
+            await sender.SendAsync(CreateMessage(delivery, phoneNumbers, templateId, applicationName), cancellationToken);
             return new(true);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -190,32 +216,25 @@ public partial class SmsChannelAdapter(
         }
     }
 
-    internal SmsMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> phoneNumbers)
+    internal SmsMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> phoneNumbers, string templateId, string? applicationName = null)
     {
-        var incident = delivery.Incident ?? delivery.IncidentEvent?.Incident;
         var level = (delivery.Incident?.Level ?? delivery.IncidentEvent?.NewLevel ?? "TEST").ToUpperInvariant();
-        string summary;
-        if (delivery.IncidentEvent is { } incidentEvent)
-        {
-            summary = incidentEvent.Type switch
-            {
-                IncidentTimelineEntry.LevelChanged => $"[{incidentEvent.PreviousLevel?.ToUpperInvariant()}->{incidentEvent.NewLevel?.ToUpperInvariant()}] {incidentEvent.Incident.Title}",
-                IncidentTimelineEntry.Mitigated => $"[Mitigated] {incidentEvent.Incident.Title}",
-                IncidentTimelineEntry.Resolved => $"[Resolved] {incidentEvent.Incident.Title}",
-                IncidentTimelineEntry.Reopened => $"[Reopened] {incidentEvent.Incident.Title}",
-                _ => incidentEvent.Incident.Title
-            };
-        }
-        else if (incident != null)
-        {
-            summary = $"#{incident.ShortId} {incident.Title}";
-        }
-        else
-        {
-            summary = delivery.TestContent ?? PushDelivery.DefaultTestContent;
-        }
+        var appLabel = string.IsNullOrWhiteSpace(applicationName) ? "AlertCenter" : applicationName;
+        return new SmsMessage(phoneNumbers, templateId, [Truncate(Sanitize(appLabel), MaxTemplateParamLength), level]);
+    }
 
-        return new SmsMessage(phoneNumbers, [level, Truncate(Sanitize(summary), MaxTemplateParamLength)]);
+    private static List<string> ExtractUniquePhoneNumbers(IEnumerable<string?> rawPhones)
+    {
+        var result = new List<string>();
+        foreach (var rawPhone in rawPhones)
+        {
+            if (TryNormalizePhoneNumber(rawPhone, out var normalized, out _) &&
+                !result.Contains(normalized, StringComparer.Ordinal))
+            {
+                result.Add(normalized);
+            }
+        }
+        return result;
     }
 
     private static string Sanitize(string value) =>

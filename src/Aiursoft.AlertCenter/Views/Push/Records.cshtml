@@ -144,7 +144,7 @@
                             "sev4" => "ac-badge-sev4",
                             _ => null
                         };
-                        var channelIcon = (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type) switch
+                        var channelIcon = (delivery.OnCallEmail?.ChannelType ?? delivery.Channel?.Type) switch
                         {
                             "webhook" => "webhook",
                             "email" => "mail",
@@ -184,7 +184,7 @@
                             <td class="py-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <i data-lucide="@channelIcon" style="width: 15px; height: 15px;" class="text-muted" aria-hidden="true"></i>
-                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? string.Format(@Localizer["Built-in On-call Email · {0}"].Value, delivery.OnCallEmail.GroupName) : delivery.Channel?.Name)</span>
+                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? string.Format(delivery.OnCallEmail.ChannelType == "sms" ? @Localizer["Built-in On-call SMS · {0}"].Value : @Localizer["Built-in On-call Email · {0}"].Value, delivery.OnCallEmail.GroupName) : delivery.Channel?.Name)</span>
                                 </div>
                             </td>
                             <td class="py-3 text-center">

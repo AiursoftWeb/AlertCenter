@@ -6,6 +6,7 @@ public class OnCallEmailSnapshot
 {
     public Guid DeliveryId { get; set; }
     public PushDelivery Delivery { get; set; } = null!;
+    [MaxLength(16)] public string ChannelType { get; set; } = "email";
     public Guid GroupId { get; set; }
     [MaxLength(100)] public string GroupName { get; set; } = string.Empty;
     public Guid? ShiftId { get; set; }
@@ -27,4 +28,5 @@ public class OnCallEmailRecipient
     [MaxLength(450)] public string UserId { get; set; } = string.Empty;
     [MaxLength(30)] public string DisplayName { get; set; } = string.Empty;
     [MaxLength(320)] public string? Email { get; set; }
+    [MaxLength(32)] public string? PhoneNumber { get; set; }
 }

@@ -41,6 +41,13 @@
                 <label asp-for="GroupInput.WeekStartsOn" class="form-label">@viewLocalizer["Week starts on"]</label>
                 <select asp-for="GroupInput.WeekStartsOn" class="form-select">@foreach (var day in Enum.GetValues<DayOfWeek>()) { <option value="@((int)day)">@viewLocalizer[day.ToString()]</option> }</select>
             </div>
+            <div class="col-md-6 align-self-end">
+                <label class="form-check form-switch">
+                    <input asp-for="GroupInput.SmsNotificationsEnabled" class="form-check-input" />
+                    <span class="form-check-label">@viewLocalizer["Enable built-in On-Call SMS notifications"]</span>
+                </label>
+                <p class="form-text mb-0">@viewLocalizer["When enabled, incidents and lifecycle updates are also texted to on-duty OCEs' bound phone numbers according to the global SMS severity policy."]</p>
+            </div>
         </div>
     </fieldset>
     <fieldset class="border rounded p-3 mb-4" id="group-members">

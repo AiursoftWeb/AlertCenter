@@ -8,7 +8,7 @@
     var level = delivery.Incident?.Level ?? incidentEvent?.NewLevel;
     ViewData["Title"] = string.Format(@Localizer["Delivery details - {0}"].Value, delivery.Incident?.Title ?? incidentEvent?.Incident.Title ?? @Localizer["Channel test"].Value);
     var snapshot = delivery.OnCallEmail;
-    var typeKey = snapshot != null ? "email" : delivery.Channel?.Type;
+    var typeKey = snapshot?.ChannelType ?? delivery.Channel?.Type;
     var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == typeKey);
     var channelEnabled = snapshot != null || delivery.Channel?.IsEnabled == true;
     var canRetry = channelEnabled && (snapshot == null || (snapshot.ValidationError == null && snapshot.Recipients.Count > 0));
@@ -257,7 +257,7 @@ else
                         <i data-lucide="@(typeKey == "webhook" ? "webhook" : typeKey == "email" ? "mail" : typeKey == "sms" ? "smartphone" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 class="h6 mb-0">@(snapshot != null ? string.Format(CultureInfo.CurrentCulture, @Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>
+                        <h3 class="h6 mb-0">@(snapshot != null ? string.Format(CultureInfo.CurrentCulture, snapshot.ChannelType == "sms" ? @Localizer["Built-in On-call SMS · {0}"].Value : @Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>
                         <small class="text-muted">@(snapshot != null ? @Localizer["Built-in system · Cannot be disabled individually"].Value : channelType?.Name ?? typeKey)</small>
                     </div>
                 </div>
@@ -286,8 +286,15 @@ else
                         <p class="mb-1">OCE：@string.Join("、", snapshot.Recipients.Select(recipient => recipient.DisplayName))</p>
                         @if (Model.CanManagePush)
                         {
-                            <p class="mb-1 text-break">To：@string.Join("; ", snapshot.Recipients.Select(recipient => recipient.Email).Distinct(StringComparer.OrdinalIgnoreCase))</p>
-                            <p class="mb-0 text-break">CC：@(string.IsNullOrWhiteSpace(snapshot.CcRecipients) ? @Localizer["None"].Value : snapshot.CcRecipients)</p>
+                            @if (snapshot.ChannelType == "sms")
+                            {
+                                <p class="mb-0 text-break">SMS：@string.Join("; ", snapshot.Recipients.Where(recipient => !string.IsNullOrWhiteSpace(recipient.PhoneNumber)).Select(recipient => Aiursoft.AlertCenter.Services.SmsChannelAdapter.MaskPhoneNumber(recipient.PhoneNumber)).Distinct(StringComparer.Ordinal))</p>
+                            }
+                            else
+                            {
+                                <p class="mb-1 text-break">To：@string.Join("; ", snapshot.Recipients.Select(recipient => recipient.Email).Distinct(StringComparer.OrdinalIgnoreCase))</p>
+                                <p class="mb-0 text-break">CC：@(string.IsNullOrWhiteSpace(snapshot.CcRecipients) ? @Localizer["None"].Value : snapshot.CcRecipients)</p>
+                            }
                         }
                     </div>
                 }

@@ -57,6 +57,17 @@
             <p class="text-muted">@Localizer["Template not bound; manual scheduling is still available."]</p>
         }
         <p class="small text-muted">@Localizer["Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts."]</p>
+        <p class="mb-2">
+            @Localizer["Built-in On-call SMS"]:
+            @if (group.SmsNotificationsEnabled)
+            {
+                <span class="badge bg-success-subtle text-success">@Localizer["Enabled"]</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary-subtle text-secondary">@Localizer["Disabled"]</span>
+            }
+        </p>
         @if (Model.CanManageOnCall)
         {
             <h3 class="h6">@Localizer["On-call email CC"]</h3>

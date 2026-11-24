@@ -16,7 +16,7 @@ public sealed class IncidentSeverityPolicy(IEnumerable<SeverityRule> rules)
     {
         // Explicit channel tests have no incident severity and remain available to channel managers.
         if (delivery.IncidentId == null && delivery.IncidentEventId == null && delivery.Incident == null && delivery.IncidentEvent == null) return true;
-        var channelType = delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type;
+        var channelType = delivery.OnCallEmail?.ChannelType ?? delivery.Channel?.Type;
         var currentLevel = delivery.Incident?.Level ?? delivery.IncidentEvent?.Incident.Level;
         var eventLevel = delivery.IncidentEvent?.NewLevel ?? currentLevel;
         return Allows(currentLevel, channelType) && Allows(eventLevel, channelType);

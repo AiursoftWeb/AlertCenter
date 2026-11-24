@@ -43,22 +43,43 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
     public static async Task DispatchEmailEventAsync(TemplateDbContext db, IncidentTimelineEntry entry,
         CancellationToken cancellationToken, IStringLocalizerFactory? localizerFactory = null)
     {
-        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
-        if (!policy.Allows(entry.Incident.Level, "email")) return;
         if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened) && !entry.IsEscalation) return;
-        // Each committed transition queues its own email. Version checks prevent stale retries
-        // from committing another transition; reopening starts another notification cycle.
-        await OnCallEmailQueue.CreateEventAsync(db, entry, cancellationToken,
-            localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
         var incident = entry.Incident;
-        var channels = await MatchingChannels(db, incident).Where(link => link.Channel.Type == "email")
-            .Select(link => link.ChannelId).ToListAsync(cancellationToken);
-        foreach (var channelId in channels)
-            db.PushDeliveries.Add(new PushDelivery
+
+        if (policy.Allows(incident.Level, "email"))
+        {
+            // Each committed transition queues its own email. Version checks prevent stale retries
+            // from committing another transition; reopening starts another notification cycle.
+            await OnCallEmailQueue.CreateEventAsync(db, entry, cancellationToken,
+                localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+            var emailChannels = await MatchingChannels(db, incident).Where(link => link.Channel.Type == "email")
+                .Select(link => link.ChannelId).ToListAsync(cancellationToken);
+            foreach (var channelId in emailChannels)
+                db.PushDeliveries.Add(new PushDelivery
+                {
+                    ChannelId = channelId, IncidentEvent = entry, IncidentEventId = entry.Id,
+                    CreatedAtUtc = entry.CreatedAtUtc
+                });
+        }
+
+        if (policy.Allows(incident.Level, "sms"))
+        {
+            await OnCallEmailQueue.CreateSmsEventAsync(db, entry, cancellationToken,
+                localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+            var smsChannels = await MatchingChannels(db, incident).Where(link => link.Channel.Type == "sms")
+                .Select(link => link.ChannelId).ToListAsync(cancellationToken);
+            foreach (var channelId in smsChannels)
             {
-                ChannelId = channelId, IncidentEvent = entry, IncidentEventId = entry.Id,
-                CreatedAtUtc = entry.CreatedAtUtc
-            });
+                var delivery = new PushDelivery
+                {
+                    ChannelId = channelId, IncidentEvent = entry, IncidentEventId = entry.Id,
+                    CreatedAtUtc = entry.CreatedAtUtc
+                };
+                db.PushDeliveries.Add(delivery);
+                await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
+            }
+        }
     }
 
     private static IQueryable<ApplicationPushChannel> MatchingChannels(TemplateDbContext db, Incident incident) =>

@@ -5,6 +5,7 @@ using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using TencentCloud.Common;
 
 namespace Aiursoft.AlertCenter.Tests;
@@ -14,6 +15,7 @@ public class SmsChannelAdapterTests
 {
     private SqliteContext _db = null!;
     private FakeSmsSender _sender = null!;
+    private SmsSettings _settings = null!;
     private SmsChannelAdapter _adapter = null!;
 
     [TestInitialize]
@@ -23,7 +25,23 @@ public class SmsChannelAdapterTests
         await _db.Database.OpenConnectionAsync();
         await _db.Database.MigrateAsync();
         _sender = new FakeSmsSender();
-        _adapter = new SmsChannelAdapter(_db, _sender, TestLocalization.For<SmsChannelAdapter>());
+        _settings = new SmsSettings
+        {
+            SecretId = "AKID-test",
+            SecretKey = "secret-test",
+            SmsSdkAppId = "1401224081",
+            SignName = "TestSign",
+            Templates = new SmsTemplateSettings
+            {
+                NewIncident = "tpl-new",
+                Escalated = "tpl-escalated",
+                Mitigated = "tpl-mitigated",
+                Resolved = "tpl-resolved",
+                Reopened = "tpl-reopened"
+            },
+            Region = "ap-guangzhou"
+        };
+        _adapter = new SmsChannelAdapter(_db, _sender, Options.Create(_settings), TestLocalization.For<SmsChannelAdapter>());
     }
 
     [TestCleanup]
@@ -33,23 +51,19 @@ public class SmsChannelAdapterTests
     }
 
     [TestMethod]
-    public void SmsSettingsValidationChecksAllRequiredFields()
+    public void SmsSettingsValidationAndTemplateResolutionWorkForAllFiveScenarios()
     {
         var invalid = new SmsSettings();
         Assert.IsFalse(invalid.TryValidate(out var error));
         Assert.IsNotNull(error);
 
-        var valid = new SmsSettings
-        {
-            SecretId = "AKID-test",
-            SecretKey = "secret-test",
-            SmsSdkAppId = "1400000000",
-            SignName = "AlertCenter",
-            TemplateId = "123456",
-            Region = "ap-guangzhou"
-        };
-        Assert.IsTrue(valid.TryValidate(out var okError));
+        Assert.IsTrue(_settings.TryValidate(out var okError));
         Assert.IsNull(okError);
+        Assert.AreEqual("tpl-new", _settings.ResolveTemplateId(null));
+        Assert.AreEqual("tpl-escalated", _settings.ResolveTemplateId(IncidentTimelineEntry.LevelChanged));
+        Assert.AreEqual("tpl-mitigated", _settings.ResolveTemplateId(IncidentTimelineEntry.Mitigated));
+        Assert.AreEqual("tpl-resolved", _settings.ResolveTemplateId(IncidentTimelineEntry.Resolved));
+        Assert.AreEqual("tpl-reopened", _settings.ResolveTemplateId(IncidentTimelineEntry.Reopened));
     }
 
     [TestMethod]
@@ -76,7 +90,7 @@ public class SmsChannelAdapterTests
     }
 
     [TestMethod]
-    public async Task DeliversDeduplicatedSmsToBoundUsersAndRoleMembers()
+    public async Task DeliversDeduplicatedSmsWithAppNameAndLevelParams()
     {
         var role = new IdentityRole("Ops") { NormalizedName = "OPS" };
         _db.Roles.Add(role);
@@ -112,8 +126,93 @@ public class SmsChannelAdapterTests
         Assert.AreEqual(PushDelivery.Succeeded, delivery.Status);
         Assert.AreEqual(1, _sender.Messages.Count);
         CollectionAssert.AreEquivalent(new[] { "+8613800138001", "+8613800138002" }, _sender.Messages[0].PhoneNumbers.ToArray());
-        Assert.AreEqual("SEV1", _sender.Messages[0].TemplateParams[0]);
-        StringAssert.Contains(_sender.Messages[0].TemplateParams[1], "Database latency spike");
+        Assert.AreEqual("tpl-new", _sender.Messages[0].TemplateId);
+        CollectionAssert.AreEqual(new[] { "Payments", "SEV1" }, _sender.Messages[0].TemplateParams.ToArray());
+    }
+
+    [TestMethod]
+    public async Task OnCallSmsRespectsGroupToggleAndDeliversAllFiveLifecycleTemplates()
+    {
+        var now = DateTime.UtcNow;
+        var oce = new User { Id = "u-oce", UserName = "oce", DisplayName = "OnCall Alice", Email = "oce@example.com", PhoneNumber = "+8613900139000" };
+        _db.Users.Add(oce);
+        var groupOff = new OnCallGroup { Name = "Team Off", SmsNotificationsEnabled = false };
+        var groupOn = new OnCallGroup { Name = "Team On", SmsNotificationsEnabled = true };
+        _db.OnCallGroups.AddRange(groupOff, groupOn);
+        _db.OnCallShifts.AddRange(
+            new OnCallShift
+            {
+                Group = groupOff, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(2),
+                Members = [new OnCallShiftMember { User = oce }]
+            },
+            new OnCallShift
+            {
+                Group = groupOn, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(2),
+                Members = [new OnCallShiftMember { User = oce }]
+            });
+        var appOff = new SourceApplication { Name = "AppOff", Owner = oce, OnCallGroup = groupOff };
+        var appOn = new SourceApplication { Name = "Orders", Owner = oce, OnCallGroup = groupOn };
+        _db.SourceApplications.AddRange(appOff, appOn);
+        await _db.SaveChangesAsync();
+
+        var dispatcher = new QueuedIncidentDispatcher(_db, TestLocalization.Factory);
+
+        // Toggle OFF -> only email queued, no SMS.
+        var incOff = new Incident { Application = appOff, Title = "Off test", Level = "sev1", OccurredAtUtc = now, ReportId = Guid.NewGuid() };
+        _db.Incidents.Add(incOff);
+        await dispatcher.DispatchAsync(incOff);
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(0, await _db.OnCallEmailSnapshots.CountAsync(s => s.ChannelType == "sms"));
+        Assert.AreEqual(1, await _db.OnCallEmailSnapshots.CountAsync(s => s.ChannelType == "email"));
+
+        // Toggle ON -> new incident queues On-Call SMS with tpl-new.
+        var incOn = new Incident { Application = appOn, Title = "Orders down", Level = "sev2", OccurredAtUtc = now, ReportId = Guid.NewGuid() };
+        _db.Incidents.Add(incOn);
+        await dispatcher.DispatchAsync(incOn);
+        await _db.SaveChangesAsync();
+
+        var processor = new PushDeliveryProcessor(_db, [_adapter], NullLogger<PushDeliveryProcessor>.Instance, TestLocalization.For<PushDeliveryProcessor>());
+        var newSmsDelivery = await _db.PushDeliveries.Include(d => d.OnCallEmail)
+            .SingleAsync(d => d.IncidentId == incOn.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
+        await processor.ProcessAsync(newSmsDelivery.Id, CancellationToken.None);
+        Assert.AreEqual(PushDelivery.Succeeded, newSmsDelivery.Status);
+        Assert.AreEqual("tpl-new", _sender.Messages[^1].TemplateId);
+        CollectionAssert.AreEqual(new[] { "Orders", "SEV2" }, _sender.Messages[^1].TemplateParams.ToArray());
+
+        // Lifecycle transitions: Escalated, Mitigated, Resolved, Reopened.
+        var transitions = new (string Type, string PrevLevel, string NewLevel, string ExpectedTemplate, string ExpectedLevelParam)[]
+        {
+            (IncidentTimelineEntry.LevelChanged, "sev2", "sev0", "tpl-escalated", "SEV0"),
+            (IncidentTimelineEntry.Mitigated, "sev0", "sev0", "tpl-mitigated", "SEV0"),
+            (IncidentTimelineEntry.Resolved, "sev0", "sev0", "tpl-resolved", "SEV0"),
+            (IncidentTimelineEntry.Reopened, "sev0", "sev0", "tpl-reopened", "SEV0")
+        };
+
+        foreach (var (type, prevLevel, newLevel, expectedTemplate, expectedLevelParam) in transitions)
+        {
+            incOn.Level = newLevel;
+            var entry = new IncidentTimelineEntry
+            {
+                Incident = incOn,
+                Type = type,
+                ActorName = "Tester",
+                ActorIdSnapshot = oce.Id,
+                PreviousLevel = prevLevel,
+                NewLevel = newLevel,
+                CreatedAtUtc = DateTime.UtcNow
+            };
+            _db.IncidentTimelineEntries.Add(entry);
+            await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, entry, CancellationToken.None, TestLocalization.Factory);
+            await _db.SaveChangesAsync();
+
+            var eventSmsDelivery = await _db.PushDeliveries.Include(d => d.OnCallEmail)
+                .SingleAsync(d => d.IncidentEventId == entry.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
+            await processor.ProcessAsync(eventSmsDelivery.Id, CancellationToken.None);
+            Assert.AreEqual(PushDelivery.Succeeded, eventSmsDelivery.Status, $"Failed on {type}: {eventSmsDelivery.Error}");
+            Assert.AreEqual(expectedTemplate, _sender.Messages[^1].TemplateId);
+            CollectionAssert.AreEqual(new[] { "Orders", expectedLevelParam }, _sender.Messages[^1].TemplateParams.ToArray());
+            CollectionAssert.AreEqual(new[] { "+8613900139000" }, _sender.Messages[^1].PhoneNumbers.ToArray());
+        }
     }
 
     [TestMethod]
