@@ -48,6 +48,9 @@
   <data name="Informational" xml:space="preserve">
     <value>Информационный</value>
   </data>
+  <data name="Investigate URL (optional)" xml:space="preserve">
+    <value>URL для расследования (необязательно)</value>
+  </data>
   <data name="Major" xml:space="preserve">
     <value>Критический</value>
   </data>
@@ -59,6 +62,9 @@
   </data>
   <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
     <value>В списке отображаются только включённые приложения, для которых вы можете создавать оповещения.</value>
+  </data>
+  <data name="Optional link for engineers to investigate the incident directly." xml:space="preserve">
+    <value>Необязательная ссылка для инженеров, чтобы напрямую расследовать инцидент.</value>
   </data>
   <data name="Select an application" xml:space="preserve">
     <value>Выберите приложение</value>
