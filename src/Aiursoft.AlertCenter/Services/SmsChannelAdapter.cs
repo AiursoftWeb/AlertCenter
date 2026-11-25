@@ -5,9 +5,10 @@ using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
-using TencentCloud.Sms.V20210111;
 using TencentCloud.Sms.V20210111.Models;
 
 namespace Aiursoft.AlertCenter.Services;
@@ -26,6 +27,13 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
     // 腾讯云 SendSms 单次请求最多支持 200 个手机号。
     private const int MaxPhoneNumbersPerBatch = 200;
 
+    // 显式使用 PascalCase 序列化，避免 AiurProtocol 全局设置的 JsonConvert.DefaultSettings 将腾讯云字段转为 camelCase。
+    private static readonly JsonSerializerSettings TencentJsonSettings = new()
+    {
+        ContractResolver = new DefaultContractResolver(),
+        NullValueHandling = NullValueHandling.Ignore
+    };
+
     public async Task SendAsync(SmsMessage message, CancellationToken cancellationToken = default)
     {
         var settings = options.Value;
@@ -40,16 +48,25 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
             SecretKey = settings.SecretKey
         };
 
+        var rawEndpoint = string.IsNullOrWhiteSpace(settings.Endpoint) ? "sms.tencentcloudapi.com" : settings.Endpoint.Trim();
+        var useHttp = rawEndpoint.StartsWith("http://", StringComparison.OrdinalIgnoreCase);
+        var host = useHttp
+            ? rawEndpoint["http://".Length..]
+            : rawEndpoint.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+                ? rawEndpoint["https://".Length..]
+                : rawEndpoint;
+
         var clientProfile = new ClientProfile
         {
             HttpProfile = new HttpProfile
             {
-                Endpoint = string.IsNullOrWhiteSpace(settings.Endpoint) ? "sms.tencentcloudapi.com" : settings.Endpoint.Trim(),
+                Endpoint = host,
+                Protocol = useHttp ? HttpProfile.REQ_HTTP : HttpProfile.REQ_HTTPS,
                 Timeout = 10
             }
         };
 
-        var client = new SmsClient(credential, settings.Region.Trim(), clientProfile);
+        var client = new CommonClient("sms", "2021-01-11", credential, settings.Region.Trim(), clientProfile);
 
         foreach (var batch in message.PhoneNumbers.Chunk(MaxPhoneNumbersPerBatch))
         {
@@ -63,7 +80,9 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
                 PhoneNumberSet = batch
             };
 
-            var response = await client.SendSms(request);
+            var payloadJson = JsonConvert.SerializeObject(request, TencentJsonSettings);
+            var rawResponse = await client.CallAsync(new CommonRequest(payloadJson), "SendSms");
+            var response = JsonConvert.DeserializeObject<JsonResponseModel<SendSmsResponse>>(rawResponse, TencentJsonSettings)?.Response;
             var statuses = response?.SendStatusSet ?? [];
             var failed = statuses
                 .Where(status => !string.Equals(status.Code, "Ok", StringComparison.OrdinalIgnoreCase))

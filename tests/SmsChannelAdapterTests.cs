@@ -384,6 +384,73 @@ public class SmsChannelAdapterTests
         Assert.AreEqual(0, _sender.Messages.Count);
     }
 
+    [TestMethod]
+    public async Task TencentCloudSendSmsRequestSerializesPhoneNumberSet()
+    {
+        using var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 0);
+        listener.Start();
+        var port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
+        var capturedTask = Task.Run(async () =>
+        {
+            using var tcp = await listener.AcceptTcpClientAsync();
+            await using var stream = tcp.GetStream();
+            var buffer = new byte[8192];
+            var read = await stream.ReadAsync(buffer);
+            var raw = System.Text.Encoding.UTF8.GetString(buffer, 0, read);
+            var body = "{\"Response\":{\"SendStatusSet\":[{\"Code\":\"Ok\",\"Message\":\"send success\",\"PhoneNumber\":\"+8618535059765\"}],\"RequestId\":\"req-1\"}}";
+            var response = $"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {System.Text.Encoding.UTF8.GetByteCount(body)}\r\nConnection: close\r\n\r\n{body}";
+            var bytes = System.Text.Encoding.UTF8.GetBytes(response);
+            await stream.WriteAsync(bytes);
+            return raw;
+        });
+
+        var previousDefaultSettings = Newtonsoft.Json.JsonConvert.DefaultSettings;
+        try
+        {
+            // Simulate AiurProtocol setting a global camelCase contract resolver.
+            Newtonsoft.Json.JsonConvert.DefaultSettings = () => new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver
+                {
+                    NamingStrategy = new Newtonsoft.Json.Serialization.CamelCaseNamingStrategy
+                    {
+                        OverrideSpecifiedNames = true
+                    }
+                }
+            };
+
+            var sender = new TencentCloudSmsSender(Options.Create(new SmsSettings
+            {
+                SecretId = "AKID-test",
+                SecretKey = "secret-test",
+                SmsSdkAppId = "1401224081",
+                SignName = "TestSign",
+                Templates = new SmsTemplateSettings
+                {
+                    NewIncident = "tpl-new",
+                    Escalated = "tpl-escalated",
+                    Mitigated = "tpl-mitigated",
+                    Resolved = "tpl-resolved",
+                    Reopened = "tpl-reopened"
+                },
+                Region = "ap-guangzhou",
+                Endpoint = $"http://127.0.0.1:{port}"
+            }));
+
+            await sender.SendAsync(new SmsMessage(["+8618535059765"], "tpl-new", ["sample", "SEV0"]));
+        }
+        finally
+        {
+            Newtonsoft.Json.JsonConvert.DefaultSettings = previousDefaultSettings;
+        }
+
+        var rawHttp = await capturedTask;
+        StringAssert.Contains(rawHttp, "\"PhoneNumberSet\":[\"+8618535059765\"]", $"Actual HTTP:\n{rawHttp}");
+        StringAssert.Contains(rawHttp, "\"SmsSdkAppId\":\"1401224081\"", $"Actual HTTP:\n{rawHttp}");
+        StringAssert.Contains(rawHttp, "\"TemplateId\":\"tpl-new\"", $"Actual HTTP:\n{rawHttp}");
+        StringAssert.Contains(rawHttp, "\"TemplateParamSet\":[\"sample\",\"SEV0\"]", $"Actual HTTP:\n{rawHttp}");
+    }
+
     private sealed class FakeSmsSender : ISmsSender
     {
         public List<SmsMessage> Messages { get; } = [];
