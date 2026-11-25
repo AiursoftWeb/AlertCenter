@@ -63,7 +63,7 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
                 });
         }
 
-        if (policy.Allows(incident.Level, "sms"))
+        if (policy.Allows(incident.Level, "sms", entry.Type))
         {
             await OnCallEmailQueue.CreateSmsEventAsync(db, entry, cancellationToken,
                 localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);

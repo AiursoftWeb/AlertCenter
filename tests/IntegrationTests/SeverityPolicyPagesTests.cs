@@ -13,6 +13,11 @@ public partial class IncidentPagesTests
         var html = await Http.GetStringAsync("/SeverityPolicy");
         Assert.DoesNotContain("SMS policy can be saved", html);
         Assert.Contains("Rules[4].ShowInLists", html);
+        Assert.Contains("SmsEvents.NewIncident", html);
+        Assert.Contains("SmsEvents.Escalated", html);
+        Assert.Contains("SmsEvents.Mitigated", html);
+        Assert.Contains("SmsEvents.Resolved", html);
+        Assert.Contains("SmsEvents.Reopened", html);
         var values = new Dictionary<string, string>();
         for (var i = 0; i < 5; i++)
         {
@@ -23,6 +28,11 @@ public partial class IncidentPagesTests
             values[$"Rules[{i}].InApp"] = (i == 1).ToString();
             values[$"Rules[{i}].ShowInLists"] = (i == 0).ToString();
         }
+        values["SmsEvents.NewIncident"] = "true";
+        values["SmsEvents.Escalated"] = "true";
+        values["SmsEvents.Reopened"] = "true";
+        values["SmsEvents.Mitigated"] = "false";
+        values["SmsEvents.Resolved"] = "false";
         using var noToken = await PostForm("/SeverityPolicy/Save", values, "/SeverityPolicy", includeToken: false);
         Assert.AreEqual(HttpStatusCode.BadRequest, noToken.StatusCode);
         using var saved = await PostForm("/SeverityPolicy/Save", values, "/SeverityPolicy");
@@ -40,6 +50,12 @@ public partial class IncidentPagesTests
                 Assert.AreEqual(i == 1, rows[i].InApp);
                 Assert.AreEqual(i == 0, rows[i].ShowInLists);
             }
+            var smsEvents = await new Services.SeverityPolicyStore(db).LoadSmsEventsAsync();
+            Assert.IsTrue(smsEvents.NewIncident);
+            Assert.IsTrue(smsEvents.Escalated);
+            Assert.IsTrue(smsEvents.Reopened);
+            Assert.IsFalse(smsEvents.Mitigated);
+            Assert.IsFalse(smsEvents.Resolved);
         }
         values["Rules[4].Level"] = "sev3";
         using var duplicate = await PostForm("/SeverityPolicy/Save", values, "/SeverityPolicy");

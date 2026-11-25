@@ -316,6 +316,74 @@ public class SmsChannelAdapterTests
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
     }
 
+    [TestMethod]
+    public async Task SmsEventPolicyAndSeverityLevelCombineAsTwoDimensions()
+    {
+        var user = new User { Id = "u-2d", UserName = "user2d", DisplayName = "User 2D", Email = "u2d@example.com", PhoneNumber = "+8613800138088" };
+        _db.Users.Add(user);
+        var app = new SourceApplication { Name = "Checkout", Owner = user };
+        var channel = new PushChannel { Name = "SMS 2D", Type = "sms", IsEnabled = true };
+        _db.SourceApplications.Add(app);
+        _db.PushChannels.Add(channel);
+        _db.PushChannelUsers.Add(new PushChannelUser { Channel = channel, UserId = user.Id });
+        _db.ApplicationPushChannels.Add(new ApplicationPushChannel { Application = app, Channel = channel });
+
+        // Enable only NewIncident, Escalated, Reopened; disable Mitigated and Resolved.
+        var store = new SeverityPolicyStore(_db);
+        await store.StageSmsEventsAsync(new SmsEventPolicy
+        {
+            NewIncident = true,
+            Escalated = true,
+            Reopened = true,
+            Mitigated = false,
+            Resolved = false
+        });
+        await _db.SaveChangesAsync();
+
+        var dispatcher = new QueuedIncidentDispatcher(_db, TestLocalization.Factory);
+        var sev1 = new Incident { Application = app, Title = "Checkout timeout", Level = "sev1", ReportId = Guid.NewGuid() };
+        _db.Incidents.Add(sev1);
+        await dispatcher.DispatchAsync(sev1);
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
+
+        // Mitigated & Resolved must NOT queue SMS even though sev1 allows SMS.
+        foreach (var blockedType in new[] { IncidentTimelineEntry.Mitigated, IncidentTimelineEntry.Resolved })
+        {
+            var blockedEntry = new IncidentTimelineEntry
+            {
+                Incident = sev1, Type = blockedType, ActorName = "Ops", ActorIdSnapshot = user.Id,
+                PreviousLevel = "sev1", NewLevel = "sev1", CreatedAtUtc = DateTime.UtcNow
+            };
+            _db.IncidentTimelineEntries.Add(blockedEntry);
+            await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, blockedEntry, CancellationToken.None, TestLocalization.Factory);
+            await _db.SaveChangesAsync();
+            Assert.IsFalse(await _db.PushDeliveries.AnyAsync(d => d.IncidentEventId == blockedEntry.Id));
+        }
+
+        // Reopened & Escalated MUST queue SMS.
+        var reopened = new IncidentTimelineEntry
+        {
+            Incident = sev1, Type = IncidentTimelineEntry.Reopened, ActorName = "Ops", ActorIdSnapshot = user.Id,
+            PreviousLevel = "sev1", NewLevel = "sev1", CreatedAtUtc = DateTime.UtcNow
+        };
+        _db.IncidentTimelineEntries.Add(reopened);
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, reopened, CancellationToken.None, TestLocalization.Factory);
+        await _db.SaveChangesAsync();
+        var reopenedDelivery = await _db.PushDeliveries.SingleAsync(d => d.IncidentEventId == reopened.Id);
+
+        // Turning off Reopened before processing suppresses the queued delivery.
+        await store.StageSmsEventsAsync(new SmsEventPolicy
+        {
+            NewIncident = true, Escalated = true, Reopened = false, Mitigated = false, Resolved = false
+        });
+        await _db.SaveChangesAsync();
+        var processor = new PushDeliveryProcessor(_db, [_adapter], NullLogger<PushDeliveryProcessor>.Instance, TestLocalization.For<PushDeliveryProcessor>());
+        await processor.ProcessAsync(reopenedDelivery.Id, CancellationToken.None);
+        Assert.AreEqual(PushDelivery.Suppressed, reopenedDelivery.Status);
+        Assert.AreEqual(0, _sender.Messages.Count);
+    }
+
     private sealed class FakeSmsSender : ISmsSender
     {
         public List<SmsMessage> Messages { get; } = [];
