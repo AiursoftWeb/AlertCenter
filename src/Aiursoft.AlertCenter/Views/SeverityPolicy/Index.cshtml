@@ -90,7 +90,7 @@
     <div class="col-xl-3">
         <div class="card"><div class="card-body">
             <h2 class="h5">@Localizer["How this policy works"]</h2>
-            <p>@Localizer["This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column."]</p>
+            <p>@Localizer["This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches."]</p>
             <p>@Localizer["Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced."]</p>
             <p>@Localizer["Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed."]</p>
             @if (!Model.SmsAvailable)
