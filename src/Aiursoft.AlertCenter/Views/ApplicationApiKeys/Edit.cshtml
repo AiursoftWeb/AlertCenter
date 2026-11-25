@@ -6,7 +6,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form asp-action="@(Model.Id.HasValue ? "Edit" : "Create")" method="post">
+        <form asp-action="@(Model.Id.HasValue ? "Edit" : "Create")" method="post" data-action-feedback>
             <input asp-for="ApplicationId" type="hidden" />
             <input asp-for="Id" type="hidden" />
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
