@@ -23,8 +23,8 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
 {
     public async Task DispatchAsync(Incident incident, CancellationToken cancellationToken = default)
     {
-        await OnCallEmailQueue.CreateAsync(db, incident, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
         var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        await OnCallEmailQueue.CreateAsync(db, incident, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory, policy: policy);
         var channels = await MatchingChannels(db, incident)
             .Select(link => new { link.ChannelId, link.Channel.Type }).ToListAsync(cancellationToken);
         // Commit the incident, pending deliveries and recipient snapshots together.
@@ -52,7 +52,7 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
             // Each committed transition queues its own email. Version checks prevent stale retries
             // from committing another transition; reopening starts another notification cycle.
             await OnCallEmailQueue.CreateEventAsync(db, entry, cancellationToken,
-                localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+                localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory, policy: policy);
             var emailChannels = await MatchingChannels(db, incident).Where(link => link.Channel.Type == "email")
                 .Select(link => link.ChannelId).ToListAsync(cancellationToken);
             foreach (var channelId in emailChannels)
@@ -66,7 +66,7 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
         if (policy.Allows(incident.Level, "sms", entry.Type))
         {
             await OnCallEmailQueue.CreateSmsEventAsync(db, entry, cancellationToken,
-                localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+                localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory, policy: policy);
             var smsChannels = await MatchingChannels(db, incident).Where(link => link.Channel.Type == "sms")
                 .Select(link => link.ChannelId).ToListAsync(cancellationToken);
             foreach (var channelId in smsChannels)

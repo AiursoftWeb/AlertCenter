@@ -59,6 +59,7 @@
                     <select id="filter-channel" name="channelId" class="form-select">
                         <option value="">@Localizer["All channels"]</option>
                         <option value="@Guid.Empty" selected="@(Model.ChannelId == Guid.Empty)">@Localizer["Built-in On-call Email"]</option>
+                        <option value="@Aiursoft.AlertCenter.Controllers.PushController.BuiltInOnCallSmsChannelId" selected="@(Model.ChannelId == Aiursoft.AlertCenter.Controllers.PushController.BuiltInOnCallSmsChannelId)">@Localizer["Built-in On-call SMS"]</option>
                         @foreach (var channel in Model.Channels)
                         {
                             <option value="@channel.Id" selected="@(Model.ChannelId == channel.Id)">@channel.Name</option>

@@ -15,6 +15,8 @@ namespace Aiursoft.AlertCenter.Controllers;
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters, PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector, IApplicationAccessService applicationAccess, IPushChannelAccessService channelAccess, IStringLocalizer<PushController> localizer, IStringLocalizerFactory localizerFactory) : Controller
 {
+    public static readonly Guid BuiltInOnCallSmsChannelId = new("00000000-0000-0000-0000-000000000001");
+
     private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
@@ -337,7 +339,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var query = db.PushDeliveries.AsNoTracking().Where(delivery =>
             (delivery.Incident != null && accessibleIds.Contains(delivery.Incident.ApplicationId)) ||
             (delivery.IncidentEvent != null && accessibleIds.Contains(delivery.IncidentEvent.Incident.ApplicationId)));
-        if (channelId == Guid.Empty) query = query.Where(delivery => delivery.OnCallEmail != null);
+        if (channelId == Guid.Empty) query = query.Where(delivery => delivery.OnCallEmail != null && delivery.OnCallEmail.ChannelType == "email");
+        else if (channelId == BuiltInOnCallSmsChannelId) query = query.Where(delivery => delivery.OnCallEmail != null && delivery.OnCallEmail.ChannelType == "sms");
         else if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
         if (!canManagePush)
         {
@@ -389,6 +392,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
                 (delivery.IncidentId != null || delivery.IncidentEventId != null))
             .Select(delivery => new { delivery.ChannelId, BuiltIn = delivery.OnCallEmail != null,
+                BuiltInChannelType = delivery.OnCallEmail != null ? delivery.OnCallEmail.ChannelType : null,
                 ApplicationId = delivery.Incident != null ? delivery.Incident.ApplicationId : delivery.IncidentEvent!.Incident.ApplicationId })
             .SingleOrDefaultAsync(cancellationToken);
         if (deliveryAccess == null) return NotFound();
@@ -403,7 +407,13 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .ExecuteUpdateAsync(setters => setters.SetProperty(delivery => delivery.Status, PushDelivery.Pending)
                 .SetProperty(delivery => delivery.Error, (string?)null)
                 .SetProperty(delivery => delivery.CompletedAtUtc, (DateTime?)null));
-        if (updated == 0) return Conflict(localizer["Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing."].Value);
+        if (updated == 0)
+        {
+            var conflictMessage = deliveryAccess.BuiltInChannelType == "sms"
+                ? localizer["Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing."].Value
+                : localizer["Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing."].Value;
+            return Conflict(conflictMessage);
+        }
         return RedirectToAction(nameof(Delivery), new { id });
     }
 

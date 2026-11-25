@@ -50,11 +50,11 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
 
         var rawEndpoint = string.IsNullOrWhiteSpace(settings.Endpoint) ? "sms.tencentcloudapi.com" : settings.Endpoint.Trim();
         var useHttp = rawEndpoint.StartsWith("http://", StringComparison.OrdinalIgnoreCase);
-        var host = useHttp
+        var host = (useHttp
             ? rawEndpoint["http://".Length..]
             : rawEndpoint.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
                 ? rawEndpoint["https://".Length..]
-                : rawEndpoint;
+                : rawEndpoint).TrimEnd('/');
 
         var clientProfile = new ClientProfile
         {
@@ -83,7 +83,12 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
             var payloadJson = JsonConvert.SerializeObject(request, TencentJsonSettings);
             var rawResponse = await client.CallAsync(new CommonRequest(payloadJson), "SendSms");
             var response = JsonConvert.DeserializeObject<JsonResponseModel<SendSmsResponse>>(rawResponse, TencentJsonSettings)?.Response;
-            var statuses = response?.SendStatusSet ?? [];
+            var statuses = response?.SendStatusSet;
+            if (statuses is null || statuses.Length == 0)
+            {
+                throw new SmsDeliveryException("Tencent Cloud SMS returned an empty response without delivery statuses.");
+            }
+
             var failed = statuses
                 .Where(status => !string.Equals(status.Code, "Ok", StringComparison.OrdinalIgnoreCase))
                 .Select(status => $"{SmsChannelAdapter.MaskPhoneNumber(status.PhoneNumber)}: {status.Code} ({status.Message})")
@@ -144,7 +149,9 @@ public partial class SmsChannelAdapter(
     {
         if (string.IsNullOrWhiteSpace(phoneNumber)) return string.Empty;
         var trimmed = phoneNumber.Trim();
-        if (trimmed.Length <= 7) return trimmed;
+        if (trimmed.Length <= 4) return new string('*', trimmed.Length);
+        if (trimmed.Length <= 7) return $"{trimmed[..2]}****{trimmed[^1..]}";
+        if (trimmed.Length <= 10) return $"{trimmed[..3]}****{trimmed[^2..]}";
         return $"{trimmed[..4]}****{trimmed[^4..]}";
     }
 

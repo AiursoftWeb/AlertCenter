@@ -106,6 +106,10 @@ public class SmsChannelAdapterTests
     public void MaskPhoneNumberHidesMiddleDigits()
     {
         Assert.AreEqual("+861****8000", SmsChannelAdapter.MaskPhoneNumber("+8613800138000"));
+        Assert.AreEqual("+12****67", SmsChannelAdapter.MaskPhoneNumber("+1234567"));
+        Assert.AreEqual("+12****89", SmsChannelAdapter.MaskPhoneNumber("+123456789"));
+        Assert.AreEqual("+1****7", SmsChannelAdapter.MaskPhoneNumber("+123457"));
+        Assert.AreEqual("****", SmsChannelAdapter.MaskPhoneNumber("1234"));
         Assert.AreEqual("", SmsChannelAdapter.MaskPhoneNumber(null));
     }
 
@@ -449,6 +453,126 @@ public class SmsChannelAdapterTests
         StringAssert.Contains(rawHttp, "\"SmsSdkAppId\":\"1401224081\"", $"Actual HTTP:\n{rawHttp}");
         StringAssert.Contains(rawHttp, "\"TemplateId\":\"tpl-new\"", $"Actual HTTP:\n{rawHttp}");
         StringAssert.Contains(rawHttp, "\"TemplateParamSet\":[\"sample\",\"SEV0\"]", $"Actual HTTP:\n{rawHttp}");
+    }
+
+    [TestMethod]
+    public async Task TencentCloudSendSmsThrowsWhenSendStatusSetIsEmpty()
+    {
+        using var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 0);
+        listener.Start();
+        var port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
+        var serverTask = Task.Run(async () =>
+        {
+            using var tcp = await listener.AcceptTcpClientAsync();
+            await using var stream = tcp.GetStream();
+            var buffer = new byte[8192];
+            _ = await stream.ReadAsync(buffer);
+            var body = "{\"Response\":{\"SendStatusSet\":[],\"RequestId\":\"req-empty\"}}";
+            var response = $"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {System.Text.Encoding.UTF8.GetByteCount(body)}\r\nConnection: close\r\n\r\n{body}";
+            await stream.WriteAsync(System.Text.Encoding.UTF8.GetBytes(response));
+        });
+
+        var sender = new TencentCloudSmsSender(Options.Create(new SmsSettings
+        {
+            SecretId = "AKID-test",
+            SecretKey = "secret-test",
+            SmsSdkAppId = "1401224081",
+            SignName = "TestSign",
+            Templates = _settings.Templates,
+            Region = "ap-guangzhou",
+            Endpoint = $"http://127.0.0.1:{port}/"
+        }));
+
+        await Assert.ThrowsAsync<SmsDeliveryException>(async () =>
+            await sender.SendAsync(new SmsMessage(["+8613800138000"], "tpl-new", ["sample", "SEV0"])));
+        await serverTask;
+    }
+
+    [TestMethod]
+    public async Task OnCallSmsLifecycleEventsUseLatestOcePhoneNumber()
+    {
+        var now = DateTime.UtcNow;
+        var oce = new User { Id = "u-oce-phone", UserName = "ocephone", DisplayName = "OCE Phone", Email = "oce@example.com", PhoneNumber = null };
+        _db.Users.Add(oce);
+        var group = new OnCallGroup { Name = "Team Phone", SmsNotificationsEnabled = true };
+        _db.OnCallGroups.Add(group);
+        _db.OnCallShifts.Add(new OnCallShift
+        {
+            Group = group, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(2),
+            Members = [new OnCallShiftMember { User = oce }]
+        });
+        var app = new SourceApplication { Name = "Inventory", Owner = oce, OnCallGroup = group };
+        _db.SourceApplications.Add(app);
+        await _db.SaveChangesAsync();
+
+        var dispatcher = new QueuedIncidentDispatcher(_db, TestLocalization.Factory);
+        var incident = new Incident { Application = app, Title = "Stock sync stalled", Level = "sev1", OccurredAtUtc = now, ReportId = Guid.NewGuid() };
+        _db.Incidents.Add(incident);
+        await dispatcher.DispatchAsync(incident);
+        await _db.SaveChangesAsync();
+
+        // Initial SMS delivery fails because OCE had no bound phone number at creation time.
+        var initialSms = await _db.PushDeliveries.Include(d => d.OnCallEmail)
+            .SingleAsync(d => d.IncidentId == incident.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
+        Assert.AreEqual(PushDelivery.Failed, initialSms.Status);
+
+        // OCE binds a phone number; subsequent escalation should succeed and use the newly bound number.
+        oce.PhoneNumber = "+8613800001111";
+        await _db.SaveChangesAsync();
+
+        var processor = new PushDeliveryProcessor(_db, [_adapter], NullLogger<PushDeliveryProcessor>.Instance, TestLocalization.For<PushDeliveryProcessor>());
+        var escalated = new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.LevelChanged, ActorName = "Ops", ActorIdSnapshot = oce.Id,
+            PreviousLevel = "sev1", NewLevel = "sev0", CreatedAtUtc = now.AddMinutes(5)
+        };
+        incident.Level = "sev0";
+        _db.IncidentTimelineEntries.Add(escalated);
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, escalated, CancellationToken.None, TestLocalization.Factory);
+        await _db.SaveChangesAsync();
+
+        var escalatedSms = await _db.PushDeliveries.Include(d => d.OnCallEmail)
+            .SingleAsync(d => d.IncidentEventId == escalated.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
+        await processor.ProcessAsync(escalatedSms.Id, CancellationToken.None);
+        Assert.AreEqual(PushDelivery.Succeeded, escalatedSms.Status);
+        CollectionAssert.AreEqual(new[] { "+8613800001111" }, _sender.Messages[^1].PhoneNumbers.ToArray());
+
+        // OCE updates their phone number; subsequent resolution should send to the new phone number.
+        oce.PhoneNumber = "+8613800002222";
+        await _db.SaveChangesAsync();
+
+        var resolved = new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.Resolved, ActorName = "Ops", ActorIdSnapshot = oce.Id,
+            PreviousLevel = "sev0", NewLevel = "sev0", CreatedAtUtc = now.AddMinutes(10)
+        };
+        _db.IncidentTimelineEntries.Add(resolved);
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, resolved, CancellationToken.None, TestLocalization.Factory);
+        await _db.SaveChangesAsync();
+
+        var resolvedSms = await _db.PushDeliveries.Include(d => d.OnCallEmail)
+            .SingleAsync(d => d.IncidentEventId == resolved.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
+        await processor.ProcessAsync(resolvedSms.Id, CancellationToken.None);
+        Assert.AreEqual(PushDelivery.Succeeded, resolvedSms.Status);
+        CollectionAssert.AreEqual(new[] { "+8613800002222" }, _sender.Messages[^1].PhoneNumbers.ToArray());
+
+        // OCE unbinds their phone number; subsequent reopen should fail instead of texting the old number.
+        oce.PhoneNumber = null;
+        await _db.SaveChangesAsync();
+
+        var reopened = new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.Reopened, ActorName = "Ops", ActorIdSnapshot = oce.Id,
+            PreviousLevel = "sev0", NewLevel = "sev0", CreatedAtUtc = now.AddMinutes(15)
+        };
+        _db.IncidentTimelineEntries.Add(reopened);
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, reopened, CancellationToken.None, TestLocalization.Factory);
+        await _db.SaveChangesAsync();
+
+        var reopenedSms = await _db.PushDeliveries.Include(d => d.OnCallEmail)
+            .SingleAsync(d => d.IncidentEventId == reopened.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
+        Assert.AreEqual(PushDelivery.Failed, reopenedSms.Status);
+        Assert.AreEqual(2, _sender.Messages.Count);
     }
 
     private sealed class FakeSmsSender : ISmsSender

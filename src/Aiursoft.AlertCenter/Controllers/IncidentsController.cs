@@ -51,7 +51,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             // Read the original saved roster in one batch; later shifts and notification events are not the original OCE.
             var snapshots = await db.OnCallEmailSnapshots.AsNoTracking()
                 .Include(snapshot => snapshot.Delivery).Include(snapshot => snapshot.Recipients)
-                .Where(snapshot => snapshot.Delivery.IncidentId.HasValue && incidentIds.Contains(snapshot.Delivery.IncidentId.Value))
+                .Where(snapshot => snapshot.ChannelType == "email" && snapshot.Delivery.IncidentId.HasValue && incidentIds.Contains(snapshot.Delivery.IncidentId.Value))
                 .OrderBy(snapshot => snapshot.Delivery.CreatedAtUtc).ThenBy(snapshot => snapshot.DeliveryId)
                 .ToListAsync(cancellationToken);
             model.OriginalOceNames = snapshots.GroupBy(snapshot => snapshot.Delivery.IncidentId!.Value)
