@@ -84,6 +84,13 @@ public class SmsChannelAdapterTests
         };
         Assert.IsFalse(missingOne.TryValidate(out var missingError));
         Assert.IsNotNull(missingError);
+
+        // Null Templates or null template values must resolve safely to empty string without throwing.
+        var nullTemplates = new SmsSettings { Templates = null! };
+        Assert.AreEqual(string.Empty, nullTemplates.ResolveTemplateId(null));
+        Assert.AreEqual(string.Empty, nullTemplates.ResolveTemplateId(IncidentTimelineEntry.Resolved));
+        var nullValue = new SmsSettings { Templates = new SmsTemplateSettings { NewIncident = null! } };
+        Assert.AreEqual(string.Empty, nullValue.ResolveTemplateId(null));
     }
 
     [TestMethod]

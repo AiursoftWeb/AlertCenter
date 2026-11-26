@@ -31,12 +31,12 @@ public sealed class SmsSettings
 
     public string ResolveTemplateId(string? incidentEventType) => (incidentEventType switch
     {
-        IncidentTimelineEntry.LevelChanged => Templates.Escalated,
-        IncidentTimelineEntry.Mitigated => Templates.Mitigated,
-        IncidentTimelineEntry.Resolved => Templates.Resolved,
-        IncidentTimelineEntry.Reopened => Templates.Reopened,
-        _ => Templates.NewIncident
-    }).Trim();
+        IncidentTimelineEntry.LevelChanged => Templates?.Escalated,
+        IncidentTimelineEntry.Mitigated => Templates?.Mitigated,
+        IncidentTimelineEntry.Resolved => Templates?.Resolved,
+        IncidentTimelineEntry.Reopened => Templates?.Reopened,
+        _ => Templates?.NewIncident
+    })?.Trim() ?? string.Empty;
 
     public bool TryValidate(out string? error, IStringLocalizer? localizer = null)
     {

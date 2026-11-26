@@ -258,7 +258,7 @@ else
                     </div>
                     <div>
                         <h3 class="h6 mb-0">@(snapshot != null ? string.Format(CultureInfo.CurrentCulture, snapshot.ChannelType == "sms" ? @Localizer["Built-in On-call SMS · {0}"].Value : @Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>
-                        <small class="text-muted">@(snapshot != null ? @Localizer["Built-in system · Cannot be disabled individually"].Value : channelType?.Name ?? typeKey)</small>
+                        <small class="text-muted">@(snapshot != null ? (snapshot.ChannelType == "sms" ? @Localizer["Built-in system · Managed in on-call team settings"].Value : @Localizer["Built-in system · Cannot be disabled individually"].Value) : channelType?.Name ?? typeKey)</small>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center py-2 border-top">
