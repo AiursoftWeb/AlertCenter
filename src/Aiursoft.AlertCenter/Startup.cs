@@ -61,7 +61,7 @@ public class Startup : IWebStartup
         services.Configure<EmailSettings>(configuration.GetSection("Email"));
         services.AddScoped<IEmailSender, SmtpEmailSender>();
         services.Configure<SmsSettings>(configuration.GetSection("Sms"));
-        services.AddScoped<ISmsSender, TencentCloudSmsSender>();
+        services.AddSingleton<ISmsSender, TencentCloudSmsSender>();
         services.AddSingleton<IOnCallScheduleGenerator, OnCallScheduleGenerator>();
         services.AddScoped<IApplicationAccessService, ApplicationAccessService>();
         services.AddScoped<IPushChannelAccessService, PushChannelAccessService>();

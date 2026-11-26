@@ -34,6 +34,54 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
         NullValueHandling = NullValueHandling.Ignore
     };
 
+    private readonly Lock _clientLock = new();
+    private (string SecretId, string SecretKey, string Region, string Endpoint)? _cachedKey;
+    private CommonClient? _cachedClient;
+
+    private CommonClient GetOrCreateClient(SmsSettings settings)
+    {
+        var secretId = settings.SecretId.Trim();
+        var secretKey = settings.SecretKey.Trim();
+        var region = settings.Region.Trim();
+        var rawEndpoint = string.IsNullOrWhiteSpace(settings.Endpoint) ? "sms.tencentcloudapi.com" : settings.Endpoint.Trim();
+        var key = (secretId, secretKey, region, rawEndpoint);
+
+        lock (_clientLock)
+        {
+            if (_cachedClient != null && _cachedKey == key)
+            {
+                return _cachedClient;
+            }
+
+            var credential = new Credential
+            {
+                SecretId = secretId,
+                SecretKey = secretKey
+            };
+
+            var useHttp = rawEndpoint.StartsWith("http://", StringComparison.OrdinalIgnoreCase);
+            var host = (useHttp
+                ? rawEndpoint["http://".Length..]
+                : rawEndpoint.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+                    ? rawEndpoint["https://".Length..]
+                    : rawEndpoint).TrimEnd('/');
+
+            var clientProfile = new ClientProfile
+            {
+                HttpProfile = new HttpProfile
+                {
+                    Endpoint = host,
+                    Protocol = useHttp ? HttpProfile.REQ_HTTP : HttpProfile.REQ_HTTPS,
+                    Timeout = 10
+                }
+            };
+
+            _cachedClient = new CommonClient("sms", "2021-01-11", credential, region, clientProfile);
+            _cachedKey = key;
+            return _cachedClient;
+        }
+    }
+
     public async Task SendAsync(SmsMessage message, CancellationToken cancellationToken = default)
     {
         var settings = options.Value;
@@ -42,31 +90,7 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
             throw new InvalidOperationException(error);
         }
 
-        var credential = new Credential
-        {
-            SecretId = settings.SecretId,
-            SecretKey = settings.SecretKey
-        };
-
-        var rawEndpoint = string.IsNullOrWhiteSpace(settings.Endpoint) ? "sms.tencentcloudapi.com" : settings.Endpoint.Trim();
-        var useHttp = rawEndpoint.StartsWith("http://", StringComparison.OrdinalIgnoreCase);
-        var host = (useHttp
-            ? rawEndpoint["http://".Length..]
-            : rawEndpoint.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
-                ? rawEndpoint["https://".Length..]
-                : rawEndpoint).TrimEnd('/');
-
-        var clientProfile = new ClientProfile
-        {
-            HttpProfile = new HttpProfile
-            {
-                Endpoint = host,
-                Protocol = useHttp ? HttpProfile.REQ_HTTP : HttpProfile.REQ_HTTPS,
-                Timeout = 10
-            }
-        };
-
-        var client = new CommonClient("sms", "2021-01-11", credential, settings.Region.Trim(), clientProfile);
+        var client = GetOrCreateClient(settings);
 
         foreach (var batch in message.PhoneNumbers.Chunk(MaxPhoneNumbersPerBatch))
         {
@@ -108,7 +132,8 @@ public partial class SmsChannelAdapter(
     IOptions<SmsSettings> options,
     IStringLocalizer<SmsChannelAdapter> localizer) : INotificationChannelAdapter
 {
-    private const int MaxTemplateParamLength = 60;
+    // 腾讯云国内短信标准模板单个变量上限为 12 个字符。
+    private const int MaxTemplateParamLength = 12;
 
     [GeneratedRegex(@"^\+[1-9]\d{6,14}$", RegexOptions.CultureInvariant)]
     private static partial Regex E164Regex();
@@ -233,6 +258,14 @@ public partial class SmsChannelAdapter(
         {
             return new(false, ErrorMessage: exception.Message);
         }
+        catch (TencentCloudSDKException exception) when (exception.InnerException is OperationCanceledException or TimeoutException)
+        {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            return new(false, ErrorMessage: localizer["SMS sending timed out. Some recipients may have received the message; please verify and retry."].Value);
+        }
         catch (TencentCloudSDKException exception)
         {
             return new(false, ErrorMessage: string.Format(
@@ -267,5 +300,5 @@ public partial class SmsChannelAdapter(
         value.Replace('\r', ' ').Replace('\n', ' ').Trim();
 
     private static string Truncate(string value, int maxLength) =>
-        value.Length <= maxLength ? value : value[..(maxLength - 1)] + "…";
+        value.Length <= maxLength ? value : value[..maxLength];
 }

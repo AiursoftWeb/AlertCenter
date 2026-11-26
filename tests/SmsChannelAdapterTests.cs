@@ -292,6 +292,32 @@ public class SmsChannelAdapterTests
         var deliveryFailure = await _adapter.DeliverAsync(delivery);
         Assert.IsFalse(deliveryFailure.Succeeded);
         Assert.AreEqual("Rejected", deliveryFailure.ErrorMessage);
+
+        _sender.ExceptionToThrow = new TencentCloudSDKException("HTTP timeout", new TaskCanceledException("Timed out"));
+        var wrappedTimeoutFailure = await _adapter.DeliverAsync(delivery);
+        Assert.IsFalse(wrappedTimeoutFailure.Succeeded);
+        StringAssert.Contains(wrappedTimeoutFailure.ErrorMessage, "timed out");
+    }
+
+    [TestMethod]
+    public void CreateMessageTruncatesApplicationNameToTwelveCharacters()
+    {
+        var delivery = new PushDelivery
+        {
+            Incident = new Incident { Title = "Outage", Level = "sev0" }
+        };
+
+        var exact = _adapter.CreateMessage(delivery, ["+8613800138000"], "tpl-new", "AlertCenter!");
+        Assert.AreEqual("AlertCenter!", exact.TemplateParams[0]);
+        Assert.AreEqual("SEV0", exact.TemplateParams[1]);
+
+        var longEnglish = _adapter.CreateMessage(delivery, ["+8613800138000"], "tpl-new", "Payment Gateway Production");
+        Assert.AreEqual("Payment Gate", longEnglish.TemplateParams[0]);
+        Assert.AreEqual(12, longEnglish.TemplateParams[0].Length);
+
+        var longChinese = _adapter.CreateMessage(delivery, ["+8613800138000"], "tpl-new", "核心订单支付网关告警系统生产环境");
+        Assert.AreEqual("核心订单支付网关告警系统", longChinese.TemplateParams[0]);
+        Assert.AreEqual(12, longChinese.TemplateParams[0].Length);
     }
 
     [TestMethod]
