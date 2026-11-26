@@ -94,6 +94,19 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var until = now.AddDays(28);
         if (start >= until) return;
 
+        var (additions, through) = await PlanExtensionAsync(generator, group, shifts,
+            start, until, token, validatorLocalizer);
+        db.OnCallShifts.AddRange(additions);
+        group.ScheduleVersion = Guid.NewGuid();
+        group.AutoExtendedThroughUtc = through;
+        await db.SaveChangesAsync(token);
+    }
+
+    internal static async Task<(List<OnCallShift> Additions, DateTime Through)> PlanExtensionAsync(
+        IOnCallScheduleGenerator generator, OnCallGroup group, IQueryable<OnCallShift> shifts,
+        DateTime start, DateTime until, CancellationToken token, IStringLocalizer? validatorLocalizer)
+    {
+        var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         var rule = group.Rule!;
         var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
@@ -147,10 +160,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         }
         var overlaps = OnCallScheduleValidator.OverlapErrors(additions, [], validatorLocalizer);
         if (overlaps.Count > 0) throw new ArgumentException(string.Join(" ", overlaps.Select(overlap => overlap.Message)));
-        db.OnCallShifts.AddRange(additions);
-        group.ScheduleVersion = Guid.NewGuid();
-        group.AutoExtendedThroughUtc = through;
-        await db.SaveChangesAsync(token);
+        return (additions, through);
     }
 
     private static async Task QueueHandoversAsync(TemplateDbContext db, OnCallGroup group, DateTime now, string baseUrl,

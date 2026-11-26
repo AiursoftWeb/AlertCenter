@@ -1,4 +1,6 @@
 using System.Data;
+using System.Security.Cryptography;
+using System.Text.Json;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +9,11 @@ using Microsoft.Extensions.Localization;
 namespace Aiursoft.AlertCenter.Services;
 
 public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerator generator,
-    IStringLocalizer<OnCallScheduleService> localizer, IStringLocalizerFactory localizerFactory)
+    IStringLocalizer<OnCallScheduleService> localizer, IStringLocalizerFactory localizerFactory,
+    TimeProvider? timeProvider = null)
 {
     public const int MaxRangeDays = 92;
+    private const int ResetStartToleranceMinutes = 10;
 
     public string? ValidateRange(DateTime start, DateTime end)
     {
@@ -36,6 +40,98 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             await db.OnCallGroups.Where(group => group.Id == groupId)
                 .ExecuteUpdateAsync(update => update.SetProperty(group => group.ScheduleVersion, group => group.ScheduleVersion), token);
     }
+
+    internal sealed record ResetResult(int DeletedCount, int GeneratedCount, DateTime? StartUtc, DateTime? EndUtc,
+        bool AutoExtend, Guid Version, string PlanId);
+
+    internal sealed class ResetPlanChangedException : Exception;
+
+    internal Task<ResetResult?> ResetAsync(Guid id, bool regenerate, bool includeManual, bool preview, Guid version,
+        string? planId, CancellationToken token, DateTime? previewStartUtc = null) => db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
+    {
+        db.ChangeTracker.Clear();
+        await using var transaction = db.Database.IsRelational()
+            ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, token) : null;
+        await LockGroupAsync(db, id, token);
+        var group = await db.OnCallGroups.Include(item => item.Rule).ThenInclude(rule => rule!.HandoverPoints)
+            .Include(item => item.Members).SingleOrDefaultAsync(item => item.Id == id, token);
+        if (group == null) return null;
+        if (group.ScheduleVersion != version) throw new DbUpdateConcurrencyException();
+
+        var now = (timeProvider ?? TimeProvider.System).GetUtcNow().UtcDateTime;
+        var shifts = db.OnCallShifts.Where(shift => shift.GroupId == id);
+        var removed = shifts.Where(shift => shift.StartsAtUtc > now && (includeManual || shift.Source == OnCallShiftSource.Generated));
+        var retained = shifts.Where(shift => shift.StartsAtUtc <= now || (!includeManual && shift.Source != OnCallShiftSource.Generated));
+        var through = now;
+        List<OnCallShift> additions = [];
+        if (regenerate)
+        {
+            var rule = group.Rule ?? throw new ArgumentException(localizer["Please bind a scheduling template to the team first."].Value);
+            var error = new OnCallGroupFormService(generator, localizer).AutomaticExtensionError(rule, true, group.Members.Count);
+            if (error != null) throw new ArgumentException(error);
+
+            var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+            var activeUntil = await retained.Where(shift => shift.StartsAtUtc <= now && shift.EndsAtUtc > now)
+                .MaxAsync(shift => (DateTime?)shift.EndsAtUtc, token);
+            var start = anchor > now ? anchor : now;
+            if (activeUntil > start) start = DateTime.SpecifyKind(activeUntil.Value, DateTimeKind.Utc);
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+            through = OnCallScheduleGenerator.BoundaryAtOrAfter(rule, anchor, zone, now.AddDays(28));
+            if (start >= through)
+            {
+                if (!preview && !string.IsNullOrEmpty(planId)) throw new ResetPlanChangedException();
+                throw new ArgumentException(localizer["The next available shift starts outside the regeneration window."].Value);
+            }
+
+            // 空档预览从下一整分钟开始，确认时可沿用容差范围内的预览起点。
+            if (start == now)
+            {
+                start = new DateTime(now.Ticks - now.Ticks % TimeSpan.TicksPerMinute, DateTimeKind.Utc).AddMinutes(1);
+                if (!preview && previewStartUtc is { } previewStart)
+                {
+                    if (previewStart.Ticks % TimeSpan.TicksPerMinute != 0 || previewStart < anchor ||
+                        previewStart < now.AddMinutes(-ResetStartToleranceMinutes) || previewStart > start)
+                        throw new ResetPlanChangedException();
+                    start = previewStart;
+                }
+            }
+            (additions, through) = await OnCallMaintenanceWorker.PlanExtensionAsync(generator, group, retained,
+                start, through, token, localizerFactory.Create(typeof(OnCallScheduleValidator)));
+        }
+
+        var orderedRemovals = removed.OrderBy(shift => shift.Id);
+        var deleted = preview ? null : await orderedRemovals.ToListAsync(token);
+        var ids = deleted == null
+            ? await orderedRemovals.Select(shift => shift.Id).ToArrayAsync(token)
+            : deleted.Select(shift => shift.Id).ToArray();
+        var currentPlanId = Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(new
+        {
+            id, version, regenerate, includeManual, ids,
+            Through = regenerate ? (DateTime?)through : null,
+            Additions = additions.Select(shift => new
+            {
+                shift.StartsAtUtc, shift.EndsAtUtc, shift.RotationPosition,
+                Users = shift.Members.Select(member => member.UserId).Order(StringComparer.Ordinal)
+            })
+        })));
+        if (deleted != null)
+        {
+            if (!string.Equals(planId, currentPlanId, StringComparison.Ordinal))
+                throw new ResetPlanChangedException();
+
+            var receipts = await db.Set<OnCallHandoverReceipt>().Where(receipt => ids.Contains(receipt.ShiftId)).ToListAsync(token);
+            db.RemoveRange(receipts);
+            db.OnCallShifts.RemoveRange(deleted);
+            db.OnCallShifts.AddRange(additions);
+            group.AutoExtendedThroughUtc = through;
+            group.ScheduleVersion = Guid.NewGuid();
+            await db.SaveChangesAsync(token);
+            if (transaction != null) await transaction.CommitAsync(token);
+        }
+
+        return new ResetResult(ids.Length, additions.Count, additions.FirstOrDefault()?.StartsAtUtc,
+            additions.LastOrDefault()?.EndsAtUtc, group.AutoExtend, group.ScheduleVersion, currentPlanId);
+    });
 
     public static DateTime LocalToUtc(string value, TimeZoneInfo zone)
     {
