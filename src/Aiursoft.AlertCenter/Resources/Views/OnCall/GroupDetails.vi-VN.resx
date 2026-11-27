@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>thành viên</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Cũng xóa các ca trực được lên lịch thủ công</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Tính năng mở rộng tự động đã được bật. Sau khi xóa các ca làm việc trong tương lai, các ca làm việc sẽ được tạo lại từ mẫu hiện tại trong vòng khoảng một phút.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Quay lại danh sách nhóm</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Xóa các ca làm việc sắp tới</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Đóng</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Xác nhận xóa các ca làm việc trong tương lai</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Xác nhận tạo lại lịch</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Xác nhận xóa nhóm</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Chỉnh sửa nhóm</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Kết thúc</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Nhập chính xác tên nhóm để xác nhận xóa.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Không có thành viên nào trong nhóm.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Không áp dụng</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC email trực ca</value>
   </data>
@@ -81,8 +102,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Mở lịch</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Xem trước các thay đổi trước khi đặt lại lịch đã lưu. Chỉ các ca trực trong tương lai bị ảnh hưởng; các ca đang diễn ra và đã hoàn thành được giữ nguyên.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Nhận cảnh báo khi không có ai trực; không tham gia luân phiên.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Tạo lại lịch</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Đặt lại lịch đã lưu</value>
   </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>Luân phiên thành viên (theo thứ tự)</value>
@@ -90,8 +120,17 @@
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Thời điểm bắt đầu lịch:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Ca trực sẽ xóa</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Ca trực sẽ tạo</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Nhân sự mỗi ca</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Bắt đầu</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Cấu hình nhóm</value>
@@ -125,6 +164,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Múi giờ:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Không thể đặt lại lịch trình. Hãy làm mới trang và thử lại.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Xem lịch trực</value>

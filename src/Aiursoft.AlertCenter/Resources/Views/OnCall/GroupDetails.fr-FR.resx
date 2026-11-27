@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>membres</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Supprimer également les créneaux planifiés manuellement</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>L&apos;extension automatique est activée. Après la suppression des futures gardes, celles-ci seront régénérées à partir du modèle actuel dans un délai d&apos;environ une minute.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Retour à la liste des équipes</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Effacer les futurs créneaux</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Confirmer la suppression des créneaux futurs</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Confirmer la régénération du planning</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Confirmer la suppression de l&apos;équipe</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Modifier l&apos;équipe</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fin</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Saisissez le nom exact de l’équipe pour confirmer la suppression.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Aucun membre de l&apos;équipe.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Non applicable</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>E-mails d’astreinte en copie</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Ouvrir le planning</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Aperçu des modifications avant la réinitialisation de l&apos;horaire enregistré. Seuls les créneaux futurs sont affectés ; les créneaux en cours et terminés sont conservés.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Reçoivent les alertes lorsque personne n’est d’astreinte ; ne participent pas à la rotation.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Régénérer le planning</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Réinitialiser l&apos;horaire enregistré</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Début de la planification :</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Créneaux à supprimer</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Créneaux à générer</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Personnel par vacation</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Début</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Configuration de l’équipe</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Fuseau horaire :</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Impossible de réinitialiser l’horaire. Actualisez la page et réessayez.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Voir le planning de garde</value>

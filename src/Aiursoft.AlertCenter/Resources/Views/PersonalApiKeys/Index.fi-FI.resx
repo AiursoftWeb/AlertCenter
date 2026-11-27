@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Toiminnot</value>
+  </data>
+  <data name="Allow acknowledging, mitigating and resolving incidents. Leave unchecked for read-only access." xml:space="preserve">
+    <value>Salli tapahtumien myöntäminen, lieventäminen ja ratkaiseminen. Jätä valitsematta vain luku -oikeuden saamiseksi.</value>
+  </data>
+  <data name="Create personal API key" xml:space="preserve">
+    <value>Luo henkilökohtainen API-avain</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Vanhentunut</value>
+  </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Vaihtoehto</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Oikeudet</value>
+  </data>
+  <data name="Personal API Keys" xml:space="preserve">
+    <value>Henkilökohtaiset API-avaimet</value>
+  </data>
+  <data name="Revoke" xml:space="preserve">
+    <value>Kumoa</value>
+  </data>
+  <data name="This key is displayed only once. Save it securely now." xml:space="preserve">
+    <value>Tämä avain näytetään vain kerran. Tallenna se turvallisesti nyt.</value>
+  </data>
+  <data name="Use a personal key with the AlertCenter CLI to access incidents in your applications. The key never grants more access than your account has." xml:space="preserve">
+    <value>Käytä henkilökohtaista avainta AlertCenter CLI:ssä päästäksesi sovellustesi ongelmiin. Avain ei koskaan myönnä enempää pääsyä kuin tililläsi on.</value>
+  </data>
+  <data name="Valid for (days)" xml:space="preserve">
+    <value>Voimassa (päivinä)</value>
+  </data>
+
+</root>

@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>الأعضاء</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>احذف أيضًا المناوبات المجدولة يدويًا</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>تم تفعيل الامتداد التلقائي. بعد مسح الورديات المستقبلية، سيتم إنشاء الورديات مرة أخرى من القالب الحالي خلال دقيقة تقريبًا.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>العودة إلى قائمة الفرق</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>مسح المناوبات المستقبلية</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>إغلاق</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>تأكيد مسح المناوبات المستقبلية</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>تأكيد إعادة توليد الجدول</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>تأكيد حذف الفريق</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>تعديل الفريق</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>النهاية</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>أدخل اسم الفريق المطابق تمامًا لتأكيد الحذف.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>لا يوجد أعضاء في الفريق.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>غير ذي صلة</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>نسخ CC لبريد النداء</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>فتح الجدول</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>معاينة التغييرات قبل إعادة تعيين الجدول المحفوظ. لن تتأثر سوى المناوبات المستقبلية؛ حيث تُحافظ على المناوبات الجارية والمكتملة.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>يتلقون التنبيهات عندما لا يوجد أحد في المناوبة؛ ولا يشاركون في التناوب.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>إعادة إنشاء الجدول</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>إعادة تعيين الجدول المحفوظ</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>نقطة بداية الجدولة:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>الوردات المحذوفة</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>الورديات التي سيتم إنشاؤها</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>عدد الأفراد في كل مناوبة</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>البداية</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>إعدادات الفريق</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>المنطقة الزمنية:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>تعذر إعادة تعيين الجدول. حدّث الصفحة وحاول مرة أخرى.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>عرض جدول المناوبات</value>

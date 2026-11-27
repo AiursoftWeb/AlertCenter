@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Allow acknowledging, mitigating and resolving incidents. Leave unchecked for read-only access." xml:space="preserve">
+    <value>允許確認、緩解及解決事件。如不勾選，則僅具有唯讀存取權限。</value>
+  </data>
+  <data name="Create personal API key" xml:space="preserve">
+    <value>建立個人 API 金鑰</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>已過期</value>
+  </data>
+  <data name="Expires" xml:space="preserve">
+    <value>到期日</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>權限</value>
+  </data>
+  <data name="Personal API Keys" xml:space="preserve">
+    <value>個人 API 金鑰</value>
+  </data>
+  <data name="Revoke" xml:space="preserve">
+    <value>撤銷</value>
+  </data>
+  <data name="This key is displayed only once. Save it securely now." xml:space="preserve">
+    <value>此金鑰只會顯示一次，請立即妥善儲存。</value>
+  </data>
+  <data name="Use a personal key with the AlertCenter CLI to access incidents in your applications. The key never grants more access than your account has." xml:space="preserve">
+    <value>使用個人金鑰配合 AlertCenter CLI 來存取應用程式中的事故。該金鑰授予的權限不會超過您帳戶所擁有的權限。</value>
+  </data>
+  <data name="Valid for (days)" xml:space="preserve">
+    <value>有效期限（日）</value>
+  </data>
+
+</root>

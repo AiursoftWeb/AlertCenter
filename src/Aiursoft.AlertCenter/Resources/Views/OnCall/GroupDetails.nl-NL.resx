@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>leden</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Verwijder ook handmatig ingeplande diensten</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Automatische uitbreiding is ingeschakeld. Na het wissen van toekomstige diensten worden diensten opnieuw gegenereerd vanuit de huidige sjabloon binnen ongeveer een minuut.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Terug naar teamlijst</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Wis toekomstige shifts</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Sluiten</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Bevestig wissen toekomstige ploegen</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Bevestig opnieuw genereren van rooster</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Bevestig teamverwijdering</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Team bewerken</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Einde</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Voer de exacte teamnaam in om de verwijdering te bevestigen.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Geen teamleden.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Niet van toepassing</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>E-mailkopie voor oproepdienst</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Rooster openen</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Bekijk de wijzigingen voordat u het opgeslagen rooster opstelt. Alleen toekomstige diensten zijn betroffen; lopende en afgeronde diensten blijven behouden.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Ontvangen meldingen als niemand dienst heeft; nemen niet deel aan de rotatie.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Rooster opnieuw genereren</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Opgeslagen rooster wissen</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Beginpunt van het rooster:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Shifts te verwijderen</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Shifts te genereren</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Medewerkers per dienst</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Teamconfiguratie</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Tijdzone:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Het schema kan niet worden gereset. Vernieuw de pagina en probeer het opnieuw.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Dienstrooster bekijken</value>

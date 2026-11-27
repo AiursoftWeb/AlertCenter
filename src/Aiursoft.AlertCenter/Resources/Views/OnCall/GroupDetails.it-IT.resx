@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>membri</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Elimina anche i turni pianificati manualmente</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>L&apos;estensione automatica è abilitata. Dopo la cancellazione dei turni futuri, i turni verranno rigenerati dal modello corrente entro circa un minuto.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Torna all’elenco dei team</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annulla</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Cancella turni futuri</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Chiudi</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Conferma l&apos;eliminazione dei turni futuri</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Conferma rigenerazione pianificazione</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Conferma eliminazione del team</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Modifica il team</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fine</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Inserisci il nome esatto del team per confermare l’eliminazione.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Nessun membro del team.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Non applicabile</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC email di reperibilità</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Apri pianificazione</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Anteprima delle modifiche prima di reimpostare l&apos;orario salvato. Solo i turni futuri sono interessati; i turni in corso e completati vengono mantenuti.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Ricevono gli avvisi quando nessuno è reperibile; non partecipano alla rotazione.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Rigenera piano</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Reimposta piano salvato</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Punto di partenza della pianificazione:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Turni da eliminare</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Turni da generare</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Personale per turno</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Inizio</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Configurazione del team</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Fuso orario:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Impossibile reimpostare la pianificazione. Aggiorna la pagina e riprova.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Visualizza il calendario dei turni di reperibilità</value>

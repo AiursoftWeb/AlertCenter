@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Postoji sprema raspored; početna točka rasporeda tima ne može se promijeniti.</value>
+  </data>
+  <data name="Add at least one weekly handover point." xml:space="preserve">
+    <value>Dodajte barem jedan tjedni točku preuzimanja smjene.</value>
+  </data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve">
+    <value>Zamjenski primatelji moraju biti postojeći korisnici sustava.</value>
+  </data>
+  <data name="Invalid team local time." xml:space="preserve">
+    <value>Neispravno lokalno vrijeme tima.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Neispravan lokalni vrijeme tima. Tijekom prijelaza na ljetno ili zimsko računalno vrijeme, preskočena vremena su neispravna, a ponovljena vremena koriste standardno vrijeme.</value>
+  </data>
+  <data name="Invalid week start." xml:space="preserve">
+    <value>Neispravan početak tjedna.</value>
+  </data>
+  <data name="Invalid weekly handover point." xml:space="preserve">
+    <value>Neispravna točka tjednog preuzimanja dužnosti.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Minimalni odmor mora biti 0–168 sati.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Minimalan broj osoblja po smjeni mora biti 1–200.</value>
+  </data>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Još nema predloška vezanog za tim. Možete ručno kreirati raspored.</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Tim dežurnih ne postoji.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Unesite naziv tima.</value>
+  </data>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Unesite naziv predloška.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Odaberite valjito početno vrijeme UTC (mora biti barem 28 dana od granice datuma).</value>
+  </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Odaberite valjano lokalno vrijeme početka tima (mora biti najmanje 28 dana od granice datuma).</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Odaberite valjitu vremensku zonu s popisa.</value>
+  </data>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Odaberite postojeći predložak rasporeda.</value>
+  </data>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Predložak za raspored uspješno kreiran.</value>
+  </data>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Predložak za raspored je obrisan.</value>
+  </data>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Predložak za raspoređivanje je ažuriran.</value>
+  </data>
+  <data name="Shift duration must be positive." xml:space="preserve">
+    <value>Trajanje smjene mora biti pozitivno.</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Kraj smjene mora biti nakon početka.</value>
+  </data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve">
+    <value>Broj osoblja po smjeni ne smije premašiti veličinu rotacijske redoslijeda.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Ciljan broj osoblja ne može biti niži od minimuma i mora biti između 1 i 200. Ostavite prazno za automatsko dodjeljivanje.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Tim je uspješno kreiran.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Tim je obrisan.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Tim ažuriran.</value>
+  </data>
+  <data name="The reset plan has changed. Preview the changes again before confirming." xml:space="preserve">
+    <value>Plan za resetiranje se promijenio. Ponovno pregledajte promjene prije potvrde.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Raspored se promijenio ili je došlo do sukoba pri spremanju. Osvježite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Odabrani zaposlenici ne postoje, podupljeni su ili premašuju 200. Molimo vas da ponovno odaberete.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Format zahtjeva za smjenu nije ispravan.</value>
+  </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve">
+    <value>Početno vrijeme ne odgovara tjednoj točki preuzimanja; prva smjena bit će djelomični segment.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Naziv tima ne odgovara.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Tim ili raspored je promijenjen. Osvježite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="The team preview request format is invalid." xml:space="preserve">
+    <value>Format zahtjeva za pregled tima nije ispravan.</value>
+  </data>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Predložak ili tim je promijenjen. Osvježite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Ovaj tim je povezan s integriranom aplikacijom. Prvo preodredite ili odvezite on-call skupinu aplikacije.</value>
+  </data>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Ovaj predložak i dalje je vezan za tim. Prvo ažurirajte vezu predloška tima.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Nije moguće generirati pregled: {0}</value>
+  </data>
+
+</root>

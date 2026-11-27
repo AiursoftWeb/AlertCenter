@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Akcija</value>
+  </data>
+  <data name="Add first channel" xml:space="preserve">
+    <value>Dodajte prvi kanal</value>
+  </data>
+  <data name="Add new channel" xml:space="preserve">
+    <value>Dodaj novi kanal</value>
+  </data>
+  <data name="Application Tier Association" xml:space="preserve">
+    <value>Povezivanje razina aplikacija</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Channel Type" xml:space="preserve">
+    <value>Vrsta kanala</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Naziv kanala</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Configure " xml:space="preserve">
+    <value>Podesi</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Potvrdi brisanje</value>
+  </data>
+  <data name="Confirm push channel deletion" xml:space="preserve">
+    <value>Potvrdite brisanje kanala za push obavijesti</value>
+  </data>
+  <data name="Confirm sending to channel" xml:space="preserve">
+    <value>Potvrdite slanje na kanal</value>
+  </data>
+  <data name="Current Status" xml:space="preserve">
+    <value>Trenutni status</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="Delete push channel" xml:space="preserve">
+    <value>Brisanje push kanala</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Onemogući</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Onemogućeno</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Omogući</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Uključen</value>
+  </data>
+  <data name="Linked application push configurations, historical delivery records, and corresponding in-app notifications will be deleted. This action cannot be undone." xml:space="preserve">
+    <value>Povezane postavke push obavijesti aplikacija, povijesni zapisi isporuke i odgovarajuće obavijesti unutar aplikacije bit će izbrisani. Ova radnja se ne može poništiti.</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Dnevnik</value>
+  </data>
+  <data name="Manage notification delivery channels to deliver incidents to responsible parties and external systems accurately based on severity levels." xml:space="preserve">
+    <value>Upravljajte kanalima za isporuku obavijesti kako biste incidenti točno dostavili odgovornim osobama i vanjskim sustavima na temelju razina ozbiljnosti.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Još nema konfiguriranih push kanala</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Obavijesti</value>
+  </data>
+  <data name="Push channel configured" xml:space="preserve">
+    <value>Postavljeni push kanali</value>
+  </data>
+  <data name="Select the channel type above (e.g., Webhook, in-app notification, or email) and configure it to associate with the integrated application." xml:space="preserve">
+    <value>Odaberite vrstu kanala iznad (npr. Webhook, obavijest u aplikaciji ili e-pošta) i konfigurirajte ga kako bi se povezano s integriranom aplikacijom.</value>
+  </data>
+  <data name="Send test message" xml:space="preserve">
+    <value>Pošalji testnu poruku</value>
+  </data>
+  <data name="Send test message and view delivery result" xml:space="preserve">
+    <value>Pošaljite testnu poruku i pregledajte rezultat dostave</value>
+  </data>
+  <data name="Send test notification?" xml:space="preserve">
+    <value>Poslati testno obavještenje?</value>
+  </data>
+  <data name="Send test now" xml:space="preserve">
+    <value>Pošalji test odmah</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Politika ozbiljnosti</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="Test message content" xml:space="preserve">
+    <value>Sadržaj testne poruke</value>
+  </data>
+  <data name="The system will immediately create a delivery task and invoke the corresponding channel adapter. After execution, you will be redirected to the delivery details page to view the results." xml:space="preserve">
+    <value>Sustav će odmah stvoriti zadatak za isporuku i pozvati odgovarajući adapter kanala. Nakon izvršavanja, bit ćete preusmjereni na stranicu s detaljima isporuke kako biste pregledali rezultate.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Ovo je testna poruka za push kanal.</value>
+  </data>
+  <data name="View all delivery records" xml:space="preserve">
+    <value>Prikaži sve zapise isporuke</value>
+  </data>
+  <data name="channels" xml:space="preserve">
+    <value>kanali</value>
+  </data>
+
+</root>
