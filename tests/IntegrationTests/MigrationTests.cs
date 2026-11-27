@@ -94,7 +94,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(15, context.Database.GetMigrations().Count());
+        Assert.AreEqual(16, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -104,6 +104,25 @@ public class MigrationTests
         CollectionAssert.AreEqual(context.Database.GetMigrations().ToArray(),
             (await context.Database.GetAppliedMigrationsAsync()).ToArray());
         Assert.IsTrue(await context.Database.CanConnectAsync());
+    }
+
+    [TestMethod]
+    public async Task PersonalKeysAreDeletedWithTheirOwnerInSqlite()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        await context.Database.MigrateAsync();
+        var user = new User { DisplayName = "Owner" };
+        context.PersonalApiKeys.Add(new PersonalApiKey
+        {
+            User = user, Name = "CLI", SecretHash = new byte[32],
+            CreatedAtUtc = DateTime.UtcNow, ExpiresAtUtc = DateTime.UtcNow.AddDays(1)
+        });
+        await context.SaveChangesAsync();
+        context.ChangeTracker.Clear();
+        await context.Users.Where(item => item.Id == user.Id).ExecuteDeleteAsync();
+        Assert.IsFalse(await context.PersonalApiKeys.AnyAsync());
     }
 
     [TestMethod]
@@ -277,7 +296,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(15, context.Database.GetMigrations().Count());
+        Assert.AreEqual(16, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -7,6 +8,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations;
 
 [DbContext(typeof(MySqlContext))]
 [Migration("20261019052000_IndependentIncidentAcknowledgement")]
+[ExcludeFromCodeCoverage]
 public class IndependentIncidentAcknowledgement : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

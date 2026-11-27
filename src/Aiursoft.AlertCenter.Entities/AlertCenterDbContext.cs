@@ -13,6 +13,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ApplicationApiKey> ApplicationApiKeys => Set<ApplicationApiKey>();
+    public DbSet<PersonalApiKey> PersonalApiKeys => Set<PersonalApiKey>();
     public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
@@ -42,6 +43,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<SeverityRule>().HasData(SeverityRule.Defaults());
         builder.Entity<ApplicationApiKey>().HasOne(key => key.Application).WithMany()
             .HasForeignKey(key => key.ApplicationId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PersonalApiKey>().HasOne(key => key.User).WithMany()
+            .HasForeignKey(key => key.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<SourceApplication>().HasOne(application => application.Owner).WithMany()
             .HasForeignKey(application => application.OwnerId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<PushChannel>().Property(channel => channel.WebhookHeadersProtected).HasColumnType("text");

@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const test = require('node:test');
 
 const script = fs.readFileSync(path.resolve(__dirname, '../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-personal.js'), 'utf8');
-const { localDateKey, splitShiftByLocalDate, monthGrid, monthBounds, navigateMonth, collapseDay } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-personal-calendar.js');
+const { localDateKey, splitShiftByLocalDate, monthGrid, monthBounds, navigateMonth, collapseDay, daysUntilShift } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-personal-calendar.js');
 
 function inTimeZone(zone, run) {
     const previous = process.env.TZ;
@@ -102,7 +102,13 @@ test('day overflow shows at most three shifts without losing the full ordered li
     }
 });
 
-function setup({ clipboard } = {}) {
+function setup({ teamZone = 'UTC', instant = '2026-11-09T00:00:00Z', now = '2026-11-09T00:00:00Z', locale = 'en-US', clipboard } = {}) {
+    const time = {
+        dateTime: instant,
+        dataset: { zone: teamZone },
+        firstElementChild: { textContent: 'server fallback' },
+        lastElementChild: { classList: { toggle(name, hidden) { assert.equal(name, 'd-none'); time.globeHidden = hidden; } } }
+    };
     const countdown = { dataset: { countdown: '2026-11-10T02:05:00Z', label: 'Starts in' } };
     let click;
     let selected = false;
@@ -110,22 +116,65 @@ function setup({ clipboard } = {}) {
     const button = { dataset: { copied: 'Copied', copyFailed: 'Copy manually' }, addEventListener(_, handler) { click = handler; } };
     const input = { value: 'https://example.com/OnCall/Calendar.ics?token=secret', select() { selected = true; } };
     const status = {};
-    class FixedDate extends Date { static now() { return Date.parse('2026-11-09T00:00:00Z'); } }
+    class FixedDate extends Date { static now() { return Date.parse(now); } }
     const international = {
+        DateTimeFormat: function (language, options) { return new Intl.DateTimeFormat(language ?? locale, options); },
+        RelativeTimeFormat: function (language, options) { return new Intl.RelativeTimeFormat(language ?? locale, options); },
         NumberFormat: Intl.NumberFormat
     };
     vm.runInNewContext(script, {
         Intl: international, Date: FixedDate,
         document: {
-            querySelectorAll: selector => { assert.equal(selector, '[data-countdown]'); return [countdown]; },
+            querySelectorAll: selector => selector === '[data-oncall-time]' ? [time] : [countdown],
             querySelector: selector => selector === '[data-countdown]' ? countdown : button,
             getElementById: id => id === 'oncall-subscription' ? input : status
         },
         window: { setInterval(handler, milliseconds) { assert.equal(milliseconds, 30000); interval = handler; } },
         navigator: clipboard ? { clipboard } : {}
     });
-    return { countdown, click, status, input, interval, selected: () => selected };
+    return { time, countdown, click, status, input, interval, selected: () => selected };
 }
+
+test('shift labels use local calendar days, localized dates, and years for distant shifts', () => {
+    inTimeZone('Asia/Tokyo', () => {
+        for (const [instant, expected] of [
+            ['2026-11-23T14:00Z', '今天 23:00'],
+            ['2026-11-23T15:00Z', '明天 00:00'],
+            ['2026-11-22T14:00Z', '昨天 23:00'],
+            ['2026-11-29T14:00Z', '周日 23:00'],
+            ['2026-11-17T14:00Z', '周二 23:00'],
+            ['2026-11-30T14:00Z', '11月30日 23:00'],
+            ['2027-01-01T14:00Z', '2027年1月1日 23:00']
+        ]) {
+            const { time } = setup({ instant, now: '2026-11-23T14:30Z', locale: 'zh-CN' });
+            assert.equal(time.firstElementChild.textContent, expected);
+        }
+    });
+});
+
+test('same or equivalent zones hide the globe and show only the team title', () => {
+    inTimeZone('UTC', () => {
+        for (const teamZone of ['UTC', 'Etc/UTC']) {
+            const { time } = setup({ teamZone });
+            assert.equal(time.globeHidden, true);
+            assert.equal(time.title, `2026-11-09 00:00 (${teamZone})`);
+        }
+    });
+});
+
+test('different zones show a globe and both complete times in the title, even at equal offsets', () => {
+    inTimeZone('Asia/Tokyo', () => {
+        const { time } = setup({ teamZone: 'Asia/Shanghai', instant: '2026-11-23T15:00Z', now: '2026-11-23T14:30Z', locale: 'zh-CN' });
+        assert.equal(time.firstElementChild.textContent, '明天 00:00');
+        assert.equal(time.globeHidden, false);
+        assert.equal(time.title, '2026-11-23 23:00 (Asia/Shanghai)\n2026-11-24 00:00 (Asia/Tokyo)');
+    });
+    inTimeZone('Asia/Singapore', () => {
+        const { time } = setup({ teamZone: 'Asia/Shanghai' });
+        assert.equal(time.globeHidden, false);
+        assert.equal(time.title, '2026-11-09 08:00 (Asia/Shanghai)\n2026-11-09 08:00 (Asia/Singapore)');
+    });
+});
 
 test('countdown works without DurationFormat and never displays a negative duration', () => {
     const ui = setup();
@@ -148,4 +197,17 @@ test('copy confirms only after clipboard succeeds and falls back to selecting th
     const unavailable = setup();
     await unavailable.click();
     assert.equal(unavailable.status.textContent, 'Copy manually');
+});
+
+test('homepage countdown counts local dates across DST, midnight, and year boundaries', () => {
+    inTimeZone('America/New_York', () => {
+        assert.equal(daysUntilShift(new Date('2026-03-09T04:00:00Z'), new Date('2026-03-08T05:00:00Z')), 1);
+        assert.equal(daysUntilShift(new Date('2026-11-02T05:00:00Z'), new Date('2026-11-01T04:00:00Z')), 1);
+        assert.equal(daysUntilShift(new Date('2027-01-01T05:00:00Z'), new Date('2027-01-01T04:59:00Z')), 1);
+        assert.equal(daysUntilShift(new Date('2026-11-24T23:00:00Z'), new Date('2026-11-24T15:00:00Z')), 0);
+        assert.equal(daysUntilShift(new Date('2026-11-23T15:00:00Z'), new Date('2026-11-24T15:00:00Z')), 0);
+    });
+    inTimeZone('Asia/Shanghai', () => {
+        assert.equal(daysUntilShift(new Date('2026-11-24T16:00:00Z'), new Date('2026-11-24T15:59:00Z')), 1);
+    });
 });

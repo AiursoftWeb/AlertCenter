@@ -22,4 +22,10 @@
     <ProjectReference Include="..\src\Aiursoft.AlertCenter\Aiursoft.AlertCenter.csproj" />
     <ProjectReference Include="..\src\Aiursoft.AlertCenter.Client\Aiursoft.AlertCenter.Client.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="../src/Aiursoft.AlertCenter/wwwroot/scripts/file-upload.js" TargetPath="wwwroot/scripts/file-upload.js" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../src/Aiursoft.AlertCenter/wwwroot/scripts/notice-dialog.js" TargetPath="wwwroot/scripts/notice-dialog.js" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../src/Aiursoft.AlertCenter/wwwroot/scripts/uploader.js" TargetPath="wwwroot/scripts/uploader.js" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../src/Aiursoft.AlertCenter/wwwroot/styles/uploader.css" TargetPath="wwwroot/styles/uploader.css" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

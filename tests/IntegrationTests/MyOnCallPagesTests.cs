@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
-using Aiursoft.WebTools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
@@ -11,6 +10,7 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 [TestClass]
 public class MyOnCallPagesTests : TestBase
 {
+    protected override string[] ServerArguments => ["--applicationName", "Aiursoft.AlertCenter"];
     private static readonly HttpClient Anonymous = new();
     private readonly List<Guid> groupIds = [];
     private readonly List<string> userIds = [];
@@ -83,9 +83,9 @@ public class MyOnCallPagesTests : TestBase
             Assert.Contains("Calendar coworker &lt;Chen&gt;", article);
             Assert.Contains("href=\"/OnCall/GroupDetails/", article);
             var shift = shifts.Single(value => value.GetProperty("id").GetGuid() == id);
-            Assert.AreEqual(2, Regex.Matches(article, "data-utc-time=").Count);
-            Assert.Contains($"data-utc-time=\"{shift.GetProperty("startsAtUtc").GetDateTime().ToHtmlDateTime()}\"", article);
-            Assert.Contains($"data-utc-time=\"{shift.GetProperty("endsAtUtc").GetDateTime().ToHtmlDateTime()}\"", article);
+            Assert.AreEqual(2, Regex.Matches(article, "data-oncall-time").Count);
+            Assert.Contains($"<time datetime=\"{shift.GetProperty("startsAtUtc").GetDateTime():O}\" data-oncall-time", article);
+            Assert.Contains($"<time datetime=\"{shift.GetProperty("endsAtUtc").GetDateTime():O}\" data-oncall-time", article);
             Assert.Contains("48 hours", article);
         }
         Assert.Contains("id=\"personal-calendar-fallback\"", rawHtml);
@@ -104,6 +104,10 @@ public class MyOnCallPagesTests : TestBase
         Assert.Contains("data-shifts=\"[]\"", html);
         Assert.Contains("No shifts in this period.", html);
         Assert.Contains("id=\"personal-calendar-fallback\"", html);
+        var home = await Http.GetStringAsync("/Dashboard/Index");
+        Assert.Contains("You have not joined an on-call team", home);
+        Assert.Contains("data-shifts=\"[]\"", home);
+        Assert.Contains("No upcoming shift", home);
     }
 
     [TestMethod]
@@ -195,12 +199,15 @@ public class MyOnCallPagesTests : TestBase
     }
 
     [TestMethod]
-    public async Task CurrentBannerMergesOverlapsShowsAllTeamsAndFallbacksAndBadgeOnlyForDuty()
+    public async Task DashboardCardsShowMembershipTeamsContactsAndPersonalCalendarWithoutOtherShifts()
     {
         await LoginAsAdmin();
         var now = DateTime.UtcNow;
         Guid activeId;
         Guid gapId;
+        Guid unrelatedId;
+        Guid otherId;
+        Guid vacantId;
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -208,14 +215,20 @@ public class MyOnCallPagesTests : TestBase
             var coworker = new User { UserName = "banner-coworker-" + Guid.NewGuid(), DisplayName = "Banner coworker", Email = "banner@example.com" };
             db.Users.Add(coworker);
             userIds.Add(coworker.Id);
-            var active = new OnCallGroup { Name = "Active banner team", TimeZoneId = "Asia/Shanghai" };
-            var gap = new OnCallGroup { Name = "Gap fallback team", FallbackRecipients = [new OnCallFallbackRecipient { UserId = admin.Id }] };
-            var vacant = new OnCallGroup { Name = "Vacant banner team" };
-            groupIds.AddRange([active.Id, gap.Id, vacant.Id]);
+            var active = new OnCallGroup { Name = "Active banner team", TimeZoneId = "Asia/Shanghai", Members = [new() { UserId = admin.Id }] };
+            var gap = new OnCallGroup { Name = "Gap fallback team", Members = [new() { UserId = admin.Id }], FallbackRecipients = [new OnCallFallbackRecipient { UserId = admin.Id }] };
+            var vacant = new OnCallGroup { Name = "Vacant banner team", Members = [new() { UserId = admin.Id }] };
+            var unrelated = new OnCallGroup { Name = "Unrelated private dashboard team", Members = [new() { UserId = coworker.Id }] };
+            var other = new OnCallGroup { Name = "Coworker duty team", Members = [new() { UserId = admin.Id }] };
+            groupIds.AddRange([active.Id, gap.Id, vacant.Id, unrelated.Id, other.Id]);
             activeId = active.Id;
             gapId = gap.Id;
-            db.OnCallGroups.AddRange(active, gap, vacant);
+            unrelatedId = unrelated.Id;
+            otherId = other.Id;
+            vacantId = vacant.Id;
+            db.OnCallGroups.AddRange(active, gap, vacant, unrelated, other);
             db.OnCallShifts.AddRange(
+                new OnCallShift { Group = other, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(1), Members = [new() { UserId = coworker.Id }] },
                 new OnCallShift { Group = active, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(2), Members = [new() { UserId = admin.Id }] },
                 new OnCallShift { Group = active, StartsAtUtc = now.AddMinutes(-30), EndsAtUtc = now.AddHours(1), Members = [new() { UserId = admin.Id }, new() { UserId = coworker.Id }] },
                 new OnCallShift { Group = active, StartsAtUtc = now.AddHours(2), EndsAtUtc = now.AddHours(3), Members = [new() { UserId = admin.Id }] },
@@ -223,8 +236,12 @@ public class MyOnCallPagesTests : TestBase
                 new OnCallShift { Group = gap, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(1) });
             await db.SaveChangesAsync();
         }
-        var home = WebUtility.HtmlDecode(await Http.GetStringAsync("/Dashboard/Index"));
+        var rawHome = await Http.GetStringAsync("/Dashboard/Index");
+        var home = WebUtility.HtmlDecode(rawHome);
         Assert.Contains("id=\"current-oncall\"", home);
+        Assert.IsTrue(home.IndexOf("Monitoring Dashboard", StringComparison.Ordinal) < home.IndexOf("id=\"current-oncall\"", StringComparison.Ordinal));
+        Assert.IsTrue(home.IndexOf("Push Success Rate", StringComparison.Ordinal) < home.IndexOf("id=\"current-oncall\"", StringComparison.Ordinal));
+        Assert.IsTrue(home.IndexOf("id=\"current-oncall\"", StringComparison.Ordinal) < home.IndexOf("id=\"my-incidents-card\"", StringComparison.Ordinal));
         Assert.Contains("id=\"my-oncall-card\"", home);
         Assert.Contains("id=\"on-duty-badge\"", home);
         Assert.Contains("href=\"/OnCall/Mine\"", home);
@@ -233,19 +250,36 @@ public class MyOnCallPagesTests : TestBase
         Assert.Contains("Vacant banner team", home);
         Assert.Contains("Alerts will go to fallback recipients", home);
         Assert.Contains("No fallback configured: alerts cannot be delivered", home);
-        var activeRow = Regex.Match(home, $"data-team-id=\"{activeId}\"(.*?)</div>\\s*</div>", RegexOptions.Singleline).Value;
+        var activeRow = Regex.Match(home, $"<article[^>]*data-team-id=\"{activeId}\".*?</article>", RegexOptions.Singleline).Value;
         Assert.Contains("data-on-duty=\"true\"", activeRow);
-        Assert.AreEqual(1, Regex.Matches(activeRow, "mailto:admin@default.com").Count);
-        Assert.AreEqual(1, Regex.Matches(activeRow, "mailto:banner@example.com").Count);
-        Assert.AreEqual(2, Regex.Matches(activeRow, "Banner coworker").Count);
-        Assert.Contains("Next shift", activeRow);
-        Assert.AreEqual(2, Regex.Matches(activeRow, "data-utc-time=").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "mailto:admin@default.com").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "mailto:banner@example.com").Count);
+        Assert.AreEqual(4, Regex.Matches(activeRow, "Banner coworker").Count);
+        Assert.Contains("Primary OCE", activeRow);
+        Assert.Contains("Next OCE", activeRow);
+        Assert.Contains("ac-oce-avatar rounded-circle", activeRow);
+        Assert.AreEqual(4, Regex.Matches(activeRow, "data-oncall-time").Count);
+        string TeamRow(Guid id) => Regex.Match(home, $"<article[^>]*data-team-id=\"{id}\".*?</article>", RegexOptions.Singleline).Value;
+        Assert.Contains("data-on-duty=\"false\"", TeamRow(otherId));
+        Assert.Contains("No upcoming shift", TeamRow(otherId));
+        Assert.Contains("data-on-duty=\"false\"", TeamRow(gapId));
+        Assert.Contains("Nobody on duty", TeamRow(gapId));
+        Assert.Contains("border-danger", TeamRow(vacantId));
+        Assert.Contains("data-on-duty=\"false\"", TeamRow(vacantId));
+        Assert.AreEqual(4, Regex.Matches(activeRow, "data-zone=\"Asia/Shanghai\"").Count);
+        Assert.AreEqual(4, Regex.Matches(activeRow, "data-lucide=\"globe\"").Count);
+        Assert.DoesNotContain($"data-team-id=\"{unrelatedId}\"", home);
+        Assert.Contains("ac-personal-calendar-compact", home);
+        Assert.Contains("data-next-oncall=", home);
+        var calendar = Regex.Match(rawHome, "<div id=\"oncall-personal-calendar\"[^>]*>").Value;
+        using var data = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(calendar, "data-shifts=\"([^\"]*)\"").Groups[1].Value));
+        Assert.AreEqual(3, data.RootElement.GetArrayLength());
         var detail = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/GroupDetails/{gapId}"));
         Assert.Contains("Alerts will go to fallback recipients", detail);
         Assert.DoesNotContain($"data-team-id=\"{activeId}\"", detail);
         var mine = WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/Mine"));
         Assert.Contains("On duty", mine);
-        Assert.Contains("data-utc-time=", mine);
+        Assert.Contains("data-oncall-time", mine);
         Assert.Contains("data-countdown=", mine);
         using (var scope = Server.Services.CreateScope())
         {
@@ -264,8 +298,9 @@ public class MyOnCallPagesTests : TestBase
         Assert.Contains("私密日历订阅", chinese);
         Assert.Contains("未来 8 周班段", chinese);
         chinese = WebUtility.HtmlDecode(await Http.GetStringAsync("/Dashboard/Index"));
-        Assert.Contains("当前值班", chinese);
-        Assert.Contains("告警将发给兜底接收人", chinese);
+        Assert.Contains("您的值班团队", chinese);
+        Assert.Contains("我的值班日历", chinese);
+        Assert.Contains("警报将发送给备用接收人", chinese);
         Assert.Contains("查看班段、值班时长和私密日历订阅。", chinese);
     }
 }
