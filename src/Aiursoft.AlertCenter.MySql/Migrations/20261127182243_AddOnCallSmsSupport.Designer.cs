@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aiursoft.AlertCenter.MySql.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20261124164622_AddOnCallSmsSupport")]
+    [Migration("20261127182243_AddOnCallSmsSupport")]
     partial class AddOnCallSmsSupport
     {
         /// <inheritdoc />
@@ -758,6 +758,42 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("OnCallShiftMembers");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PersonalApiKey", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("CanHandleIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("ExpiresAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<byte[]>("SecretHash")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varbinary(32)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PersonalApiKeys");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannel", b =>
@@ -1540,6 +1576,17 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .IsRequired();
 
                     b.Navigation("Shift");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PersonalApiKey", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
