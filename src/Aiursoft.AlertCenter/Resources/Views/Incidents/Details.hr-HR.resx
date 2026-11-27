@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Potvrdite i preuzmite odgovornost</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Potvrđeno</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Prilagodite težinu incidenta</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Podesi ozbiljnost</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Prilagodite ozbiljnost ovog incidenta i zabilježite razlog. Povećanje ozbiljnosti stavlja e-poštu u red čekanja; smanjenje je ne stavlja.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Također odmah riješite ovaj incident, koristeći razlog ublažavanja kao razlog rješenja.</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Automatski kreirano u</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Natrag na popis incidenta</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Oporavak u zatvorenom krugu</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Potvrdi ublažavanje incidenta</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Potvrdi ponovno otvaranje incidenta</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Potvrdi rješavanje incidenta</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Potvrdi prilagodbu ozbiljnosti</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Bilješka o potvrdi (neobavezno)</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Kopiraj JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Kopiraj sadržaj</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Trenutni OCE na dežurstvu</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Trenutno na dežurstvu</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Opišite mjere ublažavanja, opseg utjecaja i status oporavka.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Opišite promjene utjecaja i osnove za prilagodbu težine.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Svaki neovisni izvještaj stvara novi incident. Prepoznavanje, ublažavanje ili rješavanje ovog incidenta ne utječe na druge incidente niti na njihova obavješćivanja.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Primjer: Jezgra veze s bazom podataka obnovljena, odgovori usluge normalni, test opterećenja uspješan.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Primjer: Nadzor je ponovno otkrio isti kvar, potrebna je ponovna istraživanje.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Ispravljeno i zatvoreno</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Puni kontekst</value>
+  </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>Potvrđujem da je ovaj incident u potpunosti riješen i da se neće ponoviti.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>ID incidenta</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Ratna soba incidenta - {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>E-pošte incidenta koriste ovaj izvorni OCE snimak, čak i nakon promjene dežurne smjene. Preuzimanje dodjeljuje vlasnika incidenta; ne mijenja primatelje e-pošte.</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Vlasnik incidenta:</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Naslov incidenta</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Neovisni incidenti</value>
+  </data>
+  <data name="Investigate" xml:space="preserve">
+    <value>Istraži</value>
+  </data>
+  <data name="Investigate URL" xml:space="preserve">
+    <value>URL za istraživanje</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Vrijeme zadnjeg potvrđivanja</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Ublažiti incident</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Ublaženo (Ublaženo)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Razlog ublažavanja (obavezno)</value>
+  </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Vrijeme ublažavanja</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Nova razina</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Nije prijavljen dodatni kontekst.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Trenutno nema OCE-a na dežurstvu.</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Nema dostupnog izvornog OCE snapshota. Trenutni OCE se ne zamjenjuje za povijesne primatelje e-pošte.</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Nepotvrđeno</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE u trenutku nastanka incidenta</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Događilo se</value>
+  </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Trajno izbrisati</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Trajno obriši incident</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Upit nije uspio:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Razlog za prilagodbu (obavezno)</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Primljeno u</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Zabilježite mjere ublažavanja, a zatim razlog rješavanja. Ponovno otvaranje vraća ovaj incident u stanje napretka bez ublažavanja, uz zadržavanje priznanja i vlasništva.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Zabilježite poduzete mjere ublažavanja. Riješite ovaj incident nakon što je ispravak dovršen.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Ponovno otvori incident</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Bilješke pri ponovnom otvaranju (neobavezno)</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Ponovno otvaranje vraća ovaj incident u status nepodmijenjenog napretka. Prethodno priznanje i vlasništvo su sačuvani. E-pošta je stavljena u red za konfigurirane primatelje.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>ID izvještaja</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Informacije o prijavi</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Razlog rješavanja (obavezno)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Vrijeme rješavanja</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Riješi incident</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Riješeno (Riješeno)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Rješavanje ovog incidenta završava njegov tijek rada. Ostali incidenti obrađuju se neovisno.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Opis mehanizma odgovora</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Ovo trajno briše incident i njegovu povijest. Unesite njegov točan naslov za potvrdu.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Nedodijeljeno</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Nekontrolirano</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritično (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Teško (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Greška (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Upozorenje (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
+  </data>
+
+</root>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>članova</value>
+  </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Također obrišite ručno zakazane smjene</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Automatsko produženje je omogućeno. Nakon brisanja budućih smjena, smjene će se ponovno generirati iz trenutne predloške u roku od otprilike jedne minute.</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>Natrag na popis timova</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>Adresa CC nije konfigurirana.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Obriši buduće smjene</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Potvrdi brisanje budućih smjena</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Potvrdi ponovno generiranje rasporeda</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>Potvrdite brisanje tima</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>Obriši tim za dežurstvo</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>Izbriši tim</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Uredi tim</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Unesite točan naziv tima za potvrdu brisanja.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Primarni primatelji</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Budući smjene uključuju i sve trenutno aktivne smjene. Predlošci i zapisi o isporuci incidenta se zadržavaju. Ova radnja je nepovratna.</value>
+  </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Upravljaj članovima</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Sljedeće: dodijelite osobe smjenama</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Nema konfiguriranih rezervnih primatelja. Alarmi se ne mogu dostaviti kada nitko nije na dežurstvu.</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>Nema članova tima.</value>
+  </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Nije primjenjivo</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>CC e-pošte za dežurstvo</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>E-mailovi za dežurstvo automatski se šalju na korisničke poštanske sanduče (Polje: Za) svih inženjera na dežurstvu (OCE) u trenutačno spremljenoj smjeni. Kopija (CC) koristi samo poštanske sanduče timova ili adrese poštanskih lista koje je administrator eksplicitno konfigurirao; ne šalje se automatski kopija svim članovima tima. Prilagođeni kanali za push obavijesti konfigurirani u aplikaciji i dalje će dostavljati dodatne obavijesti.</value>
+  </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Članovi na dežurstvu (redoslijed rotacije)</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Otvori raspored</value>
+  </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Pregledajte promjene prije poništavanja spremačkog rasporeda. Utjecaj imaju samo buduće smjene; trenutne i završene smjene ostaju nepromijenjene.</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Primajte upozorenja kada nitko nije na dežurstvu; nemojte sudjelovati u rotaciji.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Regeneriraj raspored</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Poništi sprema raspored</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Početna točka rasporeda:</value>
+  </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Smjene za brisanje</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Smjene za generiranje</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Osoblje po smjeni</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Početak</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Postavke tima</value>
+  </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Predložak nije povezan; ručno planiranje je i dalje dostupno.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Predložak:</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>Predlošci se mogu dijeliti s više timova; izmjena ili promjena predložaka neće ponovno generirati spremljene smjene.</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Prva osoba u redu je na dežurstvu prva. Postojeće smjene se ne preuređuju.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>Popis članova određuje tko može biti raspoređen. Spremjeni raspored određuje tko je na dežurstvu i tko prima e-poštu o incidentima. Primatelji kopije (CC) primaju kopiju neovisno o članstvu u grupi.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Ime tima ne odgovara.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>Ovaj tim je povezan s integriranom aplikacijom. Prije brisanja tima, ponovno dodijelite ili odvezite dežurnu grupu aplikacije.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>Vremenska zona:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Nije moguće resetirati raspored. Osvježite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>Pogledaj raspored dežurstava</value>
+  </data>
+
+</root>
