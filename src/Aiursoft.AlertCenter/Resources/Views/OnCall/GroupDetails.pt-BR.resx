@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>membros</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Excluir também turnos agendados manualmente</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>A extensão automática está habilitada. Após limpar os turnos futuros, os turnos serão regenerados a partir do modelo atual em aproximadamente um minuto.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Voltar à lista de equipes</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Limpar turnos futuros</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Fechar</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Confirmar exclusão dos turnos futuros</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Confirmar a regeneração do cronograma</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Confirmar exclusão da equipe</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Editar equipe</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fim</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Digite o nome exato da equipe para confirmar a exclusão.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Nenhum membro da equipe.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Não aplicável</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC de e-mails de plantão</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Abrir agenda</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Visualize as alterações antes de redefinir o horário salvo. Somente os turnos futuros são afetados; os turnos em andamento e concluídos são mantidos.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Recebem alertas quando ninguém está de plantão; não participam da rotação.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Regenerar cronograma</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Redefinir agendamento salvo</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Ponto inicial do agendamento:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Turnos para excluir</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Turnos a gerar</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Pessoas por turno</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Início</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Configuração da equipe</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Fuso horário:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Não foi possível redefinir o cronograma. Atualize a página e tente novamente.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Ver escala de plantão</value>

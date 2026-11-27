@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>成員</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>同時刪除手動排定的輪班</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>已啟用自動延伸。清除未來班次後，系統將根據目前模板在約一分鐘內重新產生班次。</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>返回團隊列表</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>清除未來班表</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>關閉</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>確認清除未來的班表</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>確認重新生成排班</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>確認刪除團隊</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>編輯團隊</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>結束</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>請輸入完全相同的團隊名稱以確認刪除。</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>沒有團隊成員。</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>不適用</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>值班郵件副本收件人</value>
   </data>
@@ -81,8 +102,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>開啟排班</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>在重設已儲存的排班前，先預覽變更。僅影響未來的班別；進行中與已完成的班別將予以保留。</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>在無人值班時接收警示，不參與輪替。</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>重新產生排班</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>重設已儲存排程</value>
   </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>依序輪值成員</value>
@@ -90,8 +120,17 @@
   <data name="Scheduling start point: " xml:space="preserve">
     <value>排程起始時間：</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>待刪除的班次</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>待產生的班次</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>每段人數</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>開始</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>團隊設定</value>
@@ -125,6 +164,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>時區：</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>無法重設排程。請重新整理頁面後再試一次。</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>查看值班排班表</value>

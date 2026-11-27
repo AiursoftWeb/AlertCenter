@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A new incident has been reported." xml:space="preserve">
+    <value>Prijavljen je novi incident.</value>
+  </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="Action time (UTC): {0:O}" xml:space="preserve">
+    <value>Vrijeme akcije (UTC): {0:O}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Obavijest o testu kanala</value>
+  </data>
+  <data name="Content: " xml:space="preserve">
+    <value>Sadržaj:</value>
+  </data>
+  <data name="Context" xml:space="preserve">
+    <value>Kontekst:</value>
+  </data>
+  <data name="Context:" xml:space="preserve">
+    <value>Kontekst:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>ID isporuke</value>
+  </data>
+  <data name="Delivery ID: {0}" xml:space="preserve">
+    <value>ID isporuke: {0}</value>
+  </data>
+  <data name="Each email channel supports up to {0} CC recipients." xml:space="preserve">
+    <value>Svaki e-pošteni kanal podržava do {0} primatelja u kopiji (CC).</value>
+  </data>
+  <data name="Email (SMTP)" xml:space="preserve">
+    <value>E-pošta (SMTP)</value>
+  </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>E-poštanske obavijesti se šalju samo kada je incident kreiran, eskaliran, ublažen, riješen ili ponovno otvoren.</value>
+  </data>
+  <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
+    <value>Slanje e-pošte nije uspjelo. Provjerite SMTP konfiguraciju, mrežu ili poslužitelj e-pošte.</value>
+  </data>
+  <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
+    <value>Slanje e-pošte je isteklo. Poštanski poslužitelj je možda primio poruku; molimo provjerite i pokušajte ponovno.</value>
+  </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Eskalirano</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Ako gumb ne radi, otvorite ovu poveznicu:</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>ID incidenta</value>
+  </data>
+  <data name="Incident ID: {0}" xml:space="preserve">
+    <value>ID incidenta: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Detalji incidenta</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incidident eskaliran ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident ublažen: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident ponovno otvoren: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incidencija riješena: {0}</value>
+  </data>
+  <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
+    <value>Neispravan CC e-pošteni format. Prikazna imena nisu podržana.</value>
+  </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Neispravna SMTP konfiguracija. Provjerite postavke e-pošte.</value>
+  </data>
+  <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
+    <value>Neispravan format e-pošte primatelja. Prikazna imena nisu podržana.</value>
+  </data>
+  <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
+    <value>Neispravna konfiguracija primatelja ili CC-a za e-poštni kanal. Provjerite postavke kanala.</value>
+  </data>
+  <data name="Investigate" xml:space="preserve">
+    <value>Istraži</value>
+  </data>
+  <data name="Investigate link:" xml:space="preserve">
+    <value>Poveznica za istraživanje:</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigated</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Novi incident</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nijedno</value>
+  </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE vrijeme upita (UTC): {0:O}</value>
+  </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Dogodilo se u (UTC)</value>
+  </data>
+  <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
+    <value>Dogodilo se (UTC): {0:O}</value>
+  </data>
+  <data name="On-call group: {0}" xml:space="preserve">
+    <value>Skupina na dežurstvu: {0}</value>
+  </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Dežurna ekipa</value>
+  </data>
+  <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
+    <value>Vrijeme dežurnosti (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>Otvori u AlertCenteru</value>
+  </data>
+  <data name="Please enter the recipient email address." xml:space="preserve">
+    <value>Unesite e-mail adresu primatelja.</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Razlog</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>Razlog: {0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Ponovno otvoren</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Riješeno</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Pošaljite obavijesti o incidentima na navedene e-mail adrese putem globalnog SMTP poslužitelja.</value>
+  </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Eskalacija ozbiljnosti</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Povećana ozbiljnost: {0} → {1}</value>
+  </data>
+  <data name="Severity: {0}" xml:space="preserve">
+    <value>Ozbiljnost: {0}</value>
+  </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>Test obavijest</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>Incident je ublažen.</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>Incident je ponovno otvoren i zahtijeva pažnju.</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>Incident je riješen.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Ozbiljnost incidenta je povećana i zahtijeva pažnju.</value>
+  </data>
+  <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>Snimka primatelja e-pošte za dežurstvo je neispravna; nije moguće ponovno odabrati trenutnu OCE dostavu.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Ovo je testna poruka za push kanal.</value>
+  </data>
+  <data name="Title: {0}" xml:space="preserve">
+    <value>Naslov: {0}</value>
+  </data>
+  <data name="Unresolved incident handover" xml:space="preserve">
+    <value>Prelaz neriješenog incidenta</value>
+  </data>
+
+</root>

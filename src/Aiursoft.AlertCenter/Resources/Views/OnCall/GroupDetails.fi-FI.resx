@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>jäsenet</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Poista myös manuaalisesti ajoitetut vuorot</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Automaattinen jatku on käytössä. Tulevien vuorojen tyhjennyksen jälkeen vuorot luodaan uudelleen nykyisestä mallista noin minuutissa.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Takaisin tiimiruutuihin</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Peruuta</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Tyhjennä tulevat vuorot</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Sulje</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Vahvista tulevien vuorojen tyhjennys</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Vahvista aikataulun uudelleenluonti</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Vahvista tiimin poisto</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Muokkaa tiimiä</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Päättyy</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Vahvista poistaminen kirjoittamalla tiimin nimi täsmälleen oikein.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Ei tiimin jäseniä.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Ei sovellu</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Päivystysviestien kopio</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Avaa työvuorolista</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Esikatsele muutokset ennen tallennetun aikataulun nollaaamista. Vain tulevat vuorot vaikuttavat; käynnissä olevat ja suoritettuja vuoroita säilytetään.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Vastaanottavat hälytykset, kun kukaan ei päivystä; eivät osallistu kiertoon.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Luo aikataulu uudelleen</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Nollaa tallennettu aikataulu</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Aikataulun aloituskohta:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Poistettavat vuorot</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Luotavat vuorot</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Henkilöitä vuorossa</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Alku</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Tiimin asetukset</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Aikavyöhyke:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Aikataulua ei voitu nollata. Päivitä sivu ja yritä uudelleen.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Näytä päivystysvuorot</value>

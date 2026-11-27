@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>участника</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Также удалить вручную запланированные смены</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Автоматическое продление включено. После очистки будущих смен они будут повторно сгенерированы на основе текущего шаблона в течение примерно одной минуты.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Вернуться к списку команд</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Очистить будущие смены</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Подтвердить удаление будущих смен</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Подтвердить регенерацию расписания</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Подтвердите удаление команды</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Редактировать команду</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Конец</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Введите точное название команды, чтобы подтвердить удаление.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Нет участников команды.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Не применимо</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Копия для дежурных писем</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Открыть расписание</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Просмотрите изменения перед сбросом сохранённого расписания. Затрагиваются только будущие смены; текущие и завершённые смены сохраняются.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Получают оповещения, когда никто не дежурит; не участвуют в ротации.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Пересоздать расписание</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Сбросить сохранённое расписание</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Начало расписания:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Смены для удаления</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Смены для генерации</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Сотрудников на смену</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Начало</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Настройка команды</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Часовой пояс:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Не удалось сбросить расписание. Обновите страницу и повторите попытку.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Посмотреть график дежурств</value>

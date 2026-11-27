@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>μέλη</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Διαγράψτε επίσης τις χειροκίνητα προγραμματισμένες βάρδιες</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Η αυτόματη επέκταση είναι ενεργοποιημένη. Μετά τον καθαρισμό των μελλοντικών βάρδιων, οι βάρδιες θα αναγεννηθούν από το τρέχον πρότυπο εντός περίπου ενός λεπτού.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Επιστροφή στη λίστα ομάδων</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Ακύρωση</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Καθαρισμός μελλοντικών βάρδιων</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Κλείσιμο</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Επιβεβαίωση διαγραφής μελλοντικών βάρδιων</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Επιβεβαίωση επαναδημιουργίας χρονοδιαγράμματος</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Επιβεβαίωση διαγραφής ομάδας</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Επεξεργασία ομάδας</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Τέλος</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Εισαγάγετε το ακριβές όνομα της ομάδας για να επιβεβαιώσετε τη διαγραφή.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Δεν υπάρχουν μέλη της ομάδας.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Δεν εφαρμόζεται</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Κοινοποίηση μέσω email για την εφημερία</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Άνοιγμα προγράμματος</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Προεπισκόπηση των αλλαγών πριν από την επαναφορά του αποθηκευμένου προγράμματος. Επηρεάζονται μόνο οι μελλοντικές βάρδιες· οι εν εξελίξει και οι ολοκληρωμένες βάρδιες διατηρούνται.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Λαμβάνουν ειδοποιήσεις όταν κανείς δεν εφημερεύει· δεν συμμετέχουν στην εναλλαγή.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Παράγωση προγράμματος</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Επαναφορά αποθηκευμένου προγράμματος</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Αφετηρία προγραμματισμού:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Μεταβιβάσεις προς διαγραφή</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Μεταβιβάσεις προς δημιουργία</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Άτομα ανά βάρδια</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Έναρξη</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Ρύθμιση ομάδας</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Ζώνη ώρας:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Αδύνατη η επαναφορά του προγράμματος. Ανανεώστε τη σελίδα και ξαναδοκιμάστε.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Προβολή προγράμματος εφημερίας</value>

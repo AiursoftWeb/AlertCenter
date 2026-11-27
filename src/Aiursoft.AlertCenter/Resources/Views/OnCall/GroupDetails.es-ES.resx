@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>miembros</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Eliminar también los turnos programados manualmente</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>La extensión automática está habilitada. Tras borrar los turnos futuros, se regenerarán a partir de la plantilla actual en aproximadamente un minuto.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Volver a la lista de equipos</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Borrar turnos futuros</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Cerrar</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Confirmar la eliminación de los turnos futuros</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Confirmar regeneración del horario</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Confirmar la eliminación del equipo</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Editar equipo</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fin</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Introduce el nombre exacto del equipo para confirmar la eliminación.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Sin miembros en el equipo.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>No aplicable</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Con copia a direcciones de correo de guardia</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Abrir horario</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Vista previa de los cambios antes de restablecer el horario guardado. Solo se ven afectados los turnos futuros; los turnos en curso y los completados se mantienen.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Reciben alertas cuando no hay nadie de guardia; no participan en la rotación.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Regenerar horario</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Restablecer el horario guardado</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Inicio de la programación:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Turnos para eliminar</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Turnos por generar</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Personal por turno</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Inicio</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Configuración del equipo</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Zona horaria:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>No se pudo restablecer el horario. Actualice la página e inténtelo de nuevo.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Ver horario de guardia</value>

@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>membri</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Ștergeți și turele programate manual</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Extinderea automată este activată. După ștergerea turelor viitoare, turele vor fi regenerate din șablonul curent în aproximativ un minut.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Înapoi la lista echipelor</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Anulează</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Șterge turele viitoare</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Închide</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Confirmă ștergerea turelor viitoare</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Confirmați regenerarea programului</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Confirmați ștergerea echipei</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Editează echipa</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Sfârșit</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Introduceți numele exact al echipei pentru a confirma ștergerea.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Niciun membru al echipei.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Nesemnificativ</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC e-mailuri de gardă</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Deschide programul</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Previzualizați modificările înainte de a reseta programul salvat. Sunt afectate doar turele viitoare; turele în curs și cele finalizate sunt păstrate.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Primesc alerte când nimeni nu este de gardă; nu participă la rotație.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Regenerare program</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Resetează programul salvat</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Începutul programării:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Ture de șters</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Ture de generat</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Personal pe tură</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Început</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Configurarea echipei</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Fus orar:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Imposibil de resetat programul. Reîmprospătați pagina și încercați din nou.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Vizualizați programul de permanență</value>

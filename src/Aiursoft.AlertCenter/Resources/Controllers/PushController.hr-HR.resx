@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Obavijest o testu kanala</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Unesite ispravan HTTP ili HTTPS URL. Korisnička imena, lozinke i URL fragmenti nisu podržani.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Detalji obavijesti u aplikaciji</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Neispravna konfiguracija kanala. Osvježite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Neispravni kriteriji filtera. Osvježite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Ponovno se mogu pokrenuti samo on-call e-pošte s važećim OCE snapshotima ili neuspjele zapisi s omogućenim prilagođenim kanalima. Ne možete ponovno odabrati primatelje kako biste ponovno poslali stare obavijesti ako OCE ili e-pošta nedostaje.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Prvo omogućite kanal.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Odaberite dostupan tip kanala.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Odaberite barem jednog primatelja korisnika ili korisničku skupinu.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Sadržaj testne poruke ne smije biti prazan i ne smije premašiti 4.000 znakova.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Primatelj ne mora ponovno biti dodan na CC popis.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Odabrani korisnik koji se može vezati ne postoji. Molimo vas da ponovno odaberete.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Odabrana veza korisničke grupe ne postoji. Odaberite ponovno.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Odabrani kanal više ne postoji. Osvežite stranicu i pokušajte ponovno.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Odabrani korisnik primatelja ne postoji. Molimo odaberite ponovno.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Odabrana korisnička grupa primatelja ne postoji. Molimo vas da ponovno odaberete.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Ovo je testna poruka za push kanal.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Vrsta postojećeg kanala ne može se promijeniti; stvorite novi kanal.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Nije moguće zaštititi prilagođene zaglavlje web zahtjeva Webhooka. Provjerite konfiguraciju Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Nije moguće pročitati spremljene zaglavlja Webhook zahtjeva. Provjerite ključ zašтите podataka i pokušajte ponovno.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey mora biti konfiguriran za prilagođene zaglavlja zahtjeva. Ovu ključnu vrijednost dostavite putem zaštićene varijable okruženja.</value>
+  </data>
+
+</root>
