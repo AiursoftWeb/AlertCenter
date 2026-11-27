@@ -1,0 +1,62 @@
+@using Aiursoft.WebTools
+@model Aiursoft.AlertCenter.Models.PersonalApiKeysViewModel
+
+<h1 class="h3 mb-3">@Localizer["Personal API Keys"]</h1>
+<p>@Localizer["Use a personal key with the AlertCenter CLI to access incidents in your applications. The key never grants more access than your account has."]</p>
+
+@if (Model.NewKey is not null)
+{
+    <div class="alert alert-warning" role="alert"><div class="alert-message">
+        <label for="personal-api-key" class="form-label">@Localizer["This key is displayed only once. Save it securely now."]</label>
+        <input id="personal-api-key" class="form-control font-monospace" value="@Model.NewKey" readonly autocomplete="off" />
+    </div></div>
+}
+
+<div class="card mb-3">
+    <div class="card-header"><h2 class="h5 mb-0">@Localizer["Create personal API key"]</h2></div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Input.Name" class="form-label">@Localizer["Name"]</label>
+                <input asp-for="Input.Name" class="form-control" required maxlength="100" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.LifetimeDays" class="form-label">@Localizer["Valid for (days)"]</label>
+                <input asp-for="Input.LifetimeDays" class="form-control" required min="1" max="365" />
+            </div>
+            <div class="form-check mb-3">
+                <input asp-for="Input.CanHandleIncidents" class="form-check-input" />
+                <label asp-for="Input.CanHandleIncidents" class="form-check-label">@Localizer["Allow acknowledging, mitigating and resolving incidents. Leave unchecked for read-only access."]</label>
+            </div>
+            <button class="btn btn-primary" type="submit">@Localizer["Create personal API key"]</button>
+        </form>
+    </div>
+</div>
+
+@if (Model.Keys.Count > 0)
+{
+    <div class="card"><div class="card-body table-responsive">
+        <table class="table align-middle">
+            <thead><tr><th>@Localizer["Name"]</th><th>@Localizer["Permissions"]</th><th>@Localizer["Expires"]</th><th>@Localizer["Actions"]</th></tr></thead>
+            <tbody>
+            @foreach (var key in Model.Keys)
+            {
+                <tr>
+                    <td>@key.Name</td>
+                    <td>@(key.CanHandleIncidents ? Localizer["Handle incidents"] : Localizer["Read only"])</td>
+                    <td><span data-utc-time="@key.ExpiresAtUtc.ToHtmlDateTime()"></span>
+                        @if (key.ExpiresAtUtc <= DateTime.UtcNow) { <span class="badge bg-secondary">@Localizer["Expired"]</span> }
+                    </td>
+                    <td>
+                        <form asp-action="Revoke" method="post">
+                            <input type="hidden" name="id" value="@key.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Revoke"]</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div></div>
+}

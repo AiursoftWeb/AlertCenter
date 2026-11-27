@@ -130,10 +130,15 @@ public static class AuthenticationExtensions
         });
         authBuilder.AddScheme<AuthenticationSchemeOptions, LocalApiAuthenticationHandler>(
             LocalApiAuthenticationDefaults.AuthenticationScheme, _ => { });
+        authBuilder.AddScheme<AuthenticationSchemeOptions, PersonalApiKeyAuthenticationHandler>(
+            PersonalApiKeyAuthenticationHandler.SchemeName, _ => { });
         services.AddSingleton<LocalApiTokenService>();
 
         services.AddAuthorization(options =>
         {
+            options.AddPolicy(PersonalApiKeyAuthenticationHandler.HandlePolicy, policy => policy
+                .AddAuthenticationSchemes(PersonalApiKeyAuthenticationHandler.SchemeName)
+                .RequireAuthenticatedUser().RequireClaim(PersonalApiKeyAuthenticationHandler.HandleClaim, "true"));
             foreach (var permission in AppPermissions.GetAllPermissions())
             {
                 options.AddPolicy(

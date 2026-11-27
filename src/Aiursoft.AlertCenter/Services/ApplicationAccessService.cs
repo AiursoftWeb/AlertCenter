@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Entities;
+using EFCoreSecondLevelCacheInterceptor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Services;
@@ -29,11 +30,11 @@ public sealed class ApplicationAccessService(TemplateDbContext db) : IApplicatio
 
     public Task<List<Guid>> GetAccessibleApplicationIdsAsync(ClaimsPrincipal user, ApplicationPermission permission = ApplicationPermission.ViewIncidents,
         CancellationToken cancellationToken = default) =>
-        AccessibleApplicationIds(user, permission).ToListAsync(cancellationToken);
+        AccessibleApplicationIds(user, permission).NotCacheable().ToListAsync(cancellationToken);
 
     public Task<bool> CanAccessAsync(ClaimsPrincipal user, Guid applicationId, ApplicationPermission permission = ApplicationPermission.ViewIncidents,
         CancellationToken cancellationToken = default) =>
-        AccessibleApplicationIds(user, permission).AnyAsync(id => id == applicationId, cancellationToken);
+        AccessibleApplicationIds(user, permission).NotCacheable().AnyAsync(id => id == applicationId, cancellationToken);
 
     private IQueryable<Guid> AccessibleApplicationIds(ClaimsPrincipal user, ApplicationPermission permission) =>
         AccessibleApplicationIds(user.FindFirstValue(ClaimTypes.NameIdentifier), permission);

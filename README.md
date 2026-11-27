@@ -51,7 +51,19 @@ dotnet tool uninstall --global Aiursoft.AlertCenter.Client
 
 Run `alertcenter --help` to explore commands.
 
-See [Integrations](#integrations) for authentication and usage.
+The top-level commands use [application integration keys](#integrations) and are limited to one application. For incident response across applications, sign in to AlertCenter and create a **personal API key** under **Settings → Personal → API Keys**. Leave the key read-only unless the CLI needs to acknowledge, mitigate, or resolve incidents. The key is shown only once and can be revoked from the same page.
+
+With `ALERTCENTER_PERSONAL_API_KEY` set from your secret store (or `--api-key` supplied for each command):
+
+```bash
+alertcenter personal list --server "$SERVER" --level sev2
+alertcenter personal get --server "$SERVER" --id "$INCIDENT_ID"
+alertcenter personal ack --server "$SERVER" --id "$INCIDENT_ID" --version "$VERSION"
+alertcenter personal mitigate --server "$SERVER" --id "$INCIDENT_ID" --version "$VERSION" --reason "Rolled back"
+alertcenter personal resolve --server "$SERVER" --id "$INCIDENT_ID" --version "$VERSION" --reason "Verified recovery"
+```
+
+Fetch the latest `Version` with `personal get` before each write. Acknowledging assigns the incident to you; resolve requires mitigation. By default, `personal list` shows unresolved incidents across applications where you can update incidents. Use `--all-visible` to include view-only applications, `--mine` to show incidents assigned to you, `--status all` to include resolved incidents, and `--page` to continue to later pages. `--json` is available for scripts.
 
 ### SDK
 
