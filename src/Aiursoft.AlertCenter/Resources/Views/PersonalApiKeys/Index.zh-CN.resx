@@ -18,46 +18,47 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="Personal API Keys" xml:space="preserve">
-    <value>个人 API 密钥</value>
-  </data>
-  <data name="Use a personal key with the AlertCenter CLI to access incidents in your applications. The key never grants more access than your account has." xml:space="preserve">
-    <value>使用个人密钥在 AlertCenter CLI 中查看你有权访问的应用事故。密钥不会扩大账号权限。</value>
-  </data>
-  <data name="This key is displayed only once. Save it securely now." xml:space="preserve">
-    <value>此密钥仅显示一次，请立即安全保存。</value>
-  </data>
-  <data name="Create personal API key" xml:space="preserve">
-    <value>创建个人 API 密钥</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>名称</value>
-  </data>
-  <data name="Valid for (days)" xml:space="preserve">
-    <value>有效期（天）</value>
+      <data name="Actions" xml:space="preserve">
+    <value>操作</value>
   </data>
   <data name="Allow acknowledging, mitigating and resolving incidents. Leave unchecked for read-only access." xml:space="preserve">
     <value>允许确认、缓解和解决事故。不勾选时为只读。</value>
   </data>
-  <data name="Permissions" xml:space="preserve">
-    <value>权限</value>
-  </data>
-  <data name="Expires" xml:space="preserve">
-    <value>到期时间</value>
-  </data>
-  <data name="Actions" xml:space="preserve">
-    <value>操作</value>
-  </data>
-  <data name="Handle incidents" xml:space="preserve">
-    <value>处理事故</value>
-  </data>
-  <data name="Read only" xml:space="preserve">
-    <value>只读</value>
+  <data name="Create personal API key" xml:space="preserve">
+    <value>创建个人 API 密钥</value>
   </data>
   <data name="Expired" xml:space="preserve">
     <value>已过期</value>
   </data>
+  <data name="Expires" xml:space="preserve">
+    <value>到期时间</value>
+  </data>
+  <data name="Handle incidents" xml:space="preserve">
+    <value>处理事故</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>权限</value>
+  </data>
+  <data name="Personal API Keys" xml:space="preserve">
+    <value>个人 API 密钥</value>
+  </data>
+  <data name="Read only" xml:space="preserve">
+    <value>只读</value>
+  </data>
   <data name="Revoke" xml:space="preserve">
     <value>撤销</value>
   </data>
+  <data name="This key is displayed only once. Save it securely now." xml:space="preserve">
+    <value>此密钥仅显示一次，请立即安全保存。</value>
+  </data>
+  <data name="Use a personal key with the AlertCenter CLI to access incidents in your applications. The key never grants more access than your account has." xml:space="preserve">
+    <value>使用个人密钥在 AlertCenter CLI 中查看你有权访问的应用事故。密钥不会扩大账号权限。</value>
+  </data>
+  <data name="Valid for (days)" xml:space="preserve">
+    <value>有效期（天）</value>
+  </data>
+
 </root>

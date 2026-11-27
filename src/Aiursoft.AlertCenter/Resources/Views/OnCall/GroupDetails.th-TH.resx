@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>สมาชิก</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>ลบกะที่ถูกกำหนดไว้ด้วยตนเองด้วย</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>การขยายอัตโนมัติถูกเปิดใช้งานแล้ว หลังจากล้างกะในอนาคต กะจะถูกสร้างใหม่จากเทมเพลตปัจจุบันภายในประมาณหนึ่งนาที</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>กลับไปยังรายชื่อทีม</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>ยกเลิก</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>ล้างกะในอนาคต</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>ปิด</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>ยืนยันการล้างกะในอนาคต</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>ยืนยันการสร้างตารางเวลาใหม่</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>ยืนยันการลบทีม</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>แก้ไขทีม</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>สิ้นสุด</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>กรอกชื่อทีมให้ตรงทุกตัวอักษรเพื่อยืนยันการลบ</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>ไม่มีสมาชิกในทีม</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>ไม่เกี่ยวข้อง</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC อีเมลเวร</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>เปิดตารางเวร</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>ดูการเปลี่ยนแปลงก่อนรีเซ็ตตารางเวลาที่ถูกบันทึกไว้ มีผลเฉพาะกะในอนาคตเท่านั้น กะที่กำลังดำเนินการและกะที่เสร็จสิ้นแล้วจะยังคงอยู่</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>รับการแจ้งเตือนเมื่อไม่มีผู้เข้าเวร โดยไม่เข้าร่วมการหมุนเวียนเวร</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>สร้างตารางเวลาใหม่</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>รีเซ็ตตารางเวลาที่บันทึกไว้</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>จุดเริ่มต้นการจัดตารางเวร:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>กะที่จะลบ</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>กะที่ต้องสร้าง</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>จำนวนคนต่อเวร</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>เริ่ม</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>การกำหนดค่าทีม</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>เขตเวลา:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>ไม่สามารถรีเซ็ตตารางเวลาได้ กรุณาโหลดหน้าใหม่แล้วลองอีกครั้ง</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>ดูตารางเวรปฏิบัติงาน</value>

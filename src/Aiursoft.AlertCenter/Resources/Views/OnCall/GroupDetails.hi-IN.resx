@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>सदस्य</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>मैन्युअल रूप से शेड्यूल किए गए शिफ्ट्स को भी हटाएं</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>स्वतः विस्तार सक्षम है। भविष्य के शिफ्ट हटाने के बाद, वर्तमान टेम्पलेट से शिफ्ट लगभग एक मिनट के भीतर पुनः उत्पन्न होंगे।</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>टीम सूची पर वापस जाएँ</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>रद्द करें</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>भविष्य के शिफ्ट साफ़ करें</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>बंद करें</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>भविष्य के शिफ्ट साफ़ करने की पुष्टि करें</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>शेड्यूल पुनर्जनन की पुष्टि करें</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>टीम हटाने की पुष्टि करें</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>टीम संपादित करें</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>अंत</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>हटाने की पुष्टि करने के लिए टीम का नाम बिल्कुल सही दर्ज करें।</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>टीम के कोई सदस्य नहीं हैं।</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>लागू नहीं</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>ऑन-कॉल ईमेल की प्रति</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>शेड्यूल खोलें</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>सहेजा गया शेड्यूल रीसेट करने से पहले परिवर्तनों की पूर्वावलोकन करें। केवल भविष्य के शिफ्ट प्रभावित होते हैं; जारी और पूर्ण शिफ्ट को बनाए रखा जाता है।</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>जब कोई ऑन-कॉल नहीं होता तब अलर्ट प्राप्त करते हैं; रोटेशन में भाग नहीं लेते।</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>समय-सारणी पुनः जनित करें</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>सहेजा गया शेड्यूल रीसेट करें</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>शेड्यूलिंग प्रारंभ बिंदु:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>हटाने के लिए शिफ्ट्स</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>जनित करने के लिए शिफ्ट्स</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>प्रति शिफ्ट कर्मचारी</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>प्रारंभ</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>टीम कॉन्फ़िगरेशन</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>समय क्षेत्र:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>समय-सारणी रीसेट करने में असमर्थ हैं। पेज को रीफ्रेश करें और फिर से प्रयास करें।</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>ऑन-कॉल शेड्यूल देखें</value>

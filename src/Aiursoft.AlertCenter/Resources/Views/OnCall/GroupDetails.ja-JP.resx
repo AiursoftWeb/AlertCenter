@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>人</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>手動でスケジュールされたシフトも削除します</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>自動延長が有効になっています。今後のシフトをクリアした後、約1分以内に現在のテンプレートからシフトが再生成されます。</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>チーム一覧に戻る</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>今後のシフトをクリア</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>閉じる</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>今後のシフトの削除を確認</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>スケジュールの再生成を確認</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>チームの削除を確認</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>チームを編集</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>終了</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>削除を確認するには、チーム名を正確に入力してください。</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>チームメンバーはいません。</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>該当なし</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>オンコールメールのCC</value>
   </data>
@@ -81,8 +102,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>スケジュールを開く</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>保存済みのスケジュールをリセットする前に変更をプレビューしてください。影響を受けるのは将来のシフトのみで、進行中および完了したシフトは保持されます。</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>当番がいないときにアラートを受信します。ローテーションには参加しません。</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>スケジュールを再生成</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>保存されたスケジュールをリセット</value>
   </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>メンバーの順次ローテーション</value>
@@ -90,8 +120,17 @@
   <data name="Scheduling start point: " xml:space="preserve">
     <value>スケジュールの開始日時：</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>削除するシフト</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>生成対象のシフト</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>シフトごとの人数</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>開始</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>チーム設定</value>
@@ -125,6 +164,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>タイムゾーン：</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>スケジュールをリセットできませんでした。ページを更新してもう一度お試しください。</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>オンコールスケジュールを表示</value>

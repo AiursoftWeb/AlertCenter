@@ -21,6 +21,12 @@
       <data name=" members" xml:space="preserve">
     <value>Mitglieder</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>Auch manuell geplante Schichten löschen</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>Die automatische Erweiterung ist aktiviert. Nach dem Löschen zukünftiger Schichten werden die Schichten innerhalb von etwa einer Minute aus der aktuellen Vorlage neu erstellt.</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>Zurück zur Teamliste</value>
   </data>
@@ -30,8 +36,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>Künftige Schichten löschen</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Schließen</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>Löschen künftiger Schichten bestätigen</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>Planregenerierung bestätigen</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>Team-Löschung bestätigen</value>
@@ -44,6 +59,9 @@
   </data>
   <data name="Edit team" xml:space="preserve">
     <value>Team bearbeiten</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Ende</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>Geben Sie den genauen Teamnamen ein, um die Löschung zu bestätigen.</value>
@@ -69,6 +87,9 @@
   <data name="No team members." xml:space="preserve">
     <value>Keine Teammitglieder.</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>Nicht anwendbar</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>E-Mail-Kopie für den Bereitschaftsdienst</value>
   </data>
@@ -81,14 +102,32 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Zeitplan öffnen</value>
   </data>
+  <data name="Preview changes before resetting the saved schedule. Only future shifts are affected; ongoing and completed shifts are kept." xml:space="preserve">
+    <value>Vorschau der Änderungen, bevor der gespeicherte Plan zurückgesetzt wird. Nur zukünftige Schichten sind betroffen; laufende und abgeschlossene Schichten bleiben erhalten.</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>Erhalten Warnmeldungen, wenn niemand Bereitschaft hat; nehmen nicht an der Rotation teil.</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>Plan neu generieren</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>Gespeicherten Plan zurücksetzen</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Startpunkt der Planung:</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>Zu löschende Schichten</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>Zu generierende Schichten</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>Personal pro Schicht</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Team-Konfiguration</value>
@@ -122,6 +161,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>Zeitzone:</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>Zeitplan konnte nicht zurückgesetzt werden. Aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Bereitschaftsplan anzeigen</value>
