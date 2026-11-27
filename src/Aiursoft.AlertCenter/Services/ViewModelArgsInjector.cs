@@ -66,6 +66,8 @@ public class ViewModelArgsInjector(
         _ = localizer["Settings"];
         _ = localizer["Profile Settings"];
         _ = localizer["Personal"];
+        _ = localizer["API Keys"];
+        _ = localizer["Personal API Keys"];
         _ = localizer["Unauthorized"];
         _ = localizer["Error"];
         _ = localizer["Permissions"];

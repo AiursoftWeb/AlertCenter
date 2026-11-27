@@ -740,6 +740,42 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("OnCallShiftMembers");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PersonalApiKey", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("CanHandleIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ExpiresAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("SecretHash")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PersonalApiKeys");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1514,6 +1550,17 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .IsRequired();
 
                     b.Navigation("Shift");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PersonalApiKey", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
