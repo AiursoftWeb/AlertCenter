@@ -427,19 +427,9 @@ public class SmsChannelAdapterTests
         using var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 0);
         listener.Start();
         var port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
-        var capturedTask = Task.Run(async () =>
-        {
-            using var tcp = await listener.AcceptTcpClientAsync();
-            await using var stream = tcp.GetStream();
-            var buffer = new byte[8192];
-            var read = await stream.ReadAsync(buffer);
-            var raw = System.Text.Encoding.UTF8.GetString(buffer, 0, read);
-            var body = "{\"Response\":{\"SendStatusSet\":[{\"Code\":\"Ok\",\"Message\":\"send success\",\"PhoneNumber\":\"+8618535059765\"}],\"RequestId\":\"req-1\"}}";
-            var response = $"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {System.Text.Encoding.UTF8.GetByteCount(body)}\r\nConnection: close\r\n\r\n{body}";
-            var bytes = System.Text.Encoding.UTF8.GetBytes(response);
-            await stream.WriteAsync(bytes);
-            return raw;
-        });
+        var capturedTask = CaptureSingleHttpRequestAsync(
+            listener,
+            "{\"Response\":{\"SendStatusSet\":[{\"Code\":\"Ok\",\"Message\":\"send success\",\"PhoneNumber\":\"+8618535059765\"}],\"RequestId\":\"req-1\"}}");
 
         var previousDefaultSettings = Newtonsoft.Json.JsonConvert.DefaultSettings;
         try
@@ -494,16 +484,9 @@ public class SmsChannelAdapterTests
         using var listener = new System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 0);
         listener.Start();
         var port = ((System.Net.IPEndPoint)listener.LocalEndpoint).Port;
-        var serverTask = Task.Run(async () =>
-        {
-            using var tcp = await listener.AcceptTcpClientAsync();
-            await using var stream = tcp.GetStream();
-            var buffer = new byte[8192];
-            _ = await stream.ReadAsync(buffer);
-            var body = "{\"Response\":{\"SendStatusSet\":[],\"RequestId\":\"req-empty\"}}";
-            var response = $"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {System.Text.Encoding.UTF8.GetByteCount(body)}\r\nConnection: close\r\n\r\n{body}";
-            await stream.WriteAsync(System.Text.Encoding.UTF8.GetBytes(response));
-        });
+        var serverTask = CaptureSingleHttpRequestAsync(
+            listener,
+            "{\"Response\":{\"SendStatusSet\":[],\"RequestId\":\"req-empty\"}}");
 
         var sender = new TencentCloudSmsSender(Options.Create(new SmsSettings
         {
@@ -606,6 +589,18 @@ public class SmsChannelAdapterTests
             .SingleAsync(d => d.IncidentEventId == reopened.Id && d.OnCallEmail != null && d.OnCallEmail.ChannelType == "sms");
         Assert.AreEqual(PushDelivery.Failed, reopenedSms.Status);
         Assert.AreEqual(2, _sender.Messages.Count);
+    }
+
+    private static async Task<string> CaptureSingleHttpRequestAsync(System.Net.Sockets.TcpListener listener, string body)
+    {
+        using var tcp = await listener.AcceptTcpClientAsync();
+        await using var stream = tcp.GetStream();
+        var buffer = new byte[8192];
+        var read = await stream.ReadAsync(buffer);
+        var raw = System.Text.Encoding.UTF8.GetString(buffer, 0, read);
+        var response = $"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {System.Text.Encoding.UTF8.GetByteCount(body)}\r\nConnection: close\r\n\r\n{body}";
+        await stream.WriteAsync(System.Text.Encoding.UTF8.GetBytes(response));
+        return raw;
     }
 
     private sealed class FakeSmsSender : ISmsSender

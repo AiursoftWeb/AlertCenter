@@ -25,7 +25,7 @@ public sealed class SmsSettings
     public string SecretKey { get; set; } = string.Empty;
     public string SmsSdkAppId { get; set; } = string.Empty;
     public string SignName { get; set; } = string.Empty;
-    public SmsTemplateSettings Templates { get; set; } = new();
+    public SmsTemplateSettings? Templates { get; set; } = new();
     public string Region { get; set; } = "ap-guangzhou";
     public string Endpoint { get; set; } = "sms.tencentcloudapi.com";
 

@@ -46,7 +46,7 @@ public class SeverityPolicyController(TemplateDbContext db, IEnumerable<INotific
             rule.InApp = submitted.InApp;
             rule.ShowInLists = submitted.ShowInLists;
         }
-        await new SeverityPolicyStore(db).StageSmsEventsAsync(model.SmsEvents ?? new SmsEventPolicy(), cancellationToken);
+        await new SeverityPolicyStore(db).StageSmsEventsAsync(model.SmsEvents, cancellationToken);
         // Save the entire matrix and SMS event switches atomically. Each subsequent operation loads the current policy.
         await db.SaveChangesAsync(cancellationToken);
         TempData["PolicySaved"] = true;

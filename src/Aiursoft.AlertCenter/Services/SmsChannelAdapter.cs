@@ -126,7 +126,7 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
     }
 }
 
-public partial class SmsChannelAdapter(
+public class SmsChannelAdapter(
     TemplateDbContext db,
     ISmsSender sender,
     IOptions<SmsSettings> options,
@@ -135,8 +135,7 @@ public partial class SmsChannelAdapter(
     // 腾讯云国内短信标准模板单个变量上限为 12 个字符。
     private const int MaxTemplateParamLength = 12;
 
-    [GeneratedRegex(@"^\+[1-9]\d{6,14}$", RegexOptions.CultureInvariant)]
-    private static partial Regex E164Regex();
+    private static readonly Regex E164Regex = new(@"^\+[1-9]\d{6,14}$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     public ChannelTypeDefinition Definition { get; } = new(
         "sms",
@@ -158,7 +157,7 @@ public partial class SmsChannelAdapter(
         }
 
         var compact = Regex.Replace(value.Trim(), @"[\s\-()]+", string.Empty);
-        if (!E164Regex().IsMatch(compact))
+        if (!E164Regex.IsMatch(compact))
         {
             error = localizer is null
                 ? "Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000."
@@ -228,7 +227,7 @@ public partial class SmsChannelAdapter(
         }
 
         var incident = delivery.Incident ?? delivery.IncidentEvent?.Incident;
-        var applicationName = incident?.Application?.Name;
+        var applicationName = incident == null ? null : ((SourceApplication?)incident.Application)?.Name;
         if (string.IsNullOrWhiteSpace(applicationName) && incident != null)
         {
             applicationName = await db.SourceApplications.AsNoTracking()
