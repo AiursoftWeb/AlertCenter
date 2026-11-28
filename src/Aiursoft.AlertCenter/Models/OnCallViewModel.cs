@@ -62,6 +62,7 @@ public class CreateOnCallGroupRequest
     public string? TimeZoneId { get; set; } = "UTC";
     [MaxLength(8000, ErrorMessage = "The on-call email CC configuration must not exceed 8,000 characters.")]
     public string? EmailCcRecipients { get; set; }
+    public bool SmsNotificationsEnabled { get; set; }
     public Guid? RuleId { get; set; }
     public string? AnchorLocal { get; set; }
     public DateTime? AnchorUtc { get; set; } = DateTime.UtcNow.Date;

@@ -15,8 +15,9 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
                 .SetProperty(delivery => delivery.AttemptedAtUtc, DateTime.UtcNow)
                 .SetProperty(delivery => delivery.Attempts, delivery => delivery.Attempts + 1), cancellationToken);
         if (claimed == 0) return;
-        var delivery = await db.PushDeliveries.Include(item => item.Channel).Include(item => item.Incident)
-            .Include(item => item.IncidentEvent).ThenInclude(entry => entry!.Incident)
+        var delivery = await db.PushDeliveries.Include(item => item.Channel)
+            .Include(item => item.Incident).ThenInclude(incident => incident!.Application)
+            .Include(item => item.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
             .Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return;
@@ -35,7 +36,7 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
 
         NotificationDeliveryResult result;
         var adapter = adapters.SingleOrDefault(item => item.Definition.Key ==
-            (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type));
+            (delivery.OnCallEmail?.ChannelType ?? delivery.Channel?.Type));
         if (delivery.OnCallEmail == null && delivery.Channel?.IsEnabled != true)
             result = new(false, ErrorMessage: localizer["Channel is disabled. Enable it to retry manually."].Value);
         else if (adapter == null)

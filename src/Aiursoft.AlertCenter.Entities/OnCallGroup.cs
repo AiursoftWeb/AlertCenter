@@ -8,6 +8,7 @@ public class OnCallGroup
     [Required, MaxLength(100)] public string Name { get; set; } = string.Empty;
     [Required, MaxLength(100)] public string TimeZoneId { get; set; } = "UTC";
     [MaxLength(8000)] public string? EmailCcRecipients { get; set; }
+    public bool SmsNotificationsEnabled { get; set; }
     public Guid? RuleId { get; set; }
     public OnCallRule? Rule { get; set; }
     public DateTime AnchorUtc { get; set; } = DateTime.UtcNow.Date;

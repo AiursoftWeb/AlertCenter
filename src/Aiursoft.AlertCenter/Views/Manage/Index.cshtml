@@ -28,6 +28,24 @@
             <i class="align-middle" data-lucide="chevron-right"></i>
         </a>
 
+        <a asp-controller="Manage" asp-action="ChangePhoneNumber" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <span>
+                <i class="align-middle me-2" data-lucide="smartphone"></i>
+                @Localizer["Bind phone number"]
+            </span>
+            <span class="d-inline-flex align-items-center gap-2">
+                @if (!string.IsNullOrWhiteSpace(Model.PhoneNumber))
+                {
+                    <span class="badge bg-success-subtle text-success font-monospace">@Aiursoft.AlertCenter.Services.SmsChannelAdapter.MaskPhoneNumber(Model.PhoneNumber)</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary-subtle text-secondary">@Localizer["Not bound"]</span>
+                }
+                <i class="align-middle" data-lucide="chevron-right"></i>
+            </span>
+        </a>
+
         @* The server-side conditional logic is seamlessly integrated into the new component structure. *@
         @if (AppSettings.Value.LocalEnabled)
         {

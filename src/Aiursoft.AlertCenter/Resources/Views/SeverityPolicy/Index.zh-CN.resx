@@ -57,8 +57,29 @@
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>“在列表中显示”控制默认事件列表、仪表板和应用的计数。仍可通过明确指定严重级别的筛选条件查找隐藏的事件。始终会执行访问权限检查。</value>
   </data>
-  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
-    <value>这是全局通知上限。应用还必须启用相应的渠道，并订阅该严重级别。值班邮件使用“电子邮件”列。</value>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>告警已缓解</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>告警重新打开</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>告警已解决</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>新告警</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>短信通知触发场景</value>
+  </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>选择哪些告警生命周期事件会触发短信通知。仅当上方该严重级别的“短信”列和下方对应的事件类型同时开启时才会发送短信。</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>告警级别升级</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>这是全局通知上限。应用还必须启用相应的渠道，并订阅该严重级别。值班邮件使用“电子邮件”列，值班短信（在值班组中开启后）使用“短信”列以及下方的“短信通知触发场景”开关。</value>
   </data>
   <data name="Webhook" xml:space="preserve">
     <value>Webhook</value>

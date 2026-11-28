@@ -6,21 +6,21 @@ namespace Aiursoft.AlertCenter.Services;
 
 public static class OnCallEmailQueue
 {
-    public static async Task CreateAsync(TemplateDbContext db, Incident incident, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null)
+    public static async Task CreateAsync(TemplateDbContext db, Incident incident, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null, IncidentSeverityPolicy? policy = null)
     {
         await CreateAsync(db, incident.ApplicationId, new PushDelivery { Incident = incident, IncidentId = incident.Id },
-            DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc), cancellationToken, localizer: localizer, localizerFactory: localizerFactory);
+            DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc), cancellationToken, localizer: localizer, localizerFactory: localizerFactory, policy: policy);
     }
 
     public static Task<OnCallEmailSnapshot?> GetOriginalSnapshotAsync(TemplateDbContext db, Guid incidentId,
-        CancellationToken cancellationToken) =>
+        CancellationToken cancellationToken, string channelType = "email") =>
         db.OnCallEmailSnapshots.AsNoTracking().Include(snapshot => snapshot.Recipients)
-            .Where(snapshot => snapshot.Delivery.IncidentId == incidentId)
+            .Where(snapshot => snapshot.Delivery.IncidentId == incidentId && snapshot.ChannelType == channelType)
             .OrderBy(snapshot => snapshot.Delivery.CreatedAtUtc).ThenBy(snapshot => snapshot.DeliveryId)
             .FirstOrDefaultAsync(cancellationToken);
 
     public static async Task CreateEventAsync(TemplateDbContext db, IncidentTimelineEntry entry, CancellationToken cancellationToken,
-        IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null)
+        IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null, IncidentSeverityPolicy? policy = null)
     {
         localizer ??= localizerFactory?.Create(typeof(OnCallEmailQueue));
         var original = await GetOriginalSnapshotAsync(db, entry.Incident.Id, cancellationToken);
@@ -78,10 +78,88 @@ public static class OnCallEmailQueue
             var to = original.Recipients.Select(person => person.Email).ToHashSet(StringComparer.OrdinalIgnoreCase);
             delivery.OnCallEmail!.CcRecipients = string.Join('\n', cc.Where(address => !to.Contains(address)));
         }
-        await AddDeliveryAsync(db, delivery, cancellationToken);
+        await AddDeliveryAsync(db, delivery, cancellationToken, policy);
     }
 
-    private static async Task CreateAsync(TemplateDbContext db, Guid applicationId, PushDelivery delivery, DateTime atUtc, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null)
+    public static async Task CreateSmsEventAsync(TemplateDbContext db, IncidentTimelineEntry entry, CancellationToken cancellationToken,
+        IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null, IncidentSeverityPolicy? policy = null)
+    {
+        localizer ??= localizerFactory?.Create(typeof(OnCallEmailQueue));
+        var original = await GetOriginalSnapshotAsync(db, entry.Incident.Id, cancellationToken, "sms");
+        var delivery = new PushDelivery
+        {
+            IncidentEvent = entry, IncidentEventId = entry.Id, CreatedAtUtc = entry.CreatedAtUtc
+        };
+        if (original == null)
+        {
+            var group = await db.SourceApplications.AsNoTracking()
+                .Where(application => application.Id == entry.Incident.ApplicationId)
+                .Select(application => application.OnCallGroup).SingleOrDefaultAsync(cancellationToken);
+            if (group == null || !group.SmsNotificationsEnabled) return;
+            delivery.OnCallEmail = new OnCallEmailSnapshot
+            {
+                ChannelType = "sms",
+                GroupId = group.Id, GroupName = group.Name,
+                NotificationAtUtc = DateTime.SpecifyKind(entry.Incident.OccurredAtUtc, DateTimeKind.Utc),
+                ValidationError = localizer is null ? "The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE."
+                    : localizer["The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE."].Value
+            };
+        }
+        else
+        {
+            // Keep the original OCE roster (UserIds), but resolve each engineer's latest bound phone number
+            // so number changes, bindings, or unbindings take effect for subsequent lifecycle updates.
+            var recipientIds = original.Recipients.Select(person => person.UserId).Distinct(StringComparer.Ordinal).ToList();
+            var currentPhones = recipientIds.Count == 0
+                ? new Dictionary<string, string?>(StringComparer.Ordinal)
+                : await db.Users.AsNoTracking()
+                    .Where(user => recipientIds.Contains(user.Id))
+                    .ToDictionaryAsync(user => user.Id, user => user.PhoneNumber, StringComparer.Ordinal, cancellationToken);
+
+            var smsRecipients = original.Recipients.Select(person =>
+            {
+                var rawPhone = currentPhones.GetValueOrDefault(person.UserId);
+                var valid = SmsChannelAdapter.TryNormalizePhoneNumber(rawPhone, out var normalized, out _);
+                return new OnCallEmailRecipient
+                {
+                    UserId = person.UserId,
+                    DisplayName = person.DisplayName,
+                    Email = person.Email,
+                    PhoneNumber = valid ? normalized : null
+                };
+            }).ToList();
+
+            string? smsError;
+            if (original.Recipients.Count == 0)
+            {
+                smsError = original.ValidationError;
+            }
+            else if (!smsRecipients.Any(r => r.PhoneNumber != null))
+            {
+                smsError = localizer is null
+                    ? "Current OCE lacks a valid bound phone number; on-call SMS not sent."
+                    : localizer["Current OCE lacks a valid bound phone number; on-call SMS not sent."].Value;
+            }
+            else
+            {
+                smsError = null;
+            }
+
+            delivery.OnCallEmail = new OnCallEmailSnapshot
+            {
+                ChannelType = "sms",
+                GroupId = original.GroupId, GroupName = original.GroupName, ShiftId = original.ShiftId,
+                StartsAtUtc = original.StartsAtUtc, EndsAtUtc = original.EndsAtUtc,
+                NotificationAtUtc = original.NotificationAtUtc,
+                IsFallback = original.IsFallback,
+                ValidationError = smsError,
+                Recipients = smsRecipients
+            };
+        }
+        await AddDeliveryAsync(db, delivery, cancellationToken, policy);
+    }
+
+    private static async Task CreateAsync(TemplateDbContext db, Guid applicationId, PushDelivery delivery, DateTime atUtc, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null, IncidentSeverityPolicy? policy = null)
     {
         var group = await db.SourceApplications.AsNoTracking().Where(application => application.Id == applicationId)
             .Select(application => application.OnCallGroup).SingleOrDefaultAsync(cancellationToken);
@@ -121,12 +199,57 @@ public static class OnCallEmailQueue
         snapshot.CcRecipients = string.Join('\n', cc.Where(address => !to.Contains(address)));
         delivery.CreatedAtUtc = delivery.Incident?.ReceivedAtUtc ?? atUtc;
         delivery.OnCallEmail = snapshot;
-        await AddDeliveryAsync(db, delivery, cancellationToken);
+        policy ??= await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        await AddDeliveryAsync(db, delivery, cancellationToken, policy);
+
+        if (group.SmsNotificationsEnabled)
+        {
+            var smsRecipients = oce.Engineers.Select(engineer =>
+            {
+                var valid = SmsChannelAdapter.TryNormalizePhoneNumber(engineer.PhoneNumber, out var normalized, out _);
+                return new OnCallEmailRecipient
+                {
+                    UserId = engineer.UserId,
+                    DisplayName = engineer.DisplayName,
+                    Email = engineer.Email,
+                    PhoneNumber = valid ? normalized : null
+                };
+            }).ToList();
+
+            var smsError = oce.Error;
+            if (smsError == null && !smsRecipients.Any(r => r.PhoneNumber != null))
+            {
+                smsError = localizer is null
+                    ? "Current OCE lacks a valid bound phone number; on-call SMS not sent."
+                    : localizer["Current OCE lacks a valid bound phone number; on-call SMS not sent."].Value;
+            }
+
+            var smsDelivery = new PushDelivery
+            {
+                Incident = delivery.Incident,
+                IncidentId = delivery.IncidentId,
+                CreatedAtUtc = delivery.CreatedAtUtc,
+                OnCallEmail = new OnCallEmailSnapshot
+                {
+                    ChannelType = "sms",
+                    GroupId = group.Id,
+                    GroupName = group.Name,
+                    ShiftId = oce.ShiftId,
+                    StartsAtUtc = oce.StartsAtUtc,
+                    EndsAtUtc = oce.EndsAtUtc,
+                    NotificationAtUtc = atUtc,
+                    IsFallback = oce.IsFallback,
+                    ValidationError = smsError,
+                    Recipients = smsRecipients
+                }
+            };
+            await AddDeliveryAsync(db, smsDelivery, cancellationToken, policy);
+        }
     }
 
-    private static async Task AddDeliveryAsync(TemplateDbContext db, PushDelivery delivery, CancellationToken cancellationToken)
+    private static async Task AddDeliveryAsync(TemplateDbContext db, PushDelivery delivery, CancellationToken cancellationToken, IncidentSeverityPolicy? policy = null)
     {
-        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        policy ??= await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
         if (!policy.Allows(delivery))
         {
             // Keep the original OCE snapshot for a possible escalation, without sending mail.

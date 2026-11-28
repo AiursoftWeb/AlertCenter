@@ -155,6 +155,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<OnCallEmailSnapshot>().HasKey(snapshot => snapshot.DeliveryId);
         builder.Entity<OnCallEmailSnapshot>().HasOne(snapshot => snapshot.Delivery).WithOne(delivery => delivery.OnCallEmail)
             .HasForeignKey<OnCallEmailSnapshot>(snapshot => snapshot.DeliveryId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallEmailSnapshot>().Property(snapshot => snapshot.ChannelType).HasDefaultValue("email");
         builder.Entity<OnCallEmailSnapshot>().Property(snapshot => snapshot.CcRecipients).HasColumnType("text");
         builder.Entity<OnCallEmailRecipient>().HasKey(recipient => new { recipient.DeliveryId, recipient.UserId });
         builder.Entity<OnCallEmailRecipient>().HasOne(recipient => recipient.Snapshot).WithMany(snapshot => snapshot.Recipients)

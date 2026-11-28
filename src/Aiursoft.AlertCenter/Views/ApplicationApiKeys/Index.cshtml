@@ -56,7 +56,7 @@
                             <a asp-action="Edit" asp-route-applicationId="@Model.Application.Id" asp-route-id="@key.Id" class="btn btn-sm btn-outline-primary">@Localizer["Edit"]</a>
                             <details class="mt-2">
                                 <summary class="text-danger">@Localizer["Delete key"]</summary>
-                                <form asp-action="Delete" method="post" class="mt-2">
+                                <form asp-action="Delete" method="post" data-action-feedback class="mt-2">
                                     <input type="hidden" name="applicationId" value="@Model.Application.Id" />
                                     <input type="hidden" name="id" value="@key.Id" />
                                     <label for="confirm-@key.Id" class="form-label small">@Localizer["Enter the exact key name to confirm deletion."]</label>

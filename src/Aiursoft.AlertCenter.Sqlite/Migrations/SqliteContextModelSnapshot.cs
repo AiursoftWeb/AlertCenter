@@ -458,6 +458,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(320)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(32)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("DeliveryId", "UserId");
 
                     b.ToTable("OnCallEmailRecipient");
@@ -471,6 +475,13 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<string>("CcRecipients")
                         .HasMaxLength(8000)
                         .HasColumnType("text");
+
+                    b.Property<string>("ChannelType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("email");
 
                     b.Property<DateTime?>("EndsAtUtc")
                         .HasColumnType("TEXT");
@@ -571,6 +582,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<Guid>("ScheduleVersion")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("SmsNotificationsEnabled")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("TimeZoneId")
                         .IsRequired()

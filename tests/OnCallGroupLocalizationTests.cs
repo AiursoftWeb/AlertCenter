@@ -30,6 +30,21 @@ public class OnCallGroupLocalizationTests
         "Unable to reset the schedule. Refresh the page and try again."
     ];
 
+    private static readonly Dictionary<string, HashSet<string>> OnCallSmsKeys = new()
+    {
+        ["Views.OnCall._GroupForm"] =
+        [
+            "Enable built-in On-Call SMS notifications",
+            "When enabled, incidents and lifecycle updates are also texted to on-duty OCEs' bound phone numbers according to the global SMS severity policy."
+        ],
+        ["Views.OnCall.GroupDetails"] =
+        [
+            "Built-in On-call SMS",
+            "Enabled",
+            "Disabled"
+        ]
+    };
+
     [TestMethod]
     [DataRow("ar-SA")]
     [DataRow("da-DK")]
@@ -122,9 +137,10 @@ public class OnCallGroupLocalizationTests
                 foreach (var key in keys)
                 {
                     var localized = localizer[key];
-                    // 重置面板的新文案先提供简体中文；其他语言由翻译机器人补齐。
-                    if (culture != "zh-CN" && resource == "Views.OnCall.GroupDetails" && !entries.ContainsKey(key) &&
-                        ScheduleResetKeys.Contains(key))
+                    // 重置面板及内置值班短信的新文案先提供简体中文；其他语言由翻译机器人补齐。
+                    if (culture != "zh-CN" && !entries.ContainsKey(key) &&
+                        ((resource == "Views.OnCall.GroupDetails" && ScheduleResetKeys.Contains(key)) ||
+                         (OnCallSmsKeys.TryGetValue(resource, out var smsKeys) && smsKeys.Contains(key))))
                     {
                         Assert.AreEqual(key, localized.Value);
                         continue;

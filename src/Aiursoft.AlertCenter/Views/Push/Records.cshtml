@@ -59,6 +59,7 @@
                     <select id="filter-channel" name="channelId" class="form-select">
                         <option value="">@Localizer["All channels"]</option>
                         <option value="@Guid.Empty" selected="@(Model.ChannelId == Guid.Empty)">@Localizer["Built-in On-call Email"]</option>
+                        <option value="@Aiursoft.AlertCenter.Controllers.PushController.BuiltInOnCallSmsChannelId" selected="@(Model.ChannelId == Aiursoft.AlertCenter.Controllers.PushController.BuiltInOnCallSmsChannelId)">@Localizer["Built-in On-call SMS"]</option>
                         @foreach (var channel in Model.Channels)
                         {
                             <option value="@channel.Id" selected="@(Model.ChannelId == channel.Id)">@channel.Name</option>
@@ -144,10 +145,11 @@
                             "sev4" => "ac-badge-sev4",
                             _ => null
                         };
-                        var channelIcon = (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type) switch
+                        var channelIcon = (delivery.OnCallEmail?.ChannelType ?? delivery.Channel?.Type) switch
                         {
                             "webhook" => "webhook",
                             "email" => "mail",
+                            "sms" => "smartphone",
                             "inapp" => "bell",
                             _ => "send"
                         };
@@ -183,7 +185,7 @@
                             <td class="py-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <i data-lucide="@channelIcon" style="width: 15px; height: 15px;" class="text-muted" aria-hidden="true"></i>
-                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? string.Format(@Localizer["Built-in On-call Email · {0}"].Value, delivery.OnCallEmail.GroupName) : delivery.Channel?.Name)</span>
+                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? string.Format(delivery.OnCallEmail.ChannelType == "sms" ? @Localizer["Built-in On-call SMS · {0}"].Value : @Localizer["Built-in On-call Email · {0}"].Value, delivery.OnCallEmail.GroupName) : delivery.Channel?.Name)</span>
                                 </div>
                             </td>
                             <td class="py-3 text-center">

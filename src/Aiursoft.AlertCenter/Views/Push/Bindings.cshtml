@@ -46,6 +46,19 @@
         <div class="card-body">
             <p>@Localizer["On-call group:"]<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
             <p class="mb-1"><strong>To：</strong>@Localizer["System registered email addresses of all on-duty engineers (OCE) at the time of notification;"]<strong>CC：</strong>@Localizer["CC addresses configured for the on-call group."]</p>
+            <p class="mb-1">
+                <strong>@Localizer["Built-in On-call SMS"]：</strong>
+                @if (group.SmsNotificationsEnabled)
+                {
+                    <span class="badge bg-success-subtle text-success">@Localizer["Enabled"]</span>
+                    <span class="text-muted small ms-1">@Localizer["Sends SMS to on-duty OCEs' bound phone numbers according to the global SMS severity policy."]</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary-subtle text-secondary">@Localizer["Disabled"]</span>
+                    <span class="text-muted small ms-1">@Localizer["Can be enabled in the on-call group settings."]</span>
+                }
+            </p>
             <p class="small text-muted mb-0">@Localizer["Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy."]</p>
         </div>
     </section>
@@ -105,6 +118,7 @@
                                 {
                                     "webhook" => "webhook",
                                     "email" => "mail",
+                                    "sms" => "smartphone",
                                     "inapp" => "bell",
                                     _ => "send"
                                 };

@@ -30,6 +30,7 @@
         {
             "webhook" => "icon-success",
             "email" => "icon-warning",
+            "sms" => "icon-indigo",
             "inapp" => "icon-primary",
             _ => "icon-indigo"
         };
@@ -191,6 +192,17 @@
                                 </div>
                             </div>
                         }
+                        else if (Model.Type == "sms")
+                        {
+                            <div class="alert alert-info small mb-3" role="alert">
+                                <div class="alert-icon">
+                                    <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
+                                </div>
+                                <div class="alert-message text-break">
+                                    <strong>@Localizer["Tencent Cloud SMS service"]</strong>@Localizer[": Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide"] <code>Sms__SecretId</code> @Localizer["and"] <code>Sms__SecretKey</code> @Localizer["via environment variables). Users can bind their phone numbers in"] <a asp-controller="Manage" asp-action="ChangePhoneNumber">@Localizer["Profile Settings"]</a>@Localizer[", and global SMS severity rules can be configured in"] <a asp-controller="SeverityPolicy" asp-action="Index">@Localizer["Severity policy"]</a>.
+                                </div>
+                            </div>
+                        }
                         else
                         {
                             <div class="alert alert-info small mb-3" role="alert">
@@ -203,7 +215,7 @@
                             </div>
                         }
 
-                        @if (Model.Type == "inapp")
+                        @if (Model.Type is "inapp" or "sms")
                         {
                             <div class="card border mb-4">
                                 <div class="card-header bg-transparent py-2">
