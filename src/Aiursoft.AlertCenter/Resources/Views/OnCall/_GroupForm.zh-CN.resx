@@ -72,6 +72,9 @@
   <data name="Employee deleted" xml:space="preserve">
     <value>员工已删除</value>
   </data>
+  <data name="Enable built-in On-Call SMS notifications" xml:space="preserve">
+    <value>启用内置值班短信通知</value>
+  </data>
   <data name="Enter a keyword to search, or select a role to immediately view all employees in that role." xml:space="preserve">
     <value>输入关键词进行搜索，或选择一个角色以立即查看该角色下的所有员工。</value>
   </data>
@@ -281,6 +284,9 @@
   </data>
   <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve">
     <value>每周模板从下一次首个交接点开始；固定时长模板从下一个整点开始。保存班次后，起始时间将锁定。</value>
+  </data>
+  <data name="When enabled, incidents and lifecycle updates are also texted to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>启用后，告警事件及生命周期更新也会按全局短信级别策略发送至当值 OCE 绑定的手机号。</value>
   </data>
 
 </root>
