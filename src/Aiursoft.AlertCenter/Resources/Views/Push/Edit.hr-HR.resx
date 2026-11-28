@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, može se koristiti na primateljskoj strani s</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Odaberite tip kanala</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Podržava istovremeno povezivanje više korisnika i korisničkih grupa (uloga). Sustav automatski uklanja duplikate, osiguravajući da svaki član primi samo jednu nepročitavnu obavijest.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Sustav ujednočeno koristi globalnu konfiguraciju usluge e-pošte. Molimo koristite</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Dodajte CC e-poštu</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Dodajte e-mail adresu</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Dodajte barem jednog korisnika ili korisničku grupu; obavijesti se ne šalju ako grupa nema članova.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Dodaj push kanal</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Dodaj primatelje i korisničke skupine</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Napredna prilagodba zahtjeva (prilagođene zaglavlja i predlošci)</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Ovlaštenje za vezu aplikacije</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Dozevole za vezu aplikacije još nisu dodijeljene</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Osim administratora push kanala, trenutno nema korisnika koji mogu vezati ovaj kanal.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Vrsta autorizacije</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Natrag na popis kanala</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Unesite CC e-mail adrese u grupi</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Popis CC primatelja</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Ne može se prepisati.</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Naziv kanala</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Kliknite na gumb s desne strane za uklanjanje</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Kliknite za umetanje zamjenskog znaka:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Detalji konfiguracije</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Opis zadanog formata zahtjeva</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Svaka dostavna zadaća ima jedinstveni fiksni</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Uredi kanal za push obavijesti</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>E-mail poruke bit će izravno poslane na ovu e-mail adresu.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Odmah omogućite ovaj push kanal</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Promjenjive okolišne varijable pružaju vjerodajnice za provjeru autentičnosti.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Primjer: Produkcijski tim za dežurstvo, Feishu incident bot, Ops Webhook…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Dodatne zaglavlja zahtjeva (JSON objekt)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Globalna SMTP poštanska usluga</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Naziv zaglavlja maksimalno 128 znakova; vrijnost mora biti ispruran niska.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Idempotentno uklanjanje duplikata.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Ako se ostane prazno, sustav po zadanoj postavci šalje standardni JSON. Prilagođene zaglavlja su šifrirane i trajno spremljene;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Opseg obavijesti u aplikaciji</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Mijenjanje parametara isporuke za kanal &quot;{0}&quot;.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Još nema dodanih primatelja u kopiji (CC).</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Još nema dodanih primatelja. Odaberite skupine uloga ili navedite korisnike gore.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Jedna e-mail adresa po retku; podržani su i engleski zarezovi ili točke-zarez, do 50 CC primatelja.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Samo navedeni korisnici ili članovi korisničkih grupa mogu pregledati i vezati ovaj kanal u svojim upravljanim aplikacijama. Ova dozvola ne dodjeljuje pristup primateljima, Webhookovima ili konfiguraciji testiranja.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Parši kao popis</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Odrađeni CC primatelji</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Zamjenici moraju biti jedina vrijednost JSON niza znakova.</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Vrsta primatelja</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>E-pošta primatelja</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Ukloni dopuštenje</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Ukloni {0}</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Predložak tijela zahtjeva (JSON predložak)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Uloga grupe</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Spremi konfiguraciju kanala</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Pretraži korisnike</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Pretraži po korisničkom ili prikaznom imenu...</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Odaberi korisničku grupu</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Odaberite vrstu kanala za obavijesti i konfigurirajte adresu primatelja ili ciljne primatelje.</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Odaberite skupinu korisnika...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Odaberite korisnika...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Odabrani popis primatelja</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Odredi pojedinačnog korisnika</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Odredi korisnika</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Odredi korisnika (Korisnik)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>Primalac mora podržavati HTTP POST JSON. Odgovor 2xx smatra se uspješnom dostavom. Vremensko ograničenje zahtjeva sustava je 10 sekundi, a preusmjeravanja izvan podrijetla se ne prate.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Za dodavanje</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Koristi se za brzo prepoznavanje razina i zapisa guranja aplikacije.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Korisnička grupa</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Korisnička grupa (Uloga)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Skupina korisnika · Članovi dinamički nasljeđuju vezana dopuštenja</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL primoprimatelja web kuke</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Obrađivat će i zadržavati originalne tipove objekata.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>i</value>
+  </data>
+
+</root>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Kritično, najviša prioritet),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Gruba pogreška),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Opće informacije). Centar usmjerava i šalje obavijesti na temelju ove razine.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(ozbiljno),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Upozorenje),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) ili Uslugu za upravljanje ključevima (KMS). Uvrštavanje u frontend, dnevnik ili repozitorij koda strogo je zabranjeno.</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Raspoređivanje push notifikacija pokrenuto asinkrono.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Zadržite prvi zapis i ne pokrećite duplirane pushove.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Centar može koristiti ovo polje za procjenu latencije mreže za prijavu i isporuku.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>od 1 do 200 znakova</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Prihvaćeno (idempotentno)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Greška parametra</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Autentikacija nije uspjela</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API ključ se prikazuje samo jednom nakon uspješnog stvaranja. Odmah ga konfigurirajte u varijablama okruženja produkcijskog okruženja (npr.,</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Vrijeme stvarnog nastanka poslovnog događaja, npr.</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Nedostaju Bearer vjerodajnice, ključevi se ne podudaraju ili je aplikacija onemogućena. Provjerite postavke aplikacije.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Podesite kanal Push Centra</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Kopiraj kod</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Kreirajte aplikaciju za integraciju i dobijte API ključ</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Vodič za integraciju za programere</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Duplicirano izvješće s istim ReportId-om,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Svaki ključ pripada jednoj aplikaciji. Poslužitelj provjerava tajni hash i dopuštenje potrebno za svaku operaciju.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Osigurajte strogu konkurentnu idempotenciju; za ponovna pokušaj koristite isti ID.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Svaki novi ID izvještaja stvara neovisni incident. Ponovno koristite isti ID izvještaja samo kada ponavljate isti zahtjev. Ograničite broj izvještaja na izvoru.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Naziv polja</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Od stvaranja aplikacije i autenticacije ključa do prvog izvješća o incidentu, uspostavite stabilni kanal sustavnih incidenata u 4 koraka.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Idi na stvaranje aplikacije i dobivanje vjerodajnica</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Specifikacija polja za HTTP prijavu</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>HTTP kôdovi statusa odgovora i najbolje inženjerske prakse</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>U primjeru koda,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Detalji tijela incidenta. Podržava vodiče za rješavanje problema, stogove iznimaka ili dijagnostičke sažetke. Predstavni sloj automatski zamjenjuje HTML znakove kako bi spriječio XSS injekciju.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Naslov sažetka incidenta. Kratko opišite kvar, npr. „Vrijeme odgovora kanala za plaćanje narudžbe isteklo.“</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Početno spremanje uspješno. Vraća generirani primarni ključ ID,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>JSON objekt; cijeli zahtjev maks. 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Obavijest o sprečavanju curenja</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Upravljajte integriranim aplikacijama</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Maks. 4.000 znakova</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Otvorite Upravljanje API ključevima za aplikaciju kako biste stvorili imenovane ključeve s dozvolama za upit, stvaranje i rješavanje.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Neobavezno</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Zamijenite ključem aplikacije generiranim u prethodnom koraku kako biste izravno poslali test.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Obavezno</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Nedostaju obavezna polja, format razine je neispravan ili tijelo zahtjeva premašuje ograničenje od 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Odgovori koriste AiurProtocol s Code, Message i ProtocolVersion. Neuspjeh validacije uključuje Items polje. SDK vraća tipiranu potvrdu ili baca AiurProtocol iznimku.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Pravila i ograničenja</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Pošaljite prvu poruku o incidentu</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Ozbiljnost:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Standardni UUID format</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Strukturirani poslovni kontekst. Preporučuje se uključiti</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK šalje svako izvješće jednom. Ako kvar mreže ostavi ishod neizvjesnim, ponovite isti zahtjev s istim ReportId-om i vremenom pojave.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Globalno jedinstveni ID izvještaja klijenta. Centar koristi</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Vrsta</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Pogledaj incidente</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>S pomakom vremenske zone ili Z identifikatorom</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>ili varijable okruženja, olakšavajući jednim klikom lociranje i rješavanje problema na stranici s detaljima.</value>
+  </data>
+
+</root>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application" xml:space="preserve">
+    <value>Aplikacija</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>Natrag na nadzornu ploču</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Sadržaj</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>Stvori upozorenje</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>Kreiranje ovog upozorenja uvrstit će obavijesti u red koristeći postavke dežurstva i guranja aplikacije.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritično</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>Opišite što se dogodilo kako bi odgovorni mogli poduzeti akciju.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Greška</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>Informacijski</value>
+  </data>
+  <data name="Investigate URL (optional)" xml:space="preserve">
+    <value>URL za istraživanje (neobavezno)</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Veliko</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Nova obavijest</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>Nema dostupnih omogućenih aplikacija. Zatražite od vlasnika aplikacije pristup za stvaranje upozorenja.</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>Prikazane su samo omogućene aplikacije za koje možete stvarati upozorenja.</value>
+  </data>
+  <data name="Optional link for engineers to investigate the incident directly." xml:space="preserve">
+    <value>Opcionalna poveznica za inženjere za izravnu istragu incidenta.</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>Odaberite aplikaciju</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Ozbiljnost</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Upozorenje</value>
+  </data>
+
+</root>
