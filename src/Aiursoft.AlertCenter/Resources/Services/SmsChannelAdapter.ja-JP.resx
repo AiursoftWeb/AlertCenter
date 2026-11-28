@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Invalid Tencent Cloud SMS configuration. Please check Sms settings." xml:space="preserve">
+    <value>Tencent Cloud SMS の設定が有効ではありません。Sms の設定を確認してください。</value>
+  </data>
+  <data name="Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000." xml:space="preserve">
+    <value>電話番号の形式が不正です。国番号付きの E.164 形式を使用してください。例: +8613800138000。</value>
+  </data>
+  <data name="No users available to receive SMS notifications. Please configure recipient users or user groups." xml:space="preserve">
+    <value>SMS通知を受信できるユーザーがいません。受信者ユーザーまたはユーザーグループを設定してください。</value>
+  </data>
+  <data name="None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings." xml:space="preserve">
+    <value>対象の受信者のいずれにも有効な電話番号が紐付けられていません。ユーザーにプロフィール設定で電話番号を紐付けるよう依頼してください。</value>
+  </data>
+  <data name="Please enter a phone number." xml:space="preserve">
+    <value>電話番号を入力してください。</value>
+  </data>
+  <data name="SMS (Tencent Cloud)" xml:space="preserve">
+    <value>SMS（Tencent Cloud）</value>
+  </data>
+  <data name="SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>SMS通知は、インシデントが作成、エスカレーション、緩和、解決、または再オープンされた場合のみ送信されます。</value>
+  </data>
+  <data name="SMS sending timed out. Some recipients may have received the message; please verify and retry." xml:space="preserve">
+    <value>SMSの送信がタイムアウトしました。一部の受信者にメッセージが届いている可能性があります。確認して再試行してください。</value>
+  </data>
+  <data name="Send incident notifications via Tencent Cloud SMS to the bound phone numbers of selected users and user groups." xml:space="preserve">
+    <value>Tencent Cloud SMSを使用して、選択したユーザーおよびユーザーグループの紐付け済み電話番号へインシデント通知を送信します。</value>
+  </data>
+  <data name="Tencent Cloud SMS API error: {0}" xml:space="preserve">
+    <value>Tencent Cloud SMS APIエラー: {0}</value>
+  </data>
+  <data name="Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings." xml:space="preserve">
+    <value>この通知タイプにはTencent Cloud SMSテンプレートIDが設定されていません。Sms:Templates設定を確認してください。</value>
+  </data>
+  <data name="The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>オンコールSMS受信者スナップショットに有効な電話番号がありません。現在のOCE配信を再選択できません。</value>
+  </data>
+
+</root>

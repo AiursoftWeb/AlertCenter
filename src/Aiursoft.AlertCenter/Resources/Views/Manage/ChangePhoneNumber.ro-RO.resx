@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Bind phone number" xml:space="preserve">
+    <value>Asociere număr de telefon</value>
+  </data>
+  <data name="Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel." xml:space="preserve">
+    <value>Asociați numărul de telefon în format E.164 (inclusiv codul țării, de ex. +8613800138000) pentru a primi notificări de alertă prin SMS atunci când dvs. sau grupul dvs. de utilizatori sunt configurați ca destinații ai unui canal de push SMS.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="Currently bound:" xml:space="preserve">
+    <value>Legat în prezent:</value>
+  </data>
+  <data name="Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind." xml:space="preserve">
+    <value>Includeți codul țării începând cu +, de ex. +8613800138000. Lăsați gol și salvați pentru a debloca.</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>Număr de telefon</value>
+  </data>
+  <data name="SMS Alert Phone Number" xml:space="preserve">
+    <value>Număr de telefon pentru alerte SMS</value>
+  </data>
+  <data name="Save phone number" xml:space="preserve">
+    <value>Salvează numărul de telefon</value>
+  </data>
+  <data name="Unbind phone number" xml:space="preserve">
+    <value>Dezlegă numărul de telefon</value>
+  </data>
+
+</root>

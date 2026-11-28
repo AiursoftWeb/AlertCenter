@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Bind phone number" xml:space="preserve">
+    <value>Vincular número de telefone</value>
+  </data>
+  <data name="Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel." xml:space="preserve">
+    <value>Vincule seu número de telefone no formato E.164 (incluindo o código do país, por exemplo, +8613800138000) para receber notificações de alerta por SMS quando você ou seu grupo de usuários estiverem configurados como destinatários de um canal de push de SMS.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Currently bound:" xml:space="preserve">
+    <value>Atualmente vinculado:</value>
+  </data>
+  <data name="Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind." xml:space="preserve">
+    <value>Inclua o código do país começando com +, por exemplo, +8613800138000. Deixe em branco e salve para desvincular.</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>Número de telefone</value>
+  </data>
+  <data name="SMS Alert Phone Number" xml:space="preserve">
+    <value>Número de telefone para alertas por SMS</value>
+  </data>
+  <data name="Save phone number" xml:space="preserve">
+    <value>Salvar número de telefone</value>
+  </data>
+  <data name="Unbind phone number" xml:space="preserve">
+    <value>Desvincular número de telefone</value>
+  </data>
+
+</root>

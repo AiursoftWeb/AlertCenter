@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Bind phone number" xml:space="preserve">
+    <value>Прив&apos;язати номер телефону</value>
+  </data>
+  <data name="Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel." xml:space="preserve">
+    <value>Зв&apos;яжіть свій номер телефону у форматі E.164 (включаючи код країни, наприклад +8613800138000), щоб отримувати сповіщення SMS, коли ви або ваша група користувачів налаштовані як отримувачі каналу SMS-сповіщень.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Currently bound:" xml:space="preserve">
+    <value>Поточний номер:</value>
+  </data>
+  <data name="Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind." xml:space="preserve">
+    <value>Включіть код країни, що починається з +, наприклад +8613800138000. Залиште поле порожнім і збережіть, щоб зв&apos;язати.</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>Номер телефону</value>
+  </data>
+  <data name="SMS Alert Phone Number" xml:space="preserve">
+    <value>Номер телефону для SMS-сповіщень</value>
+  </data>
+  <data name="Save phone number" xml:space="preserve">
+    <value>Зберегти номер телефону</value>
+  </data>
+  <data name="Unbind phone number" xml:space="preserve">
+    <value>Вив&apos;язати номер телефону</value>
+  </data>
+
+</root>

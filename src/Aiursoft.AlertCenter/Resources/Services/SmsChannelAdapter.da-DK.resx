@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Invalid Tencent Cloud SMS configuration. Please check Sms settings." xml:space="preserve">
+    <value>Ugyldig Tencent Cloud SMS-konfiguration. Kontroller venligst Sms-indstillingerne.</value>
+  </data>
+  <data name="Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000." xml:space="preserve">
+    <value>Ugyldigt telefonnummerformat. Brug E.164-format med landekode, f.eks. +8613800138000.</value>
+  </data>
+  <data name="No users available to receive SMS notifications. Please configure recipient users or user groups." xml:space="preserve">
+    <value>Der er ingen brugere tilgængelige til at modtage SMS-notifikationer. Konfigurer venligst modtagerbrugere eller brugergrupper.</value>
+  </data>
+  <data name="None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings." xml:space="preserve">
+    <value>Ingen af de målrettede modtagere har et gyldigt telefonnummer tilknyttet. Bed brugere om at tilknytte deres telefonnummer i Profilindstillinger.</value>
+  </data>
+  <data name="Please enter a phone number." xml:space="preserve">
+    <value>Indtast et telefonnummer.</value>
+  </data>
+  <data name="SMS (Tencent Cloud)" xml:space="preserve">
+    <value>SMS (Tencent Cloud)</value>
+  </data>
+  <data name="SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>SMS-notifikationer sendes kun, når en hændelse er oprettet, eskaleret, dæmpet, løst eller genåbnet.</value>
+  </data>
+  <data name="SMS sending timed out. Some recipients may have received the message; please verify and retry." xml:space="preserve">
+    <value>SMS-afsendelse udløb. Nogle modtagere kan have modtaget beskeden; venligst verificér og prøv igen.</value>
+  </data>
+  <data name="Send incident notifications via Tencent Cloud SMS to the bound phone numbers of selected users and user groups." xml:space="preserve">
+    <value>Send incidentnotifikationer via Tencent Cloud SMS til de bundne telefonnumre for valgte brugere og brugergrupper.</value>
+  </data>
+  <data name="Tencent Cloud SMS API error: {0}" xml:space="preserve">
+    <value>Tencent Cloud SMS API-fejl: {0}</value>
+  </data>
+  <data name="Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings." xml:space="preserve">
+    <value>Tencent Cloud SMS-skabelon-ID er ikke konfigureret for denne notifikationstype. Venligst tjek Sms:Templates-indstillingerne.</value>
+  </data>
+  <data name="The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>On-call SMS-Modtager snapshot har ingen gyldige telefonnumre; kan ikke genvælge den aktuelle OCE-levering.</value>
+  </data>
+
+</root>

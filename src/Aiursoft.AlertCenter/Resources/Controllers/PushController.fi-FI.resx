@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>Virheelliset suodatusehdot. Päivitä sivu ja yritä uudelleen.</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>Vain on-call-SMS-tallenteet, joilla on kelvolliset OCE-snapot, voidaan yrittää uudelleen. Vastaanottajia ei voi valita uudelleen vanhojen hälytysten uudelleenlähittämiseksi, jos OCE tai puhelinnumero puuttuu.</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>Vain sellaiset päivystysviestit, joilla on kelvolliset OCE-tilannevedokset, tai epäonnistuneet tietueet, joissa mukautetut kanavat ovat käytössä, voidaan yrittää lähettää uudelleen. Vastaanottajia ei voi valita uudelleen vanhojen hälytysten lähettämiseksi, jos OCE tai sähköposti puuttuu.</value>
   </data>

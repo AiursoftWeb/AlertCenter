@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
+      <data name="Current OCE lacks a valid bound phone number; on-call SMS not sent." xml:space="preserve">
+    <value>У текущего OCE отсутствует действительный привязанный номер телефона; SMS для дежурного не отправлена.</value>
+  </data>
+  <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
     <value>Для текущего ответственного инженера нет действительного адреса электронной почты, зарегистрированного в системе; письмо дежурной смене не отправлено.</value>
   </data>
   <data name="On-call group CC email configuration is invalid." xml:space="preserve">
     <value>Неверно настроен список адресов электронной почты для копии (CC) дежурной группы.</value>
+  </data>
+  <data name="The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE." xml:space="preserve">
+    <value>Исходный снимок SMS для OCE инцидента недоступен; SMS не было отправлено текущему OCE.</value>
   </data>
   <data name="The original incident OCE snapshot is unavailable; email was not sent to the current OCE." xml:space="preserve">
     <value>Снимок OCE исходного инцидента недоступен; письмо не было отправлено текущему OCE.</value>

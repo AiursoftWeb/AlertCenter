@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Email Siaga Bawaan</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>SMS On-call Bawaan</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Alamat CC yang dikonfigurasi untuk grup piket.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Dapat diaktifkan dalam pengaturan grup on-call.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Kritis (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Simpan konfigurasi perutean</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Mengirimkan SMS ke nomor telepon yang terikat milik OCE yang sedang bertugas sesuai dengan kebijakan tingkat keparahan SMS global.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Alamat email semua teknisi yang sedang bertugas (OCE) yang terdaftar di sistem pada saat notifikasi dikirim;</value>

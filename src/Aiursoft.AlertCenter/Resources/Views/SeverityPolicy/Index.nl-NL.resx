@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>Kies hoe elke ernst responders op de hoogte brengt en wordt weergegeven in de standaardincidentweergaven.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>Kies welke incidentlifecycle-events SMS-meldingen activeren. SMS wordt alleen verzonden wanneer zowel het ernstniveau van het incident (SMS-kolom hierboven) als het type event hieronder zijn ingeschakeld.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>In-app</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>Incident gemitigeerd</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>Incident opnieuw geopend</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>Incident opgelost</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Nieuw incident</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>SMS-meldingsgebeurtenissen</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>Het sms-beleid kan worden opgeslagen, maar er is geen sms-kanaal voor het versturen van berichten geïnstalleerd. Als u sms selecteert, worden er geen sms-berichten verstuurd.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Ernst</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>Ergeringsniveau verhoogd</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>Ernstigheidsbeleid</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Toon in lijsten beheert de standaard incidentenlijst, dashboard- en applicatieaantallen. Expliciete ernstfilters kunnen nog steeds verborgen incidenten vinden. Toegangsrechten worden altijd afgedwongen.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>Dit is het globale meldingsplafond. Een toepassing moet ook een ingeschakeld kanaal hebben en zich abonneren op de ernst. On-call e-mail gebruikt de kolom E-mail, en on-call SMS (wanneer ingeschakeld op het on-call team) gebruikt de kolom SMS samen met de SMS-meldingsgebeurtenisschakelaars.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Dit is de globale bovengrens voor meldingen. Een applicatie moet ook een ingeschakeld kanaal hebben en zich abonneren op het betreffende ernstniveau. Voor e-mail aan de dienstdoende medewerker wordt de kolom E-mail gebruikt.</value>

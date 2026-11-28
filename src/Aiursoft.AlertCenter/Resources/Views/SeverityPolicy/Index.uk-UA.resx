@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>Виберіть, як сповіщати відповідальних осіб про кожен рівень критичності та відображати його в стандартних поданнях інцидентів.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>Оберіть, які події життєвого циклу інциденту запускають SMS-сповіщення. SMS надсилається лише тоді, коли увімкнені як рівень серйозності інциденту (стовпець SMS вище), так і тип події нижче.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Електронна пошта</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>У застосунку</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>Інцидент усунено</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>Інцидент відкрито знову</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>Інцидент вирішено</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Нова інцидент</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>Події SMS-сповіщень</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>Політику SMS можна зберегти, але канал надсилання SMS не встановлено. Вибір SMS не надсилає текстові повідомлення.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Критичність</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>Ескалація критичності</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>Політика критичності</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Параметр «Показувати у списках» визначає, чи відображатимуться інциденти за замовчуванням у списку інцидентів, на панелі керування та в лічильниках застосунків. За допомогою явних фільтрів за рівнем критичності можна знайти навіть приховані інциденти. Дозволи доступу завжди застосовуються.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>Це глобальний ліміт сповіщень. Застосунок також повинен мати увімкнений канал і підписку на рівень важливості. Електронна пошта для чергових використовує стовпець Email, а SMS для чергових (якщо увімкнено в команді чергових) використовує стовпець SMS разом із перемикачами подій SMS-сповіщень.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Це загальне обмеження для сповіщень. У застосунку також має бути ввімкнений канал, а застосунок має підписатися на відповідний рівень важливості. Для чергових сповіщень електронною поштою використовується стовпець «Електронна пошта».</value>

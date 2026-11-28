@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=", can be used on the receiving end with" xml:space="preserve">
+      <data name=", and global SMS severity rules can be configured in" xml:space="preserve">
+    <value>，全局短信严重级别规则可在</value>
+  </data>
+  <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>，可在接收端配合</value>
   </data>
   <data name="1. Select channel type" xml:space="preserve">
     <value>1. 选择渠道类型</value>
+  </data>
+  <data name=": Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide" xml:space="preserve">
+    <value>：通过全局腾讯云短信配置（提供</value>
   </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>：支持同时绑定多个用户和用户组（角色）。系统会自动去重，确保每位成员只收到一条未读通知。</value>
@@ -153,6 +159,9 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>占位符必须是 JSON 字符串的唯一值。</value>
   </data>
+  <data name="Profile Settings" xml:space="preserve">
+    <value>个人资料设置</value>
+  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>收件人类型</value>
   </data>
@@ -198,6 +207,9 @@
   <data name="Selected recipient list" xml:space="preserve">
     <value>已选收件人列表</value>
   </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>严重性策略</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>指定单个用户</value>
   </data>
@@ -206,6 +218,9 @@
   </data>
   <data name="Specify User (User)" xml:space="preserve">
     <value>指定用户（用户）</value>
+  </data>
+  <data name="Tencent Cloud SMS service" xml:space="preserve">
+    <value>腾讯云短信服务</value>
   </data>
   <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
     <value>接收端必须支持 HTTP POST JSON。2xx 响应视为投递成功。系统请求超时时间为 10 秒，且不会跟随跨源重定向。</value>
@@ -233,6 +248,9 @@
   </data>
   <data name="and" xml:space="preserve">
     <value>和</value>
+  </data>
+  <data name="via environment variables). Users can bind their phone numbers in" xml:space="preserve">
+    <value>通过环境变量）。用户可以在</value>
   </data>
 
 </root>

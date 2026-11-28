@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>E-mail de serviciu integrat</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>SMS integrat pentru deplasare</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Adrese CC configurate pentru grupul de tura.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Poate fi activat în setările grupului de intervenție.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Critic (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Salvați configurația de rutare</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Trimite SMS-uri către numerele de telefon asociate ale OCE-urilor din tura curentă, conform politicii globale de severitate pentru SMS.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Adresele de e-mail înregistrate în sistem ale tuturor inginerilor aflați de serviciu (OCE) la momentul notificării;</value>

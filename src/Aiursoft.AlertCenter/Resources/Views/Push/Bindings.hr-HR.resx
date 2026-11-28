@@ -33,8 +33,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Ugrađena e-pošta za dežurne</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Ugrađene SMS poruke za dežurne</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>CC adrese konfigurirane za grupu na smjeni.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Može se omogućiti u postavkama grupe za dežurstvo.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Kritično (P0)</value>
@@ -77,6 +83,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Spremi konfiguraciju usmjeravanja</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Slanje SMS poruka na povezane brojeve telefona OCE-ova na dežurstvu prema globalnoj politici ozbiljnosti SMS-a.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>E-mail adrese sustava registrirane za sve inženjere na dežurstvu (OCE) u trenutku obavještenja;</value>

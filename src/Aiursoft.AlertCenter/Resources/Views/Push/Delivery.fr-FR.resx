@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>E-mail d’astreinte intégré · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>SMS d&apos;appel intégrée · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>Système intégré · Ne peut pas être désactivé individuellement</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>Système intégré · Géré dans les paramètres de l&apos;équipe de garde</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>État d’activation du canal</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>Notification supprimée</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Les nouvelles tentatives de SMS de garde utilisent toujours l&apos;instantané du numéro de téléphone OCE au moment où le message a été mis en file d&apos;attente et ne redirigent pas vers le personnel de garde actuel. Les nouvelles tentatives ne sont pas disponibles si aucun instantané valide n&apos;existe.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Les nouvelles tentatives d’envoi des e-mails d’astreinte utilisent toujours les instantanés OCE et CC enregistrés lors de la mise en file d’attente du message et ne sont pas redirigées vers les personnes actuellement d’astreinte. Aucune nouvelle tentative n’est possible si aucun instantané valide n’existe.</value>

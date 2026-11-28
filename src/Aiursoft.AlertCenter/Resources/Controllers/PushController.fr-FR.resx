@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>Critères de filtre invalides. Veuillez actualiser la page et réessayer.</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>Seules les enregistrements SMS de garde avec des instantanés OCE valides peuvent être réessayés. Vous ne pouvez pas sélectionner à nouveau les destinataires pour renvoyer d&apos;anciennes alertes si l&apos;OCE ou le numéro de téléphone est manquant.</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>Seuls les e-mails d’astreinte associés à des instantanés OCE valides ou les enregistrements en échec dont les canaux personnalisés sont activés peuvent être relancés. Vous ne pouvez pas sélectionner à nouveau les destinataires pour renvoyer d’anciennes alertes si l’OCE ou l’e-mail est manquant.</value>
   </data>

@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>Neispravni kriteriji filtera. Osvježite stranicu i pokušajte ponovno.</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>Samo SMS zapisi za dežurne s valjanim OCE snimkama mogu se ponoviti. Ne možete ponovno odabrati primatelje kako biste ponovno poslali stare upozorenja ako nedostaje OCE ili broj telefona.</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>Ponovno se mogu pokrenuti samo on-call e-pošte s važećim OCE snapshotima ili neuspjele zapisi s omogućenim prilagođenim kanalima. Ne možete ponovno odabrati primatelje kako biste ponovno poslali stare obavijesti ako OCE ili e-pošta nedostaje.</value>
   </data>

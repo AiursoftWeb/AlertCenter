@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>Ingebouwde oproepdienst-e-mail · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>Ingebouwde On-call SMS · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>Ingebouwd systeem · Kan niet afzonderlijk worden uitgeschakeld</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>Ingebouwd systeem · Beheerd in on-call teaminstellingen</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>Status van het kanaal</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>Melding onderdrukt</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>SMS-hervattingen voor de on-call dienst gebruiken altijd de OCE-telefoonnummersnapshot van het moment dat het bericht in de wachtrij werd geplaatst en leiden niet door naar het huidige on-call personeel. Hervattingen zijn niet beschikbaar als er geen geldige snapshot bestaat.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Bij nieuwe pogingen voor e-mails naar de dienstdoende medewerkers worden altijd de OCE- en CC-momentopnamen gebruikt van het moment waarop het bericht in de wachtrij is geplaatst. De e-mail wordt niet doorgestuurd naar de huidige dienstdoende medewerkers. Opnieuw proberen is niet mogelijk als er geen geldige momentopname bestaat.</value>

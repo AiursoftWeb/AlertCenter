@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>البريد الإلكتروني المدمج للفرق المناوبة</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>رسائل SMS المدمجة للنوبات</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>عناوين النسخ (CC) المهيأة لمجموعة المناوبة.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>يمكن تفعيله في إعدادات مجموعة الاستدعاء.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>حرج (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>حفظ تكوين التوجيه</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>ترسل رسائل SMS إلى أرقام الهواتف المرتبطة بمهندسي OCE المناوبين وفقًا لسياسة شدة SMS العالمية.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>عناوين البريد الإلكتروني المسجلة في النظام لجميع المهندسين المناوبين (OCE) عند وقت الإخطار؛</value>

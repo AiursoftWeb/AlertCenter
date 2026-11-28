@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Встроенная электронная почта для дежурных</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Встроенные SMS-уведомления дежурной смены</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Адреса для копии, настроенные для дежурной группы.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Можно включить в настройках группы дежурства.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Критический (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Сохранить настройки маршрутизации</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Отправляет SMS на привязанные номера телефонов дежурных инженеров (OCE) в соответствии с глобальной политикой критичности SMS.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Системные зарегистрированные адреса электронной почты всех инженеров, находящихся на дежурстве (OCE), на момент уведомления;</value>

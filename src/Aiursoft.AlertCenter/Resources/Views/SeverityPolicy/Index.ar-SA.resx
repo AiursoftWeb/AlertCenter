@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>اختر كيفية إشعار المستجيبين بكل مستوى خطورة، وكيفية ظهوره في طرق العرض الافتراضية للحوادث.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>اختر أحداث دورة حياة الحادثة التي تُطلق إشعارات الرسائل النصية القصيرة (SMS). يتم إرسال الرسالة النصية القصيرة فقط عندما يكون كل من مستوى خطورة الحادثة (عمود SMS أعلاه) ونوع الحدث أدناه مفعّلين.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>داخل التطبيق</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>تم التخفيف من الحادث</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>إعادة فتح الحادث</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>تم حل الحادث</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>حادث جديد</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>أحداث إشعارات الرسائل النصية القصيرة</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>يمكن حفظ سياسة الرسائل النصية القصيرة، لكن لم يتم تثبيت أي قناة لإرسالها. لا يؤدي تحديد الرسائل النصية القصيرة إلى إرسال رسائل نصية.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>الخطورة</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>تصعيد مستوى الخطورة</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>سياسة مستوى الخطورة</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>يتحكم خيار «إظهار في القوائم» في قائمة الحوادث الافتراضية ولوحة المعلومات وأعداد التطبيقات. تظل عوامل تصفية الخطورة المحددة قادرة على العثور على الحوادث المخفية. تُطبَّق أذونات الوصول دائمًا.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>هذا هو الحد الأقصى العام للإشعارات. يجب أن يكون للتطبيق أيضًا قناة مفعّلة واشتراك في مستوى الخطورة. يستخدم البريد الإلكتروني للموظف المناوب عمود البريد الإلكتروني، بينما يستخدم رسالة نصية قصيرة للموظف المناوب (عند تفعيلها على فريق المناوبة) عمود الرسائل النصية القصيرة مع مفاتيح أحداث الإشعارات النصية.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>هذا هو الحد الأقصى العام للإشعارات. يجب أن يكون للتطبيق أيضًا قناة مفعّلة واشتراك في مستوى الخطورة. يستخدم البريد الإلكتروني المناوب عمود البريد الإلكتروني.</value>

@@ -112,6 +112,7 @@ public class ViewModelArgsInjector(
         _ = localizer["New alert"];
     
         _ = localizer["Severity policy"];
+        _ = localizer["Bind Phone Number"];
     }
 
     public void InjectSimple(

@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>標準オンコールメール</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>組み込みオンコールSMS</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>オンコールグループに設定されたCCアドレス。</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>オンコールグループの設定で有効にできます。</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>重大（P0）</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>ルーティング設定を保存</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>グローバルSMS重大度ポリシーに基づき、当直中のOCEが紐付けた電話番号にSMSを送信します。</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>通知時点でシステムに登録されている、当番エンジニア（OCE）全員のメールアドレス；</value>

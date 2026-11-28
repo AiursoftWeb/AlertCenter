@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>Correo electrónico de guardia integrado · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>SMS de guardia integrada · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>Sistema integrado · No se puede desactivar individualmente</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>Sistema integrado · Gestionado en la configuración del equipo de guardia</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>Estado de activación del canal</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>Notificación suprimida</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Los reintentos de SMS de guardia siempre utilizan la instantánea del número de teléfono de OCE desde el momento en que el mensaje se encoló y no redirigen al personal de guardia actual. Los reintentos no están disponibles si no existe una instantánea válida.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Los reintentos de correo electrónico de guardia siempre utilizan las instantáneas de OCE y CC tomadas cuando se puso el mensaje en cola, y no se redirigen al personal de guardia actual. No se pueden realizar reintentos si no existe ninguna instantánea válida.</value>

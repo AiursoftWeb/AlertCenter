@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>Wybierz, w jaki sposób każdy poziom ważności powiadamia osoby reagujące na incydenty i jest wyświetlany w domyślnych widokach incydentów.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>Wybierz, które zdarzenia cyklu życia incydentu wywołują powiadomienia SMS. SMS jest wysyłany tylko wtedy, gdy zarówno poziom poważności incydentu (kolumna SMS powyżej), jak i typ zdarzenia poniżej są włączone.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>W aplikacji</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>Wydarzenie złagodzone</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>Wznowiono incydent</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>Incident rozwiązany</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Nowy incydent</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>Zdarzenia powiadomień SMS</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>Można zapisać zasady dotyczące SMS-ów, ale nie zainstalowano żadnego kanału dostarczania SMS-ów. Wybór SMS-ów nie powoduje wysyłania wiadomości tekstowych.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Ważność</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>Eskalacja poziomu poważności</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>Zasady dotyczące ważności</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Opcja „Wyświetlaj na listach” określa domyślną listę incydentów oraz liczniki na pulpicie i przy aplikacjach. Incydenty ukryte na listach nadal można znaleźć za pomocą jawnych filtrów ważności. Uprawnienia dostępu są zawsze egzekwowane.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>To jest globalny limit powiadomień. Aplikacja musi również mieć włączony kanał i subskrybować odpowiednią wagę zdarzenia. E-mail dyżurujący używa kolumny E-mail, a SMS dyżurujący (gdy jest włączony w zespole dyżurującym) używa kolumny SMS wraz z przełącznikami zdarzeń powiadomień SMS.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>To globalny limit powiadomień. Aplikacja musi mieć również włączony kanał i subskrybować dany poziom ważności. Wiadomości e-mail dla dyżurujących korzystają z kolumny „E-mail”.</value>

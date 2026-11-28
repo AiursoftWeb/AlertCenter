@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Bind phone number" xml:space="preserve">
+    <value>फ़ोन नंबर बाइंड करें</value>
+  </data>
+  <data name="Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel." xml:space="preserve">
+    <value>E.164 प्रारूप (देश कोड सहित, जैसे +8613800138000) में अपना फोन नंबर बाइंड करें, ताकि जब आप या आपका उपयोगकर्ता समूह SMS पुश चैनल के प्राप्तकर्ताओं के रूप में विन्यस्त किए जाएं, तो आपको SMS अलर्ट सूचनाएं प्राप्त हों।</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
+  <data name="Currently bound:" xml:space="preserve">
+    <value>वर्तमान में बंधा:</value>
+  </data>
+  <data name="Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind." xml:space="preserve">
+    <value>+ से शुरू होने वाले देश कोड शामिल करें, उदाहरण के लिए +8613800138000। अनबाइंड करने के लिए खाली छोड़ें और सहेजें।</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>फ़ोन नंबर</value>
+  </data>
+  <data name="SMS Alert Phone Number" xml:space="preserve">
+    <value>SMS अलर्ट फ़ोन नंबर</value>
+  </data>
+  <data name="Save phone number" xml:space="preserve">
+    <value>फ़ोन नंबर सहेजें</value>
+  </data>
+  <data name="Unbind phone number" xml:space="preserve">
+    <value>फ़ोन नंबर अनबाइंड करें</value>
+  </data>
+
+</root>

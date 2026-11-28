@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>E-mail integrat pentru serviciul de gardă · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>SMS integrat pentru apeluri de intervenție · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>Sistem integrat · Nu poate fi dezactivat individual</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>Sistem încorporat · Gestionat în setările echipei de intervenție</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>Starea canalului: activat sau dezactivat</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>Notificare suprimată</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Retragerile SMS pentru personalul de gardă folosesc întotdeauna instantaneul (snapshot) cu numărul de telefon OCE din momentul în care mesajul a fost pus în coadă și nu redirecționează către personalul de gardă curent. Retragerile nu sunt disponibile dacă nu există un instantaneu valid.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Reîncercările e-mailurilor de on-call folosesc întotdeauna instantaneele OCE și CC de la momentul în care mesajul a fost pus în coadă și nu redirecționează către personalul on-call actual. Reîncercările nu sunt disponibile dacă nu există un instantaneu valid.</value>

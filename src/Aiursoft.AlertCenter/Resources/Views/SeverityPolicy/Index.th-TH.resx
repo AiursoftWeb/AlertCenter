@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>เลือกวิธีแจ้งเตือนผู้รับผิดชอบและการแสดงผลในมุมมองเหตุการณ์เริ่มต้นสำหรับแต่ละระดับความรุนแรง</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>เลือกเหตุการณ์วงจรชีวิตของเหตุการณ์ (incident) ที่จะส่งการแจ้งเตือนผ่าน SMS ระบบจะส่ง SMS ก็ต่อเมื่อระดับความรุนแรงของเหตุการณ์ (คอลัมน์ SMS ด้านบน) และประเภทเหตุการณ์ด้านล่างถูกเปิดใช้งานทั้งคู่</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>อีเมล</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>ภายในแอป</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>เหตุการณ์ได้รับการบรรเทาแล้ว</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>เหตุการณ์ถูกเปิดใหม่</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>เหตุการณ์ได้รับการแก้ไข</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>เหตุการณ์ใหม่</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>เหตุการณ์การแจ้งเตือน SMS</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>สามารถบันทึกนโยบาย SMS ได้ แต่ยังไม่ได้ติดตั้งช่องทางการส่ง SMS การเลือก SMS จะไม่ส่งข้อความ</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>ระดับความรุนแรง</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>ระดับความรุนแรงเพิ่มขึ้น</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>นโยบายระดับความรุนแรง</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>การแสดงในรายการจะกำหนดรายการเหตุการณ์ แดชบอร์ด และจำนวนแอปพลิเคชันที่แสดงเป็นค่าเริ่มต้น ตัวกรองระดับความรุนแรงที่ระบุโดยตรงยังคงค้นหาเหตุการณ์ที่ซ่อนอยู่ได้ ระบบจะบังคับใช้สิทธิ์การเข้าถึงเสมอ</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>นี่คือเพดานการแจ้งเตือนระดับทั่วโลก แอปพลิเคชันต้องมีช่องทางการแจ้งเตือนที่เปิดใช้งานอยู่และสมัครรับความรุนแรงระดับนั้นด้วย อีเมลสำหรับทีมเวรจะใช้คอลัมน์ Email และ SMS สำหรับทีมเวร (เมื่อเปิดใช้งานในทีมเวร) จะใช้คอลัมน์ SMS ร่วมกับสวิตช์เหตุการณ์การแจ้งเตือน SMS</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>นี่คือขีดจำกัดสูงสุดของการแจ้งเตือนโดยรวม แอปพลิเคชันต้องเปิดใช้งานช่องทางอย่างน้อยหนึ่งช่องทาง และสมัครรับระดับความรุนแรงนั้นด้วย อีเมลแจ้งเตือนเวรใช้คอลัมน์ Email</value>

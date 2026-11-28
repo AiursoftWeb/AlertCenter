@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>معايير التصفية غير صالحة. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>لا يمكن إعادة محاولة سوى سجلات رسائل SMS المباشرة التي تحتوي على لقطات OCE صالحة. لا يمكنك إعادة تحديد المستلمين لإعادة إرسال التنبيهات القديمة إذا كان OCE أو رقم الهاتف مفقودًا.</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>يمكن إعادة المحاولة فقط لرسائل البريد الإلكتروني الخاصة بالمناوبة التي تتضمن لقطات OCE صالحة، أو للسجلات الفاشلة التي تكون فيها القنوات المخصصة مفعّلة. لا يمكنك إعادة اختيار المستلمين لإعادة إرسال التنبيهات القديمة إذا كانت بيانات OCE أو البريد الإلكتروني غير متوفرة.</value>
   </data>

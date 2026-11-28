@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>Μη έγκυρα κριτήρια φίλτρου. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>Μόνο τα εγγραφές SMS on-call με έγκυρα στιγμιότυπα OCE μπορούν να επαναληφθούν. Δεν μπορείτε να επανεπιλέξετε παραλήπτες για να ξαναστέλνετε παλιές ειδοποιήσεις αν λείπει το OCE ή ο αριθμός τηλεφώνου.</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>Μπορείτε να επαναλάβετε μόνο τα email εφημερίας με έγκυρα στιγμιότυπα OCE ή τις αποτυχημένες εγγραφές για τις οποίες είναι ενεργοποιημένα προσαρμοσμένα κανάλια. Δεν μπορείτε να επιλέξετε ξανά παραλήπτες για να ξαναστείλετε παλιές ειδοποιήσεις αν λείπει το OCE ή το email.</value>
   </data>

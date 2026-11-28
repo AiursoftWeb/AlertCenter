@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>內建值班電子郵件</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>內建值班簡訊</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>隨值班群組設定的副本收件地址。</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>可於值班群組設定中啟用。</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>嚴重 (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>儲存路由設定</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>根據全域 SMS 嚴重性策略，向當值 OCE 綁定的手機號碼發送簡訊。</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>系統於通知時已登錄的所有值班工程師（OCE）電子郵件地址；</value>
