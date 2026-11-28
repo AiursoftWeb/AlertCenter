@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>Вбудована email-пошта чергового · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>Вбудований SMS для чергових · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>Вбудована система · Не можна вимкнути окремо</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>Вбудована система · Керується в налаштуваннях команди чергування</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>Стан увімкнення каналу</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>Сповіщення придушено</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Повторні SMS-повідомлення черговому завжди використовують знімок номера телефону OCE, зроблений на момент додавання повідомлення в чергу, і не перенаправляють на поточний черговий персонал. Повторна відправка недоступна, якщо немає чинного знімка.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Повторні надсилання електронних листів чергової зміни завжди використовують знімки OCE та CC на момент додавання повідомлення до черги та не перенаправляють їх до поточного персоналу чергової зміни. Повторні надсилання недоступні, якщо не існує дійсного знімка.</value>

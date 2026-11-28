@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Invalid Tencent Cloud SMS configuration. Please check Sms settings." xml:space="preserve">
+    <value>अमान्य Tencent Cloud SMS कॉन्फ़िगरेशन। कृपया Sms सेटिंग्स की जाँच करें।</value>
+  </data>
+  <data name="Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000." xml:space="preserve">
+    <value>अमान्य फ़ोन नंबर प्रारूप। देश कोड सहित E.164 प्रारूप का उपयोग करें, जैसे +8613800138000।</value>
+  </data>
+  <data name="No users available to receive SMS notifications. Please configure recipient users or user groups." xml:space="preserve">
+    <value>SMS सूचनाएं प्राप्त करने के लिए कोई उपयोगकर्ता उपलब्ध नहीं है। कृपया प्राप्तकर्ता उपयोगकर्ताओं या उपयोगकर्ता समूहों की विन्यास करें।</value>
+  </data>
+  <data name="None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings." xml:space="preserve">
+    <value>कोई भी लक्षित प्राप्तकर्ता के पास कोई मान्य फ़ोन नंबर बाँधे नहीं हैं। उपयोगकर्ताओं से प्रोफ़ाइल सेटिंग्स में अपना फ़ोन नंबर बाँधने के लिए कहें।</value>
+  </data>
+  <data name="Please enter a phone number." xml:space="preserve">
+    <value>कृपया एक फ़ोन नंबर दर्ज करें।</value>
+  </data>
+  <data name="SMS (Tencent Cloud)" xml:space="preserve">
+    <value>SMS (Tencent Cloud)</value>
+  </data>
+  <data name="SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>SMS सूचनाएँ केवल तभी भेजी जाती हैं जब किसी घटना (incident) का निर्माण, एस्केलेशन (escalation), कम करना (mitigation), समाधान (resolution) या पुनः खोलना (reopening) किया जाता है।</value>
+  </data>
+  <data name="SMS sending timed out. Some recipients may have received the message; please verify and retry." xml:space="preserve">
+    <value>SMS भेजने का समय समाप्त हो गया। कुछ प्राप्तकर्ताओं को संदेश प्राप्त हो गया हो सकता है; कृपया सत्यापित करें और पुनः प्रयास करें।</value>
+  </data>
+  <data name="Send incident notifications via Tencent Cloud SMS to the bound phone numbers of selected users and user groups." xml:space="preserve">
+    <value>चयनित उपयोगकर्ताओं और उपयोगकर्ता समूहों के बंधे फ़ोन नंबरों पर Tencent Cloud SMS के माध्यम से घटना सूचनाएं भेजें।</value>
+  </data>
+  <data name="Tencent Cloud SMS API error: {0}" xml:space="preserve">
+    <value>Tencent Cloud SMS API त्रुटि: {0}</value>
+  </data>
+  <data name="Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings." xml:space="preserve">
+    <value>इस नोटिफिकेशन प्रकार के लिए Tencent Cloud SMS टेम्पलेट ID कॉन्फ़िगर नहीं किया गया है। कृपया Sms:Templates सेटिंग्स की जाँच करें।</value>
+  </data>
+  <data name="The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>ऑन-कॉल SMS प्राप्तकर्ता स्नैपशॉट में कोई मान्य फ़ोन नंबर नहीं है; वर्तमान OCE डिलीवरी को पुनः चुना नहीं जा सकता।</value>
+  </data>
+
+</root>

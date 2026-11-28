@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Bind phone number" xml:space="preserve">
+    <value>Koppla telefonnummer</value>
+  </data>
+  <data name="Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel." xml:space="preserve">
+    <value>Koppla ditt telefonnummer i E.164-format (inklusive landskod, t.ex. +8613800138000) för att ta emot SMS-alertmeddelanden när du eller din användargrupp är konfigurerade som mottagare av en SMS-pushkanal.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Currently bound:" xml:space="preserve">
+    <value>För närvarande bunden:</value>
+  </data>
+  <data name="Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind." xml:space="preserve">
+    <value>Inkludera landskodsnummer som börjar med +, t.ex. +8613800138000. Lämna tomt och spara för att koppla bort.</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>Telefonnummer</value>
+  </data>
+  <data name="SMS Alert Phone Number" xml:space="preserve">
+    <value>SMS-larmtelefonnummer</value>
+  </data>
+  <data name="Save phone number" xml:space="preserve">
+    <value>Spara telefonnummer</value>
+  </data>
+  <data name="Unbind phone number" xml:space="preserve">
+    <value>Koppla bort telefonnummer</value>
+  </data>
+
+</root>

@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>Tiêu chí lọc không hợp lệ. Vui lòng tải lại trang và thử lại.</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>Chỉ các bản ghi SMS trực ca có bản chụp OCE hợp lệ mới có thể được thử lại. Bạn không thể chọn lại người nhận để gửi lại các cảnh báo cũ nếu thiếu OCE hoặc số điện thoại.</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>Chỉ có thể thử lại các email trực hỗ trợ có bản chụp OCE hợp lệ hoặc các bản ghi thất bại có kênh tùy chỉnh được bật. Bạn không thể chọn lại người nhận để gửi lại các cảnh báo cũ nếu thiếu OCE hoặc email.</value>
   </data>

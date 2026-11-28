@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>Elige cómo notifica cada nivel de gravedad a los responsables y cómo aparece en las vistas predeterminadas de incidencias.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>Elija qué eventos del ciclo de vida del incidente activan las notificaciones por SMS. El SMS se envía solo cuando tanto el nivel de gravedad del incidente (columna SMS de arriba) como el tipo de evento de abajo están habilitados.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Correo electrónico</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>En la aplicación</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>Incidente mitigado</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>Incidente reabierto</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>Incidente resuelto</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Nuevo incidente</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>Eventos de notificación por SMS</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>La política de SMS se puede guardar, pero no hay instalado ningún canal de envío de SMS. Seleccionar SMS no envía mensajes de texto.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Gravedad</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>Severidad escalada</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>Política de gravedad</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Mostrar en las listas determina la lista de incidencias predeterminada y los recuentos del panel y de las aplicaciones. Los filtros por gravedad explícitos pueden seguir encontrando incidencias ocultas. Los permisos de acceso se aplican siempre.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>Este es el límite global de notificaciones. Una aplicación también debe tener un canal habilitado y suscribirse a la gravedad. El correo electrónico de guardia utiliza la columna Email, y el SMS de guardia (cuando está habilitado en el equipo de guardia) utiliza la columna SMS junto con los interruptores de eventos de notificación SMS.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Este es el límite global de notificaciones. La aplicación también debe tener habilitado un canal y estar suscrita al nivel de gravedad. Los correos electrónicos de guardia utilizan la columna «Correo electrónico».</value>

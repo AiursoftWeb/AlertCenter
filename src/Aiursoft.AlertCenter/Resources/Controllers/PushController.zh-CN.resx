@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>筛选条件无效。请刷新页面后重试。</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>只有具有有效 OCE 快照的值班短信记录才能重试。如果缺少 OCE 或电话号码，则无法重新选择收件人以重新发送旧警报。</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>只有包含有效 OCE 快照的值班邮件，或启用了自定义渠道的失败记录，才能重试。如果缺少 OCE 或电子邮件，您无法重新选择收件人来重新发送旧提醒。</value>
   </data>

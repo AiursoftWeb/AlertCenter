@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Invalid Tencent Cloud SMS configuration. Please check Sms settings." xml:space="preserve">
+    <value>腾讯云短信配置无效。请检查短信设置。</value>
+  </data>
+  <data name="Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000." xml:space="preserve">
+    <value>电话号码格式无效。请使用带国家代码的 E.164 格式，例如 +8613800138000。</value>
+  </data>
+  <data name="No users available to receive SMS notifications. Please configure recipient users or user groups." xml:space="preserve">
+    <value>没有可用的用户接收短信通知。请配置接收用户或用户组。</value>
+  </data>
+  <data name="None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings." xml:space="preserve">
+    <value>所有目标接收者均未绑定有效的电话号码。请提示用户在“个人资料设置”中绑定电话号码。</value>
+  </data>
+  <data name="Please enter a phone number." xml:space="preserve">
+    <value>请输入电话号码。</value>
+  </data>
+  <data name="SMS (Tencent Cloud)" xml:space="preserve">
+    <value>短信（腾讯云）</value>
+  </data>
+  <data name="SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>仅在事件被创建、升级、缓解、解决或重新打开时，才会发送短信通知。</value>
+  </data>
+  <data name="SMS sending timed out. Some recipients may have received the message; please verify and retry." xml:space="preserve">
+    <value>短信发送超时。部分接收者可能已收到消息，请核实后重试。</value>
+  </data>
+  <data name="Send incident notifications via Tencent Cloud SMS to the bound phone numbers of selected users and user groups." xml:space="preserve">
+    <value>通过腾讯云短信向所选用户和用户组的绑定手机号发送事件通知。</value>
+  </data>
+  <data name="Tencent Cloud SMS API error: {0}" xml:space="preserve">
+    <value>腾讯云短信 API 错误：{0}</value>
+  </data>
+  <data name="Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings." xml:space="preserve">
+    <value>未为此通知类型配置腾讯云短信模板 ID。请检查 Sms:Templates 设置。</value>
+  </data>
+  <data name="The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>值班 SMS 接收者快照中没有有效的电话号码；无法重新选择当前的 OCE 交付。</value>
+  </data>
+
+</root>

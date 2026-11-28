@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=", can be used on the receiving end with" xml:space="preserve">
+      <data name=", and global SMS severity rules can be configured in" xml:space="preserve">
+    <value>, a globalne reguły wagi SMS można skonfigurować w</value>
+  </data>
+  <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, może być użyty po stronie odbiorczej z</value>
   </data>
   <data name="1. Select channel type" xml:space="preserve">
     <value>1. Wybierz typ kanału</value>
+  </data>
+  <data name=": Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide" xml:space="preserve">
+    <value>: Wiadomości są wysyłane na przypisane numery telefonów wybranych użytkowników i członków grup użytkowników za pośrednictwem globalnej konfiguracji SMS Tencent Cloud (podaj</value>
   </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Obsługuje jednoczesne przypisywanie wielu użytkowników i grup użytkowników (ról). System automatycznie usuwa duplikaty, zapewniając, że każdy członek otrzymuje tylko jedno nieprzeczytane powiadomienie.</value>
@@ -153,6 +159,9 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Symbole zastępcze muszą stanowić jedyną wartość ciągu znaków JSON.</value>
   </data>
+  <data name="Profile Settings" xml:space="preserve">
+    <value>Ustawienia profilu</value>
+  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Typ odbiorcy</value>
   </data>
@@ -198,6 +207,9 @@
   <data name="Selected recipient list" xml:space="preserve">
     <value>Lista wybranych odbiorców</value>
   </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Polityka krytyczności</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>Wskaż konkretnego użytkownika</value>
   </data>
@@ -206,6 +218,9 @@
   </data>
   <data name="Specify User (User)" xml:space="preserve">
     <value>Wskaż użytkownika (użytkownik)</value>
+  </data>
+  <data name="Tencent Cloud SMS service" xml:space="preserve">
+    <value>Usługa SMS chmury Tencent</value>
   </data>
   <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
     <value>Odbiornik musi obsługiwać HTTP POST JSON. Odpowiedź 2xx jest uważana za udane dostarczenie. Limit czasu żądania systemu wynosi 10 sekund, a przekierowania między domenami nie są śledzone.</value>
@@ -233,6 +248,9 @@
   </data>
   <data name="and" xml:space="preserve">
     <value>i</value>
+  </data>
+  <data name="via environment variables). Users can bind their phone numbers in" xml:space="preserve">
+    <value>przez zmienne środowiskowe). Użytkownicy mogą przypisać swoje numery telefonów w</value>
   </data>
 
 </root>

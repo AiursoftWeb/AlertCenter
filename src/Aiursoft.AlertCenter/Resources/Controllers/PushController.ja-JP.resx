@@ -33,6 +33,9 @@
   <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
     <value>フィルター条件が無効です。ページを更新して、もう一度お試しください。</value>
   </data>
+  <data name="Only on-call SMS records with valid OCE snapshots can be retried. You cannot reselect recipients to resend old alerts if OCE or phone number is missing." xml:space="preserve">
+    <value>有効なOCEスナップショットを持つオンコールSMSレコードのみ再試行できます。OCEまたは電話番号が欠落している場合、受信者を再選択して古いアラートを再送信することはできません。</value>
+  </data>
   <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
     <value>有効な OCE スナップショットを持つオンコールメール、またはカスタムチャネルが有効な失敗レコードのみ、再試行できます。OCE またはメールがない場合、古いアラートを再送信するために受信者を選び直すことはできません。</value>
   </data>

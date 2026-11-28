@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Wbudowana poczta e-mail dla dyżurnych</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Wbudowane SMS dyżurów</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Adresy CC skonfigurowane dla grupy dyżurującej.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Może zostać włączony w ustawieniach grupy dyżurującej.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Krytyczny (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Zapisz konfigurację routingu</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Wysyła SMS-y na przypisane numery telefonów OCE w dyżurze zgodnie z globalną polityką ważności SMS.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Zarejestrowane w systemie adresy e-mail wszystkich inżynierów pełniących dyżur (OCE) w chwili wysłania powiadomienia;</value>

@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>Built-in on-call email · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>Built-in On-call SMS · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>Built-in system · Cannot be disabled individually</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>Built-in system · Managed in on-call team settings</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>Channel status</value>
@@ -155,6 +161,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>Notification suppressed</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Ved nye forsøk på å sende vakt-e-post brukes alltid OCE- og CC-øyeblikksbildene fra da meldingen ble lagt i kø, og e-posten sendes ikke videre til personellet som er på vakt nå. Nye forsøk er ikke tilgjengelige hvis det ikke finnes et gyldig øyeblikksbilde.</value>

@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Email trực ca được tích hợp sẵn</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>SMS trực tiếp tích hợp sẵn</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Các địa chỉ CC được cấu hình cho nhóm trực.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Có thể được bật trong cài đặt nhóm trực.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Nghiêm trọng (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Lưu cấu hình định tuyến</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Gửi SMS đến số điện thoại đã liên kết của các OCE trực ca theo chính sách mức độ nghiêm trọng SMS toàn cục.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Địa chỉ email mà hệ thống đã đăng ký của tất cả kỹ sư đang trực (OCE) tại thời điểm gửi thông báo;</value>

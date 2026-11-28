@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>البريد الإلكتروني المدمج للمناوبة · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>رسالة SMS المدمجة للاستدعاء · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>نظام مدمج · لا يمكن تعطيله بشكل فردي</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>نظام مدمج · يُدار في إعدادات فريق الاستدعاء</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>حالة تفعيل القناة</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>تم تجاهل الإشعار</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>تستخدم إعادة إرسال رسائل SMS الخاصة بالموظف المناوب دائمًا لقطة رقم هاتف OCE من وقت إضافة الرسالة إلى قائمة الانتظار، ولا تعيد التوجيه إلى الموظف المناوب الحالي. إعادة الإرسال غير متاحة إذا لم توجد لقطة صالحة.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>تعتمد إعادة إرسال رسائل البريد الإلكتروني للمناوب دائمًا على لقطات OCE وCC المحفوظة عند إدراج الرسالة في قائمة الانتظار، ولا تُوجَّه إلى فريق المناوبة الحالي. ولا تتوفر إعادة الإرسال إذا لم توجد لقطة صالحة.</value>

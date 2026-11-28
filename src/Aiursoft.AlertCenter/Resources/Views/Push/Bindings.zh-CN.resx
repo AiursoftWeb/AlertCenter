@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>内置值班邮件</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>内置值班短信</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>值班组配置的抄送地址。</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>可在值班组设置中启用。</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>严重（P0）</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>保存路由配置</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>根据全局短信严重级别策略，向当值 OCE 绑定的手机号码发送短信。</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>通知时系统登记的所有值班工程师（OCE）的电子邮件地址；</value>

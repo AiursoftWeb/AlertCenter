@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Built-in On-call Email</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Built-in On-call SMS</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>CC addresses configured for the on-call group.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Can be enabled in the on-call group settings.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Critical (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Save routing configuration</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Email addresses registered in the system for all engineers on duty (OCE) at the time of notification;</value>

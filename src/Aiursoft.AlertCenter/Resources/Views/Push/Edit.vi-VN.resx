@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=", can be used on the receiving end with" xml:space="preserve">
+      <data name=", and global SMS severity rules can be configured in" xml:space="preserve">
+    <value>, và các quy tắc mức độ nghiêm trọng SMS toàn cầu có thể được cấu hình trong</value>
+  </data>
+  <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, có thể được sử dụng ở phía bên nhận cùng với</value>
   </data>
   <data name="1. Select channel type" xml:space="preserve">
     <value>1. Chọn loại kênh</value>
+  </data>
+  <data name=": Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide" xml:space="preserve">
+    <value>: Tin nhắn được gửi đến các số điện thoại đã liên kết của người dùng được chọn và các thành viên nhóm người dùng thông qua cấu hình SMS Tencent Cloud toàn cục (cung cấp</value>
   </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Hỗ trợ chỉ định đồng thời nhiều người dùng và nhóm người dùng (vai trò). Hệ thống tự động loại bỏ các mục trùng lặp, đảm bảo mỗi thành viên chỉ nhận được một thông báo chưa đọc.</value>
@@ -153,6 +159,9 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Các chỗ giữ chỗ phải là giá trị duy nhất của một chuỗi JSON.</value>
   </data>
+  <data name="Profile Settings" xml:space="preserve">
+    <value>Cài đặt hồ sơ</value>
+  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Loại người nhận</value>
   </data>
@@ -198,6 +207,9 @@
   <data name="Selected recipient list" xml:space="preserve">
     <value>Danh sách người nhận đã chọn</value>
   </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Chính sách mức độ nghiêm trọng</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>Chỉ định người dùng cụ thể</value>
   </data>
@@ -206,6 +218,9 @@
   </data>
   <data name="Specify User (User)" xml:space="preserve">
     <value>Chỉ định người dùng (Người dùng)</value>
+  </data>
+  <data name="Tencent Cloud SMS service" xml:space="preserve">
+    <value>Dịch vụ SMS Tencent Cloud</value>
   </data>
   <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
     <value>Bên nhận phải hỗ trợ HTTP POST với JSON. Phản hồi có mã trạng thái 2xx được xem là gửi thành công. Thời gian chờ yêu cầu của hệ thống là 10 giây và không theo chuyển hướng khác nguồn gốc.</value>
@@ -233,6 +248,9 @@
   </data>
   <data name="and" xml:space="preserve">
     <value>và</value>
+  </data>
+  <data name="via environment variables). Users can bind their phone numbers in" xml:space="preserve">
+    <value>thông qua các biến môi trường). Người dùng có thể liên kết số điện thoại của họ trong</value>
   </data>
 
 </root>

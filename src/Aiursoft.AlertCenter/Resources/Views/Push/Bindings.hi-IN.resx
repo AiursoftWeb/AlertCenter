@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>अंतर्निहित ऑन-कॉल ईमेल</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>निर्मित ऑन-कॉल एसएमएस</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>ऑन-कॉल समूह के लिए कॉन्फ़िगर किए गए CC पते।</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>ऑन-कॉल समूह सेटिंग्स में सक्षम किया जा सकता है।</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>गंभीर (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>रूटिंग कॉन्फ़िगरेशन सहेजें</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>वैश्विक SMS गंभीरता नीति के अनुसार ड्यूटी पर मौजूद OCEs के जुड़े फ़ोन नंबरों पर SMS भेजता है।</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>सूचना के समय ड्यूटी पर मौजूद सभी इंजीनियरों (OCE) के सिस्टम में पंजीकृत ईमेल पते;</value>

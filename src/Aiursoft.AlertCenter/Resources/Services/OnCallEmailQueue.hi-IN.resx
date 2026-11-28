@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
+      <data name="Current OCE lacks a valid bound phone number; on-call SMS not sent." xml:space="preserve">
+    <value>वर्तमान OCE में मान्य बाउंड फ़ोन नंबर उपलब्ध नहीं है; ऑन-कॉल SMS भेजा नहीं गया।</value>
+  </data>
+  <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
     <value>वर्तमान OCE के पास सिस्टम में पंजीकृत कोई मान्य ईमेल पता नहीं है; ऑन-कॉल ईमेल नहीं भेजा गया।</value>
   </data>
   <data name="On-call group CC email configuration is invalid." xml:space="preserve">
     <value>ऑन-कॉल समूह के CC ईमेल कॉन्फ़िगरेशन अमान्य है।</value>
+  </data>
+  <data name="The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE." xml:space="preserve">
+    <value>मूल घटना OCE SMS स्नैपशॉट उपलब्ध नहीं है; वर्तमान OCE को SMS भेजा नहीं गया।</value>
   </data>
   <data name="The original incident OCE snapshot is unavailable; email was not sent to the current OCE." xml:space="preserve">
     <value>मूल इन्सिडेंट OCE स्नैपशॉट उपलब्ध नहीं है; वर्तमान OCE को ईमेल नहीं भेजा गया।</value>

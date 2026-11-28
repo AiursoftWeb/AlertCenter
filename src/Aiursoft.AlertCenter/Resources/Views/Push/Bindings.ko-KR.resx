@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>기본 제공 당직 이메일</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>내장 온콜 SMS</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>당직 그룹에 설정된 참조(CC) 주소입니다.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>온콜 그룹 설정에서 활성화할 수 있습니다.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>치명적 (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>라우팅 설정 저장</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>전역 SMS 심각도 정책에 따라 당직 OCE의 등록된 전화번호로 SMS를 전송합니다.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>알림 시점에 시스템에 등록된 모든 당직 엔지니어(OCE)의 이메일 주소;</value>

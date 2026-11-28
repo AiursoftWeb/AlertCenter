@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
+      <data name="Current OCE lacks a valid bound phone number; on-call SMS not sent." xml:space="preserve">
+    <value>Το τρέχον OCE δεν διαθέτει έγκυρο συνδεδεμένο αριθμό τηλεφώνου· το SMS κλήσης δεν εστάλη.</value>
+  </data>
+  <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
     <value>Το τρέχον OCE δεν διαθέτει έγκυρη διεύθυνση email καταχωρισμένη στο σύστημα· το email εφημερίας δεν στάλθηκε.</value>
   </data>
   <data name="On-call group CC email configuration is invalid." xml:space="preserve">
     <value>Η διαμόρφωση ηλεκτρονικού ταχυδρομείου CC της ομάδας εφημερίας δεν είναι έγκυρη.</value>
+  </data>
+  <data name="The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE." xml:space="preserve">
+    <value>Το αρχικό στιγμιότυπο SMS του OCE του περιστατικού δεν είναι διαθέσιμο· το SMS δεν αποστέλλθηκε στο τρέχον OCE.</value>
   </data>
   <data name="The original incident OCE snapshot is unavailable; email was not sent to the current OCE." xml:space="preserve">
     <value>Το αρχικό στιγμιότυπο OCE του περιστατικού δεν είναι διαθέσιμο· δεν στάλθηκε email στο τρέχον OCE.</value>

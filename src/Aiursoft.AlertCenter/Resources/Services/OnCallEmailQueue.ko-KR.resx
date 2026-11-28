@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
+      <data name="Current OCE lacks a valid bound phone number; on-call SMS not sent." xml:space="preserve">
+    <value>현재 OCE에 유효한 바인딩된 전화번호가 없습니다. 온콜 SMS가 전송되지 않았습니다.</value>
+  </data>
+  <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
     <value>현재 OCE에 시스템에 등록된 유효한 이메일 주소가 없어 온콜 이메일을 보내지 않았습니다.</value>
   </data>
   <data name="On-call group CC email configuration is invalid." xml:space="preserve">
     <value>온콜 그룹 참조(CC) 이메일 설정이 올바르지 않습니다.</value>
+  </data>
+  <data name="The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE." xml:space="preserve">
+    <value>원본 인시던트 OCE SMS 스냅샷을 사용할 수 없습니다. 현재 OCE에 SMS가 전송되지 않았습니다.</value>
   </data>
   <data name="The original incident OCE snapshot is unavailable; email was not sent to the current OCE." xml:space="preserve">
     <value>원본 인시던트 OCE 스냅샷을 사용할 수 없어 현재 OCE에게 이메일을 보내지 않았습니다.</value>

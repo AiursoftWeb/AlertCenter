@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Bind phone number" xml:space="preserve">
+    <value>Ikat nomor telepon</value>
+  </data>
+  <data name="Bind your phone number in E.164 format (including country code, e.g. +8613800138000) to receive SMS alert notifications when you or your user group are configured as recipients of an SMS push channel." xml:space="preserve">
+    <value>Ikatkan nomor telepon Anda dalam format E.164 (termasuk kode negara, mis. +8613800138000) untuk menerima notifikasi peringatan SMS ketika Anda atau grup pengguna Anda dikonfigurasi sebagai penerima kanal push SMS.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Currently bound:" xml:space="preserve">
+    <value>Terikat saat ini:</value>
+  </data>
+  <data name="Include country code starting with +, e.g. +8613800138000. Leave empty and save to unbind." xml:space="preserve">
+    <value>Sertakan kode negara yang diawali dengan +, misalnya +8613800138000. Biarkan kosong dan simpan untuk melepas pengikatan.</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>Nomor Telepon</value>
+  </data>
+  <data name="SMS Alert Phone Number" xml:space="preserve">
+    <value>Nomor Ponsel Alert SMS</value>
+  </data>
+  <data name="Save phone number" xml:space="preserve">
+    <value>Simpan nomor telepon</value>
+  </data>
+  <data name="Unbind phone number" xml:space="preserve">
+    <value>Lepaskan nomor telepon</value>
+  </data>
+
+</root>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Invalid Tencent Cloud SMS configuration. Please check Sms settings." xml:space="preserve">
+    <value>Geçersiz Tencent Cloud SMS yapılandırması. Lütfen Sms ayarlarını kontrol edin.</value>
+  </data>
+  <data name="Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000." xml:space="preserve">
+    <value>Geçersiz telefon numarası biçimi. Ülke kodu içeren E.164 biçimini kullanın, örn. +8613800138000.</value>
+  </data>
+  <data name="No users available to receive SMS notifications. Please configure recipient users or user groups." xml:space="preserve">
+    <value>SMS bildirimlerini alacak kullanıcı bulunamadı. Lütfen alıcı kullanıcıları veya kullanıcı gruplarını yapılandırın.</value>
+  </data>
+  <data name="None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings." xml:space="preserve">
+    <value>Hedef alıcılardan hiçbiri geçerli bir telefon numarası bağlamamış. Kullanıcıların telefon numaralarını Profil Ayarları&apos;nda bağlamalarını isteyin.</value>
+  </data>
+  <data name="Please enter a phone number." xml:space="preserve">
+    <value>Lütfen bir telefon numarası girin.</value>
+  </data>
+  <data name="SMS (Tencent Cloud)" xml:space="preserve">
+    <value>SMS (Tencent Cloud)</value>
+  </data>
+  <data name="SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>SMS bildirimleri yalnızca bir olay oluşturulduğunda, yükseltildiğinde, hafifletildiğinde, çözüldüğünde veya yeniden açıldığında gönderilir.</value>
+  </data>
+  <data name="SMS sending timed out. Some recipients may have received the message; please verify and retry." xml:space="preserve">
+    <value>SMS gönderimi zaman aşımına uğradı. Bazı alıcılar mesajı almış olabilir; lütfen doğrulayın ve yeniden deneyin.</value>
+  </data>
+  <data name="Send incident notifications via Tencent Cloud SMS to the bound phone numbers of selected users and user groups." xml:space="preserve">
+    <value>Seçili kullanıcıların ve kullanıcı gruplarının bağlı telefon numaralarına Tencent Cloud SMS aracılığıyla olay bildirimleri gönderin.</value>
+  </data>
+  <data name="Tencent Cloud SMS API error: {0}" xml:space="preserve">
+    <value>Tencent Cloud SMS API hatası: {0}</value>
+  </data>
+  <data name="Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings." xml:space="preserve">
+    <value>Tencent Cloud SMS şablon kimliği bu bildirim türü için yapılandırılmamış. Lütfen Sms:Templates ayarlarını kontrol edin.</value>
+  </data>
+  <data name="The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>Nöbetçi SMS alıcı anlık görüntüsü geçerli telefon numaralarına sahip değil; mevcut OCE dağıtımı yeniden seçilemiyor.</value>
+  </data>
+
+</root>

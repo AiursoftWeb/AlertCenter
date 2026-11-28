@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=", can be used on the receiving end with" xml:space="preserve">
+      <data name=", and global SMS severity rules can be configured in" xml:space="preserve">
+    <value>, och globala SMS-allvarlighetsregler kan konfigureras i</value>
+  </data>
+  <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, kan användas på mottagarsidan tillsammans med</value>
   </data>
   <data name="1. Select channel type" xml:space="preserve">
     <value>1. Välj kan altyp</value>
+  </data>
+  <data name=": Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide" xml:space="preserve">
+    <value>: Meddelanden skickas till de bundna telefonnumren för de valda användarna och användargruppledmedena via den globala Tencent Cloud SMS-konfigurationen (ange</value>
   </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Stödjer bindning av flera användare och användargrupper (roller) samtidigt. Systemet deduplicerar automatiskt och säkerställer att varje medlem endast får ett oläst meddelande.</value>
@@ -153,6 +159,9 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Platshållare måste vara det enda värdet i en JSON-sträng.</value>
   </data>
+  <data name="Profile Settings" xml:space="preserve">
+    <value>Profilinställningar</value>
+  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Mottagartyp</value>
   </data>
@@ -198,6 +207,9 @@
   <data name="Selected recipient list" xml:space="preserve">
     <value>Vald mottagarlista</value>
   </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Allvarlighetsgradspolicy</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>Ange enskild användare</value>
   </data>
@@ -206,6 +218,9 @@
   </data>
   <data name="Specify User (User)" xml:space="preserve">
     <value>Ange användare (Användare)</value>
+  </data>
+  <data name="Tencent Cloud SMS service" xml:space="preserve">
+    <value>Tencent Cloud SMS-tjänst</value>
   </data>
   <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
     <value>Mottagaren måste ha stöd för HTTP POST med JSON. Ett svar med statuskod 2xx räknas som en lyckad leverans. Systemets tidsgräns för begäran är 10 sekunder, och omdirigeringar till en annan ursprungskälla följs inte.</value>
@@ -233,6 +248,9 @@
   </data>
   <data name="and" xml:space="preserve">
     <value>och</value>
+  </data>
+  <data name="via environment variables). Users can bind their phone numbers in" xml:space="preserve">
+    <value>via miljövariabler). Användare kan binda sina telefonnummer i</value>
   </data>
 
 </root>

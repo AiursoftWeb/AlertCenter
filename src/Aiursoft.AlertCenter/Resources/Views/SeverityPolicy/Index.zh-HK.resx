@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>選擇每個嚴重程度如何通知應對人員，以及如何在預設事件檢視中顯示。</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>揀邊啲事故生命週期事件會觸發 SMS 通知。只有當事故嚴重程度（上面嘅 SMS 欄）同埋下面嘅事件類型都啟用咗，先會發送 SMS。</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>電郵</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>應用程式內</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>事故已緩解</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>事故重新開啟</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>事故已解決</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>新事件</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>SMS 通知事件</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>可以儲存 SMS 政策，但尚未安裝 SMS 傳送渠道。選取 SMS 並不會傳送文字訊息。</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>嚴重程度</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>嚴重程度升級</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>嚴重程度政策</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>「在清單中顯示」會控制預設事故清單、儀表板及應用程式中的數量。明確指定嚴重程度的篩選條件仍可找到隱藏的事故。系統一律會強制執行存取權限。</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>這是全局通知上限。應用程式必須啟用頻道並訂閱嚴重程度。值班電郵使用「電郵」欄，值班短訊（當值班團隊啟用時）則使用「短訊」欄，並配合短訊通知事件開關。</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>這是全域通知上限。應用程式亦必須啟用通知渠道，並訂閱相關嚴重程度。值班電郵通知會使用「電郵」欄。</value>

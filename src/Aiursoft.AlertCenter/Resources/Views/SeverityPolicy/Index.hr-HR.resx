@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>Odaberite kako svaka razina ozbiljnosti obavještava odgovorne osobe i kako se prikazuje u zadanim prikazima incidenata.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>Odaberite koje događaje životnog ciklusa incidenta pokreću SMS obavijesti. SMS se šalje samo kada su omogućena i razina ozbiljnosti incidenta (SMS stupac gore) i vrsta događaja ispod.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>E-pošta</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>Unutar aplikacije</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>Incident ublažen</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>Ponovno otvoreni incident</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>Incidencija riješena</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Novi incident</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>SMS događaji obavješćivanja</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>SMS politika se može spremiti, ali SMS kanal za dostavu nije instaliran. Odabirom SMS-a ne šalju se tekstualne poruke.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Ozbiljnost</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>Povećana ozbiljnost</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>Politika ozbiljnosti</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Prikaz u popisima upravlja zadanim popisom incidenata, naborom i brojem aplikacija. Eksplicitni filteri ozbiljnosti i dalje mogu pronaći skrivene incidente. Dozvole pristupa su uvijek primjenjivane.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>Ovo je globalno ograničenje za obavijesti. Aplikacija također mora imati omogućen kanal i pretplatiti se na razinu ozbiljnosti. E-pošta za dežurstvo koristi stupac E-pošta, a SMS za dežurstvo (kada je omogućen na timu za dežurstvo) koristi stupac SMS zajedno s prekidačima događaja SMS obavijesti.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Ovo je globalni gornji limit za obavijesti. Aplikacija također mora imati omogućeni kanal i pretplatu na razinu ozbiljnosti. E-pošta za dežurstvo koristi stupac E-pošta.</value>

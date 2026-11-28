@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=", can be used on the receiving end with" xml:space="preserve">
+      <data name=", and global SMS severity rules can be configured in" xml:space="preserve">
+    <value>, and global SMS severity rules can be configured in</value>
+  </data>
+  <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, can be used on the receiving end with</value>
   </data>
   <data name="1. Select channel type" xml:space="preserve">
     <value>1. Select channel type</value>
+  </data>
+  <data name=": Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide" xml:space="preserve">
+    <value>: Messages are sent to the bound phone numbers of the selected users and user group members via global Tencent Cloud SMS configuration (provide</value>
   </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Supports assigning multiple users and user groups (roles) at the same time. The system automatically removes duplicates, ensuring each member receives only one unread notification.</value>
@@ -153,6 +159,9 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Placeholders must be the only value in a JSON string.</value>
   </data>
+  <data name="Profile Settings" xml:space="preserve">
+    <value>Profile Settings</value>
+  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Recipient type</value>
   </data>
@@ -198,6 +207,9 @@
   <data name="Selected recipient list" xml:space="preserve">
     <value>Selected recipient list</value>
   </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Severity policy</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>Specify individual user</value>
   </data>
@@ -206,6 +218,9 @@
   </data>
   <data name="Specify User (User)" xml:space="preserve">
     <value>Specify user (user)</value>
+  </data>
+  <data name="Tencent Cloud SMS service" xml:space="preserve">
+    <value>Tencent Cloud SMS service</value>
   </data>
   <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
     <value>The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed.</value>
@@ -233,6 +248,9 @@
   </data>
   <data name="and" xml:space="preserve">
     <value>and</value>
+  </data>
+  <data name="via environment variables). Users can bind their phone numbers in" xml:space="preserve">
+    <value>via environment variables). Users can bind their phone numbers in</value>
   </data>
 
 </root>

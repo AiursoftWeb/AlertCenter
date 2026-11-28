@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>अंतर्निहित ऑन-कॉल ईमेल · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>निर्मित-इन ऑन-कॉल SMS · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>अंतर्निहित सिस्टम · अलग से अक्षम नहीं किया जा सकता</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>निर्मित प्रणाली · ऑन-कॉल टीम सेटिंग्स में प्रबंधित</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>चैनल की सक्रिय स्थिति</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>सूचना दबा दी गई</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>ऑन-कॉल SMS पुनः प्रयास हमेशा उस समय के OCE फ़ोन नंबर स्नैपशॉट का उपयोग करते हैं जब संदेश को कतार में जोड़ा गया था, और वर्तमान ऑन-कॉल कर्मचारियों के लिए पुनः निर्देशित नहीं करते हैं। यदि कोई मान्य स्नैपशॉट मौजूद नहीं है, तो पुनः प्रयास उपलब्ध नहीं हैं।</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>ऑन-कॉल ईमेल के पुनः प्रयासों में हमेशा संदेश कतार में डाले जाने के समय के OCE और CC स्नैपशॉट का ही उपयोग होता है; इन्हें मौजूदा ऑन-कॉल कर्मियों की ओर पुनर्निर्देशित नहीं किया जाता। कोई मान्य स्नैपशॉट उपलब्ध न होने पर पुनः प्रयास नहीं किए जा सकते।</value>

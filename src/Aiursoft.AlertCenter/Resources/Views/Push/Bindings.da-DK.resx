@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Indbygget vagt-e-mail</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Indbygget vagt SMS</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>CC-adresser konfigureret for vagtgruppen.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Kan aktiveres i indstillingerne for vagtgruppen.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Kritisk (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Gem routningskonfigurationen</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Sender SMS til vagthavende OCE&apos;ers bundede telefonnumre i henhold til den globale SMS-sværegradspolitik.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Systemregistrerede e-mailadresser for alle ingeniører i vagt (OCE) på tidspunktet for notifikation;</value>

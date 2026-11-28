@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Invalid Tencent Cloud SMS configuration. Please check Sms settings." xml:space="preserve">
+    <value>การกำหนดค่า SMS ของ Tencent Cloud ไม่ถูกต้อง กรุณาตรวจสอบการตั้งค่า Sms</value>
+  </data>
+  <data name="Invalid phone number format. Use E.164 format with country code, e.g. +8613800138000." xml:space="preserve">
+    <value>รูปแบบหมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาใช้รูปแบบ E.164 พร้อมรหัสประเทศ เช่น +8613800138000</value>
+  </data>
+  <data name="No users available to receive SMS notifications. Please configure recipient users or user groups." xml:space="preserve">
+    <value>ไม่มีผู้ใช้พร้อมรับข้อความ SMS โปรดกำหนดค่าผู้ใช้ผู้รับหรือกลุ่มผู้ใช้</value>
+  </data>
+  <data name="None of the target recipients have a valid phone number bound. Ask users to bind their phone number in Profile Settings." xml:space="preserve">
+    <value>ผู้รับเป้าหมายไม่มีหมายเลขโทรศัพท์ที่ถูกต้องผูกไว้เลย ขอให้ผู้ใช้ผูกหมายเลขโทรศัพท์ในตั้งค่าโปรไฟล์</value>
+  </data>
+  <data name="Please enter a phone number." xml:space="preserve">
+    <value>กรุณากรอกหมายเลขโทรศัพท์</value>
+  </data>
+  <data name="SMS (Tencent Cloud)" xml:space="preserve">
+    <value>SMS (Tencent Cloud)</value>
+  </data>
+  <data name="SMS notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>การแจ้งเตือนผ่าน SMS จะถูกส่งเฉพาะเมื่อเหตุการณ์ถูกสร้าง ได้รับการยกระดับ ได้รับการบรรเทา ได้รับการแก้ไข หรือเปิดใหม่</value>
+  </data>
+  <data name="SMS sending timed out. Some recipients may have received the message; please verify and retry." xml:space="preserve">
+    <value>การส่ง SMS หมดเวลา ผู้รับบางรายอาจได้รับข้อความแล้ว กรุณาตรวจสอบและลองใหม่อีกครั้ง</value>
+  </data>
+  <data name="Send incident notifications via Tencent Cloud SMS to the bound phone numbers of selected users and user groups." xml:space="preserve">
+    <value>ส่งการแจ้งเตือนเหตุการณ์ผ่าน Tencent Cloud SMS ไปยังหมายเลขโทรศัพท์ที่ผูกไว้ของผู้ใช้และกลุ่มผู้ใช้ที่เลือก</value>
+  </data>
+  <data name="Tencent Cloud SMS API error: {0}" xml:space="preserve">
+    <value>ข้อผิดพลาด API SMS ของ Tencent Cloud: {0}</value>
+  </data>
+  <data name="Tencent Cloud SMS template ID is not configured for this notification type. Please check Sms:Templates settings." xml:space="preserve">
+    <value>ไม่ได้กำหนด ID เทมเพลต SMS ของ Tencent Cloud สำหรับประเภทการแจ้งเตือนนี้ กรุณาตรวจสอบการตั้งค่า Sms:Templates</value>
+  </data>
+  <data name="The on-call SMS recipient snapshot has no valid phone numbers; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>ภาพรวมผู้รับ SMS ในเวรไม่มีหมายเลขโทรศัพท์ที่ถูกต้อง; ไม่สามารถเลือกการจัดส่ง OCE ปัจจุบันใหม่ได้</value>
+  </data>
+
+</root>

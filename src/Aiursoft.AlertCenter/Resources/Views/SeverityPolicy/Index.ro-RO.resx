@@ -24,6 +24,9 @@
   <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
     <value>Alegeți cum notifică fiecare nivel de severitate persoanele responsabile și cum apare în vizualizările implicite ale incidentelor.</value>
   </data>
+  <data name="Choose which incident lifecycle events trigger SMS notifications. SMS is sent only when both the incident severity level (SMS column above) and the event type below are enabled." xml:space="preserve">
+    <value>Alegeți evenimentele din ciclul de viață al incidentului care declanșează notificările SMS. SMS-ul este trimis doar atunci când atât nivelul de severitate al incidentului (coloana SMS de mai sus), cât și tipul de eveniment de mai jos sunt activate.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
@@ -33,8 +36,23 @@
   <data name="In-app" xml:space="preserve">
     <value>În aplicație</value>
   </data>
+  <data name="Incident mitigated" xml:space="preserve">
+    <value>Incident atenuat</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>Incident reactivat</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>Incident rezolvat</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Incident nou</value>
+  </data>
   <data name="SMS" xml:space="preserve">
     <value>SMS</value>
+  </data>
+  <data name="SMS notification events" xml:space="preserve">
+    <value>Evenimente de notificare prin SMS</value>
   </data>
   <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
     <value>Politica SMS poate fi salvată, dar nu este instalat niciun canal de livrare SMS. Selectarea opțiunii SMS nu trimite mesaje text.</value>
@@ -44,6 +62,9 @@
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Severitate</value>
+  </data>
+  <data name="Severity escalated" xml:space="preserve">
+    <value>Severitate escalată</value>
   </data>
   <data name="Severity policy" xml:space="preserve">
     <value>Politica de severitate</value>
@@ -56,6 +77,9 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>„Afișare în liste” controlează lista implicită de incidente, tabloul de bord și numărul de incidente din aplicații. Filtrele explicite după nivelul de severitate pot găsi în continuare incidentele ascunse. Permisiunile de acces sunt respectate întotdeauna.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column, and on-call SMS (when enabled on the on-call team) uses the SMS column together with the SMS notification event switches." xml:space="preserve">
+    <value>Aceasta este plafonul global de notificări. O aplicație trebuie să aibă, de asemenea, un canal activat și să se aboneze la severitate. E-mailul on-call utilizează coloana Email, iar SMS-ul on-call (când este activat pe echipa on-call) utilizează coloana SMS împreună cu comutatoarele evenimentelor de notificare SMS.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Acesta este plafonul global pentru notificări. O aplicație trebuie să aibă și un canal activat și să se aboneze la nivelul de severitate respectiv. Pentru notificările de gardă se folosește coloana E-mail.</value>

@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Yerleşik Nöbet E-postası</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Yerleşik Vardiya SMS</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Nöbetçi grup için yapılandırılmış CC adresleri.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Nöbetçi grup ayarlarında etkinleştirilebilir.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Kritik (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Yönlendirme yapılandırmasını kaydet</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Küresel SMS önem politikasına göre, görevdeki OCE&apos;lerin bağlı telefon numaralarına SMS gönderir.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Bildirim anında görevdeki tüm mühendislerin (OCE) sistemde kayıtlı e-posta adresleri;</value>

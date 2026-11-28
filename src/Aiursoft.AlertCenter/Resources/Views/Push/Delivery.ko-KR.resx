@@ -30,8 +30,14 @@
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
     <value>내장 당직 이메일 · {0}</value>
   </data>
+  <data name="Built-in On-call SMS · {0}" xml:space="preserve">
+    <value>내장 온콜 SMS · {0}</value>
+  </data>
   <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
     <value>내장 시스템 · 개별적으로 비활성화할 수 없음</value>
+  </data>
+  <data name="Built-in system · Managed in on-call team settings" xml:space="preserve">
+    <value>내장 시스템 · 온콜 팀 설정에서 관리됨</value>
   </data>
   <data name="Channel enabled status" xml:space="preserve">
     <value>채널 활성화 상태</value>
@@ -155,6 +161,9 @@
   </data>
   <data name="Notification suppressed" xml:space="preserve">
     <value>알림이 억제되었습니다</value>
+  </data>
+  <data name="On-call SMS retries always use the OCE phone number snapshot from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>온콜 SMS 재시도는 항상 메시지가 큐에 추가된 시점의 OCE 전화번호 스냅샷을 사용하며, 현재 온콜 담당자에게 재지정되지 않습니다. 유효한 스냅샷이 없으면 재시도는 사용할 수 없습니다.</value>
   </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>당직 이메일 재시도는 항상 메시지가 대기열에 등록된 시점의 OCE 및 CC 스냅샷을 사용하며, 현재 당직자에게 재전송하지 않습니다. 유효한 스냅샷이 없으면 재시도할 수 없습니다.</value>

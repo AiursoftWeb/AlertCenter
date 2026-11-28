@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Correo electrónico integrado de guardia</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>SMS de guardia integrado</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Direcciones en copia configuradas para el grupo de guardia.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Puede activarse en la configuración del grupo de guardia.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Crítico (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Guardar la configuración de enrutamiento</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Envía SMS a los números de teléfono vinculados de los OCE en servicio según la política global de gravedad de SMS.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Direcciones de correo electrónico registradas en el sistema de todos los ingenieros de guardia (OCE) en el momento de la notificación;</value>

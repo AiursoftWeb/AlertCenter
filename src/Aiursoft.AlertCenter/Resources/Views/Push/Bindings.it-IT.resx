@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Email di turno integrato</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>SMS On-call integrata</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Indirizzi in copia conoscenza configurati per il gruppo di reperibilità.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Può essere abilitato nelle impostazioni del gruppo di reperibilità.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Critico (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Salva la configurazione di instradamento</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Invia SMS ai numeri di telefono associati degli OCE in servizio secondo la politica globale di gravità SMS.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Indirizzi email registrati dal sistema di tutti gli ingegneri in servizio (OCE) al momento della notifica;</value>

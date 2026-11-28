@@ -18,11 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
+      <data name="Current OCE lacks a valid bound phone number; on-call SMS not sent." xml:space="preserve">
+    <value>目前 OCE 無有效之已綁定電話號碼；值班 SMS 未發送。</value>
+  </data>
+  <data name="Current OCE lacks a valid system registered email; on-call email not sent." xml:space="preserve">
     <value>目前的當值工程師沒有有效的系統登記電郵地址；不會發送當值電郵。</value>
   </data>
   <data name="On-call group CC email configuration is invalid." xml:space="preserve">
     <value>當值小組的副本（CC）電郵設定無效。</value>
+  </data>
+  <data name="The original incident OCE SMS snapshot is unavailable; SMS was not sent to the current OCE." xml:space="preserve">
+    <value>原始事件的 OCE SMS 快照不可用；SMS 未發送給目前的 OCE。</value>
   </data>
   <data name="The original incident OCE snapshot is unavailable; email was not sent to the current OCE." xml:space="preserve">
     <value>原始事件 OCE 快照不可用；未向當前 OCE 發送郵件。</value>

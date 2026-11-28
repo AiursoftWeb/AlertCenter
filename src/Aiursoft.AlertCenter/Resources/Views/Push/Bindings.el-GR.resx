@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Ενσωματωμένο email εφημερίας</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Ενσωματωμένο SMS On-call</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>Διευθύνσεις κοινοποίησης (CC) που έχουν ρυθμιστεί για την ομάδα εφημερίας.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Μπορεί να ενεργοποιηθεί στις ρυθμίσεις ομάδας on-call.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Κρίσιμο (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Αποθήκευση ρυθμίσεων δρομολόγησης</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Αποστέλλει SMS στα συνδεδεμένα αριθμούς τηλεφώνου των OCE σε καθήκοντα σύμφωνα με την παγκόσμια πολιτική σοβαρότητας SMS.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Διευθύνσεις email όλων των μηχανικών που βρίσκονται σε υπηρεσία (OCE), όπως είναι καταχωρισμένες στο σύστημα κατά τη στιγμή της ειδοποίησης·</value>

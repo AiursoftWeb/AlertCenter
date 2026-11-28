@@ -36,8 +36,14 @@
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>Inbyggd jourmejl</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>Inbyggd SMS-avisering vid vakttjänst</value>
+  </data>
   <data name="CC addresses configured for the on-call group." xml:space="preserve">
     <value>CC-adresser som konfigurerats för jourgruppen.</value>
+  </data>
+  <data name="Can be enabled in the on-call group settings." xml:space="preserve">
+    <value>Kan aktiveras i inställningarna för on-call-gruppen.</value>
   </data>
   <data name="Critical (P0)" xml:space="preserve">
     <value>Kritisk (P0)</value>
@@ -80,6 +86,9 @@
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>Spara routningskonfiguration</value>
+  </data>
+  <data name="Sends SMS to on-duty OCEs&apos; bound phone numbers according to the global SMS severity policy." xml:space="preserve">
+    <value>Skickar SMS till telefonnumren som är kopplade till de OCE:er som är på tjänst, enligt den globala SMS-allvarlighetspolicyen.</value>
   </data>
   <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
     <value>Systemet registrerade e-postadresserna till alla tjänstgörande ingenjörer (OCE) vid tidpunkten för aviseringen;</value>
