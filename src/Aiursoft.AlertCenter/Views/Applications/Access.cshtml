@@ -8,7 +8,7 @@
 <div class="card mb-4">
     <div class="card-header"><h5 class="card-title mb-0">@Localizer["Add or Update Share"]</h5></div>
     <div class="card-body">
-        <form asp-action="SaveAccess" method="post">
+        <form asp-action="SaveAccess" method="post" data-action-feedback>
             <input type="hidden" name="ApplicationId" value="@Model.Application.Id" />
             <p class="text-muted">@Localizer["Select either a user or a role. Saving replaces that recipient's permissions."]</p>
             <div class="row g-3 mb-3">
@@ -39,7 +39,7 @@
                 @if (access.CanManageApiKeys) { <span class="badge bg-primary me-1">@Localizer["Manage API keys"]</span> }
                 @if (access.CanDeleteIncidents) { <span class="badge bg-primary me-1">@Localizer["Permanently delete incidents"]</span> }
                 @if (access.CanManageApplication) { <span class="badge bg-primary me-1">@Localizer["Manage application and sharing"]</span> }
-            </td><td><form asp-action="RemoveAccess" method="post"><input type="hidden" name="id" value="@Model.Application.Id" /><input type="hidden" name="userId" value="@access.UserId" /><button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Remove"]</button></form></td></tr>
+            </td><td><form asp-action="RemoveAccess" method="post" data-action-feedback><input type="hidden" name="id" value="@Model.Application.Id" /><input type="hidden" name="userId" value="@access.UserId" /><button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Remove"]</button></form></td></tr>
         }
         @foreach (var access in Model.RoleAccesses)
         {
@@ -50,7 +50,7 @@
                 @if (access.CanManageApiKeys) { <span class="badge bg-primary me-1">@Localizer["Manage API keys"]</span> }
                 @if (access.CanDeleteIncidents) { <span class="badge bg-primary me-1">@Localizer["Permanently delete incidents"]</span> }
                 @if (access.CanManageApplication) { <span class="badge bg-primary me-1">@Localizer["Manage application and sharing"]</span> }
-            </td><td><form asp-action="RemoveAccess" method="post"><input type="hidden" name="id" value="@Model.Application.Id" /><input type="hidden" name="roleId" value="@access.RoleId" /><button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Remove"]</button></form></td></tr>
+            </td><td><form asp-action="RemoveAccess" method="post" data-action-feedback><input type="hidden" name="id" value="@Model.Application.Id" /><input type="hidden" name="roleId" value="@access.RoleId" /><button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Remove"]</button></form></td></tr>
         }
         </tbody>
     </table></div></div>
@@ -59,6 +59,6 @@
 {
     <div class="card mt-4"><div class="card-header"><h5 class="card-title mb-0">@Localizer["Transfer Ownership"]</h5></div><div class="card-body">
         <p>@Localizer["Transferring ownership gives the selected user all permissions. You will lose owner privileges."]</p>
-        <form asp-action="TransferOwnership" method="post"><input type="hidden" name="id" value="@Model.Application.Id" /><label for="new-owner" class="form-label">@Localizer["New owner"]</label><select id="new-owner" name="ownerId" asp-items="Model.Users" class="form-select mb-3" required><option value="">@Localizer["Select user..."]</option></select><button type="submit" class="btn btn-warning">@Localizer["Transfer Ownership"]</button></form>
+        <form asp-action="TransferOwnership" method="post" data-action-feedback><input type="hidden" name="id" value="@Model.Application.Id" /><label for="new-owner" class="form-label">@Localizer["New owner"]</label><select id="new-owner" name="ownerId" asp-items="Model.Users" class="form-select mb-3" required><option value="">@Localizer["Select user..."]</option></select><button type="submit" class="btn btn-warning">@Localizer["Transfer Ownership"]</button></form>
     </div></div>
 }

@@ -21,7 +21,8 @@ public class SeverityPolicyController(TemplateDbContext db, IEnumerable<INotific
         this.StackView(new SeverityPolicyViewModel
         {
             SmsAvailable = adapters.Any(adapter => adapter.Definition.Key == "sms"),
-            Rules = await db.SeverityRules.AsNoTracking().OrderBy(rule => rule.Level).ToListAsync(cancellationToken)
+            Rules = await db.SeverityRules.AsNoTracking().OrderBy(rule => rule.Level).ToListAsync(cancellationToken),
+            SmsEvents = await new SeverityPolicyStore(db).LoadSmsEventsAsync(cancellationToken)
         });
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -45,7 +46,8 @@ public class SeverityPolicyController(TemplateDbContext db, IEnumerable<INotific
             rule.InApp = submitted.InApp;
             rule.ShowInLists = submitted.ShowInLists;
         }
-        // Save the entire matrix atomically. Each subsequent operation loads the current policy.
+        await new SeverityPolicyStore(db).StageSmsEventsAsync(model.SmsEvents, cancellationToken);
+        // Save the entire matrix and SMS event switches atomically. Each subsequent operation loads the current policy.
         await db.SaveChangesAsync(cancellationToken);
         TempData["PolicySaved"] = true;
         return RedirectToAction(nameof(Index));

@@ -404,7 +404,7 @@
 {
     <div class="modal fade" id="delete-incident" tabindex="-1" aria-labelledby="delete-incident-title" aria-hidden="true">
         <div class="modal-dialog">
-            <form asp-action="Delete" method="post" class="modal-content border-0 shadow">
+            <form asp-action="Delete" method="post" data-action-feedback class="modal-content border-0 shadow">
                 <input type="hidden" name="id" value="@incident.Id" />
                 <input type="hidden" name="version" value="@incident.Version" />
                 <div class="modal-header">

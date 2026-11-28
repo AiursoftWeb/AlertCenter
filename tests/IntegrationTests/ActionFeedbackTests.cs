@@ -205,4 +205,56 @@ public partial class IncidentPagesTests
         Assert.Contains("/scripts/incident-comments.js", html);
         Assert.Contains("/node_modules/@aiursoft/uistack-markdown-ui/dist/index.global.js", html);
     }
+
+    [TestMethod]
+    public async Task DestructiveAndSharingFormsUseDialogFeedbackInsteadOfPlainTextErrors()
+    {
+        var key = await CreateApplication();
+        var applicationId = Guid.Parse(key.Split('.')[0]);
+        using var reported = await Report(key, Guid.NewGuid());
+        Guid incidentId;
+        Guid version;
+        Guid apiKeyId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            incidentId = incident.Id;
+            version = incident.Version;
+            apiKeyId = (await db.ApplicationApiKeys.SingleAsync()).Id;
+        }
+
+        // Incident delete modal form has data-action-feedback and returns JSON dialog message on wrong title.
+        var detailsUrl = $"/Incidents/Details/{incidentId}";
+        var detailsHtml = await Http.GetStringAsync(detailsUrl);
+        Assert.IsTrue(Regex.IsMatch(detailsHtml, "<form[^>]*data-action-feedback[^>]*action=\"/Incidents/Delete\"|<form[^>]*action=\"/Incidents/Delete\"[^>]*data-action-feedback"));
+        using var badDelete = await DialogPost("/Incidents/Delete", new()
+        {
+            ["id"] = incidentId.ToString(),
+            ["version"] = version.ToString(),
+            ["confirmationTitle"] = "wrong-title"
+        }, detailsUrl);
+        Assert.AreEqual(HttpStatusCode.BadRequest, badDelete.StatusCode);
+        Assert.AreEqual("application/json", badDelete.Content.Headers.ContentType!.MediaType);
+        Assert.Contains("exact incident title", JObject.Parse(await badDelete.Content.ReadAsStringAsync())["message"]!.Value<string>()!);
+
+        // API key delete form has data-action-feedback and returns JSON dialog message on wrong key name.
+        var keysUrl = $"/ApplicationApiKeys?applicationId={applicationId}";
+        var keysHtml = await Http.GetStringAsync(keysUrl);
+        Assert.IsTrue(Regex.IsMatch(keysHtml, "<form[^>]*data-action-feedback[^>]*action=\"/ApplicationApiKeys/Delete\"|<form[^>]*action=\"/ApplicationApiKeys/Delete\"[^>]*data-action-feedback"));
+        using var badKeyDelete = await DialogPost("/ApplicationApiKeys/Delete", new()
+        {
+            ["applicationId"] = applicationId.ToString(),
+            ["id"] = apiKeyId.ToString(),
+            ["confirmationName"] = "wrong-key"
+        }, keysUrl);
+        Assert.AreEqual(HttpStatusCode.BadRequest, badKeyDelete.StatusCode);
+        Assert.AreEqual("application/json", badKeyDelete.Content.Headers.ContentType!.MediaType);
+        Assert.Contains("exact key name", JObject.Parse(await badKeyDelete.Content.ReadAsStringAsync())["message"]!.Value<string>()!);
+
+        // Sharing page forms have data-action-feedback.
+        var accessHtml = await Http.GetStringAsync($"/Applications/Access/{applicationId}");
+        Assert.IsTrue(Regex.IsMatch(accessHtml, "<form[^>]*data-action-feedback[^>]*action=\"/Applications/SaveAccess\"|<form[^>]*action=\"/Applications/SaveAccess\"[^>]*data-action-feedback"));
+        Assert.IsTrue(Regex.IsMatch(accessHtml, "<form[^>]*data-action-feedback[^>]*action=\"/Applications/TransferOwnership\"|<form[^>]*action=\"/Applications/TransferOwnership\"[^>]*data-action-feedback"));
+    }
 }

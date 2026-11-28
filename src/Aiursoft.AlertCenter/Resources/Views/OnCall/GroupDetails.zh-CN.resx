@@ -33,6 +33,9 @@
   <data name="Bind a scheduling template before regenerating shifts." xml:space="preserve">
     <value>重新生成班段前，请先绑定排班模板。</value>
   </data>
+  <data name="Built-in On-call SMS" xml:space="preserve">
+    <value>内置值班短信</value>
+  </data>
   <data name="CC address not configured." xml:space="preserve">
     <value>未配置抄送地址。</value>
   </data>
@@ -60,8 +63,14 @@
   <data name="Delete team" xml:space="preserve">
     <value>删除团队</value>
   </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
   <data name="Edit team" xml:space="preserve">
     <value>编辑团队</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已启用</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>结束</value>
